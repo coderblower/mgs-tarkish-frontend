@@ -13,6 +13,7 @@ const UserDashboard = () => {
   const [candidate, setCandidate] = useState(null);
   const [address, setAddress] = useState(null);
   const [file, setFile] = useState(null);
+  const [alreadyVerified, setAlreadyVerified] = useState(false);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -31,10 +32,22 @@ const UserDashboard = () => {
         setCandidate(storedCandidate);
         const parsedAddress = JSON.parse(storedCandidate?.address);
         setAddress(parsedAddress);
+        
       })
       .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+      .finally(() =>{
+        setLoading(false);
+        checkIsCertificateVerified()
+      });
+      
   }, []);
+
+
+  let checkIsCertificateVerified =  async() => {
+
+    let res =await post('api/user/check_upload_verified_certificate');
+    setAlreadyVerified(res.isVerified);
+  }
 
   const downloadImage = () => {
     saveAs(`${API_URL}/${candidate?.qr_code}`, "QR_Code.jpg");
@@ -141,7 +154,7 @@ const UserDashboard = () => {
       </div>
 
       {/* Upload Certificate Modal */}
-      <div className="flex items-center justify-between my-3 font-semibold bg-gray-200 w-full py-1.5 px-3 rounded-md">
+     { !alreadyVerified && ( <div className="flex items-center justify-between my-3 font-semibold bg-gray-200 w-full py-1.5 px-3 rounded-md">
         <div>Upload Verified SSC Certificate</div>
         <button
           onClick={() => setIsModalOpen(true)}
@@ -149,7 +162,7 @@ const UserDashboard = () => {
         >
           Update
         </button>
-      </div>
+      </div>) }
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
