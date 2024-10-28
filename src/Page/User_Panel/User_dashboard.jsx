@@ -2,226 +2,207 @@ import user_img from "../../../public/images/Avater.png";
 import download_img from "../../../public/images/download.svg";
 import { useEffect, useState } from "react";
 import { post } from "../../api/axios";
-import { Link, useNavigate } from "react-router-dom";
 import { saveAs } from "file-saver";
 import React from "react";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
-const User_dashboard = () => {
-  const [loading, setLoading] = useState("");
+const UserDashboard = () => {
+  const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState(null);
+  const [candidate, setCandidate] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
-    const json_data = window.localStorage.getItem("user");
-    const user_data = JSON.parse(json_data);
-    setData(user_data);
+    const storedUser = window.localStorage.getItem("user");
+    if (storedUser) {
+      setData(JSON.parse(storedUser));
+    }
   }, []);
-  const [data, setData] = useState(null);
-  // console.log(data);
 
   useEffect(() => {
     setLoading(true);
-    post(`/api/candidate/get_candidate`)
+    post("/api/user/candidate/get_candidate")
       .then((res) => {
-        setCandate(res.data?.candidate);
-        window.localStorage.setItem(
-          "candidate",
-          JSON.stringify(res.data?.candidate)
-        );
-        const candidate = window.localStorage.getItem("candidate");
-        const newCandidate = JSON.parse(candidate);
-        setCandate(newCandidate);
-        const address = JSON.parse(newCandidate?.address);
-        setAddress(address);
-        setLoading(false);
+        setCandidate(res.data?.candidate);
+        window.localStorage.setItem("candidate", JSON.stringify(res.data?.candidate));
+        const storedCandidate = JSON.parse(window.localStorage.getItem("candidate"));
+        setCandidate(storedCandidate);
+        const parsedAddress = JSON.parse(storedCandidate?.address);
+        setAddress(parsedAddress);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
 
-  const [candidate, setCandate] = useState(null);
-  const [address, setAddress] = useState(null);
-
-  const downloadImg = () => {
-    const id = data?.candidate?.id;
-    const fromData = { id: id };
-    try {
-      const res = post("api/candidate/candidate_qr_save", fromData);
-
-      if (res) {
-        console.log("====================>", res);
-      } else {
-        console.log("Failed");
-      }
-    } catch (error) {
-      console.error("Failed to post/", error);
-    } finally {
-      setLoading(false);
-    }
+  const downloadImage = () => {
+    saveAs(`${API_URL}/${candidate?.qr_code}`, "QR_Code.jpg");
   };
 
-  const downloadImage = () => {
-    saveAs(`${API_URL}/${candidate?.qr_code}`, "image.jpg"); // Put your image URL here.
+  const handleFileUpload = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUploadSubmit = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      post("api/user/upload_verified_certificate", formData, {
+        headers: {  "Content-Type": "multipart/form-data" },
+      })
+        .then((res) => {
+          console.log("File uploaded successfully:", res.data);
+          setIsModalOpen(false);
+        })
+        .catch((err) => console.error("Upload failed:", err));
+    }
   };
 
   return (
     <div className="lg:mt-10 mt-2">
-      {/* User profile */}
-      <div className="flex items-center justify-between mt-[24px] ">
-        <h2 className="text-[24px] text-[#4D4D4D]">Dashboard</h2>
-        <button className=" py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md ">
-          <div className="flex gap-4">
-            <img src={download_img} alt="" />
-            <h3>Download CV</h3>
-          </div>
+      {/* Header */}
+      <div className="flex items-center justify-between mt-6">
+        <h2 className="text-2xl text-gray-600">Dashboard</h2>
+        <button className="py-3 px-6 bg-blue-900 text-white font-bold rounded-md flex items-center gap-4">
+          <img src={download_img} alt="Download Icon" />
+          <h3>Download CV</h3>
         </button>
       </div>
-      {/* Dashboard */}
-      <div className="bg-[#EEE] mt-8 rounded-md lg:flex lg:px-[46px] px-[10px] py-[27px] justify-between">
-        <div className=" flex flex-col justify-center items-center">
-          <div className="h-[150px] w-[150px] rounded-full overflow-hidden ">
+
+      {/* User Profile Section */}
+      <div className="bg-gray-200 mt-8 rounded-md lg:flex lg:px-12 px-4 py-7 justify-between">
+        <div className="flex flex-col items-center">
+          <div className="h-36 w-36 rounded-full overflow-hidden">
             <img
               className="w-full h-full"
-              src={
-                candidate?.photo ? `${API_URL}/${candidate?.photo}` : user_img
-              }
-              alt=""
+              src={candidate?.photo ? `${API_URL}/${candidate?.photo}` : user_img}
+              alt="User"
             />
           </div>
-          <h2 className="mt-3 font-[600] text-center  mb-3 text-[24px] text-[#4D4D4D]">
+          <h2 className="mt-3 font-semibold text-center text-2xl text-gray-600">
             {data?.name}
           </h2>
         </div>
 
-        <div className="border-2 border-[#545454] "></div>
-
-        <div className="">
-          <h2 className="font-[600] text-[18px] text-[#202020] mb-[22px] mt-5">
-            Basic Info
-          </h2>
-          <div className="lg:flex justify-between gap-4 mb-[21px]">
+        {/* Basic Info */}
+        <div className="border-l-2 border-gray-600 mx-4"></div>
+        <div>
+          <h2 className="font-semibold text-xl text-gray-800 mb-5">Basic Info</h2>
+          <div className="lg:flex justify-between gap-4 mb-5">
             <div>
-              <p className="text-[#4D4D4D] mb-[25px]">NAME: {data?.name}</p>
-              <p className="text-[#4D4D4D]">PHONE: {data?.phone}</p>
+              <p className="text-gray-600 mb-6">NAME: {data?.name}</p>
+              <p className="text-gray-600">PHONE: {data?.phone}</p>
             </div>
-            <div className="">
-              <p className="text-[#4D4D4D] mb-[25px]">EMAIL: {data?.email}</p>
-              <h2 className="mt-3">
-                Registration date:{" "}
-                <small>{data?.created_at.slice(0, 10)}</small>
+            <div>
+              <p className="text-gray-600 mb-6">EMAIL: {data?.email}</p>
+              <h2>
+                Registration date: <small>{data?.created_at?.slice(0, 10)}</small>
               </h2>
             </div>
           </div>
 
-          <div className="border-2  mb-[15px] top-0 left-0 border-[#545454] rounded-lg "></div>
+          <div className="border-2 border-gray-600 rounded-lg mb-4"></div>
 
-          <h2 className="text-[18px] font-[600] mb-2">Present Address</h2>
-          <p>
-            {`
-              ${address?.address},
-            ${address?.city}, ${address?.country}, 
-          `}
-          </p>
-          <p> {`${address?.post_code}, ${address?.post_office} `}</p>
+          <h2 className="text-xl font-semibold mb-2">Present Address</h2>
+          <p>{address ? `${address.address}, ${address.city}, ${address.country}` : "No address available"}</p>
+          <p>{address ? `${address.post_code}, ${address.post_office}` : ""}</p>
         </div>
 
-        <div className="border-2  mb-[15px] top-0 left-0 border-[#545454] rounded-lg mt-[15px] lg:hidden"></div>
+        <div className="lg:hidden border-t-2 border-gray-600 rounded-lg my-4"></div>
 
+        {/* QR Code Section */}
         <div className="text-center">
-          <h2>
-            Download QR For <br /> More Details
-          </h2>
+          <h2>Download QR For More Details</h2>
           <div className="flex justify-center mt-2">
             {candidate?.qr_code ? (
-              <img
-                className="w-[150px]"
-                src={`${API_URL}/${candidate?.qr_code}`}
-                alt=""
-              />
+              <img className="w-36" src={`${API_URL}/${candidate?.qr_code}`} alt="QR Code" />
             ) : (
               <h1 className="my-8 font-bold">Not Found</h1>
             )}
           </div>
-
           <button
-            onClick={downloadImg}
-            download
-            className="bg-[#1E3767] py-2 px-8 rounded-md text-white mt-6 font-semibold"
+            onClick={downloadImage}
+            className="bg-blue-900 py-2 px-8 rounded-md text-white mt-6 font-semibold"
           >
             Download QR
           </button>
         </div>
       </div>
 
-      <div className="mt-[20px] bg-[#EEE] font-[600] w-full py-[10px] px-[12px] rounded-md">
+      {/* Medical Status */}
+      <div className="mt-5 bg-gray-200 font-semibold w-full py-2 px-3 rounded-md">
         Medical Status
       </div>
-      <div className="flex items-center justify-between my-[14px] font-[600] bg-[#EEE] w-full py-[6px] px-[12px] rounded-md">
-        <h2 className="font-[600]">
-          Selected Medical Center:
-          <span className="font-[500] text-[#4D4D4D]">
-            Uttara Medical Center, Uttara, Dhaka-1218
-          </span>
-        </h2>
-        <button className=" text-white text-[14px] rounded-[8px] bg-[#1E3767] px-[24px] py-[6px]">
-          Update
-        </button>
+      <div className="flex items-center justify-between my-3 font-semibold bg-gray-200 w-full py-1.5 px-3 rounded-md">
+        <h2>Selected Medical Center:</h2>
+        <span className="text-gray-600">Uttara Medical Center, Uttara, Dhaka-1218</span>
+        <button className="bg-blue-900 text-white text-sm rounded-md px-6 py-1.5">Update</button>
       </div>
-      {/* table  */}
-      <div className="overflow-x-auto">
-        <table className="table ">
-          {/* head */}
-          <thead className=" border-b-2">
-            <tr className="uppercase  bg-[#EEE] border-b-2 border-gray-500">
-              <th className="rounded rounded-tl-md">ID</th>
-              <th>Payment Status</th>
-              <th>Test Report</th>
-              <th>Further Training</th>
-              <th className="rounded rounded-tr-md">Status</th>
-            </tr>
-          </thead>
-          <tbody>{/* TOdo */}</tbody>
-        </table>
-      </div>
-      <div className="flex items-center justify-between my-[14px] font-[600] bg-[#EEE] w-full py-[6px] px-[15px] rounded-md">
-        <div className="">Training Status</div>
-        <button className=" text-white text-[14px] rounded-[8px] bg-[#1E3767] px-[24px] py-[6px]">
+
+      {/* Upload Certificate Modal */}
+      <div className="flex items-center justify-between my-3 font-semibold bg-gray-200 w-full py-1.5 px-3 rounded-md">
+        <div>Upload Verified SSC Certificate</div>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-900 text-white text-sm rounded-md px-6 py-1.5"
+        >
           Update
         </button>
       </div>
 
-      <div className="my-3 bg-[#EEE] w-full py-3 px-4 rounded-md flex items-center justify-between">
-        <h1 className="font-[600]">
-          Mirpur Training Center:{" "}
-          <span className="font-[500] text-[#4D4D4D]">
-            Mirpur-12, Dhaka-1216
-          </span>
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-md w-96">
+            <h2 className="text-lg font-semibold mb-4">Upload SSC Certificate</h2>
+            <input type="file" onChange={handleFileUpload} />
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUploadSubmit}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Training Center Info */}
+      <div className="my-3 bg-gray-200 w-full py-3 px-4 rounded-md flex items-center justify-between">
+        <h1 className="font-semibold">
+          Mirpur Training Center: <span className="text-gray-600">Mirpur-12, Dhaka-1216</span>
         </h1>
-        <h3 className="font-[600]">
-          Selected Skill:{" "}
-          <small className="font-500] text-[#4D4D4D]">
-            Brigadier (Foreman){" "}
-          </small>
+        <h3 className="font-semibold">
+          Selected Skill: <small className="text-gray-600">Brigadier (Foreman)</small>
         </h3>
       </div>
-      {/* table  */}
+
+      {/* Skill Status Table */}
       <div className="overflow-x-auto mb-10">
-        <table className="table ">
-          {/* head */}
-          <thead className=" border-b-2">
-            <tr className="uppercase bg-[#EEE] border-b-2 border-gray-500">
-              <th className="rounded rounded-tl-md">ID</th>
-              <th>Skilled</th>
-              <th>Crash Training</th>
-              <th>Payment Status</th>
-              <th>Exam Result</th>
-              <th>Further Training</th>
-              <th className="rounded rounded-tr-md">Status</th>
+        <table className="table-auto w-full border">
+          <thead className="bg-gray-200 border-b-2">
+            <tr className="uppercase border-b-2 border-gray-500">
+              <th className="px-4 py-2 rounded-tl-md">ID</th>
+              <th className="px-4 py-2">Skilled</th>
+              <th className="px-4 py-2">Crash Training</th>
+              <th className="px-4 py-2">Payment Status</th>
+              <th className="px-4 py-2">Exam Result</th>
+              <th className="px-4 py-2">Further Training</th>
+              <th className="px-4 py-2 rounded-tr-md">Status</th>
             </tr>
           </thead>
-          <tbody>{/* TODO */}</tbody>
+          <tbody>{/* Rows to be added dynamically */}</tbody>
         </table>
       </div>
     </div>
   );
 };
 
-export default User_dashboard;
+export default UserDashboard;
