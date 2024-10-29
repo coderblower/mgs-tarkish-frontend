@@ -15,11 +15,13 @@ const Registration_3 = ({
 
   const [uploadError, setUploadError] = useState("");
   const [formError, setFormError] = useState({});
-console.log(country, country != 1) 
+console.log(country, country == 3) 
   const handleNextPage = () => {
     const newFormError = {};
     // Validation for required fields
-    if ( (country != 1) && !academic?.level_of_education) {
+    
+    if ( (country == 3) && !academic?.level_of_education) {
+      console.log(country, 'fired')
       newFormError.level_of_education = "Minimum SSC  is required";
     }
 
@@ -42,7 +44,7 @@ console.log(country, country != 1)
             <div className="lg:w-1/2">
               <label>
                 <p className="text-[17px] font-[500] mb-2">Level of Education</p>
-                {(country != 1) && (
+                {(country == 3) && (
                   <select
                     className="px-2 p-[8px] w-full mb-5 rounded-md outline-none"
                     onChange={(e) =>
