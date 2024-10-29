@@ -10,18 +10,28 @@ const Registration_3 = ({
   pre,
   academic_file,
   setAcademic_file,
-  country
+  country,
+  page,
+  setFormArray_new
 }) => {
 
   const [uploadError, setUploadError] = useState("");
   const [formError, setFormError] = useState({});
-console.log(country, country == 3) 
+
+  const updatePageAccordingClick = (page, setFormArray_new) => {
+    setFormArray_new(previousData =>
+      previousData.map(item =>
+        item.title === page ? { ...item, show: true } : item
+      )
+    );
+  };
+  
   const handleNextPage = () => {
     const newFormError = {};
     // Validation for required fields
     
     if ( (country == 3) && !academic?.level_of_education) {
-      console.log(country, 'fired')
+      
       newFormError.level_of_education = "Minimum SSC  is required";
     }
 
@@ -32,6 +42,7 @@ console.log(country, country == 3)
       setUploadError("");
       setPage("Job Experience");
       next();
+      updatePageAccordingClick(page, setFormArray_new);
     }
   };
 

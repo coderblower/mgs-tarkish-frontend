@@ -93,14 +93,16 @@ const Admin_Candidate_Registration = () => {
   });
 
   const formArray = [1, 2, 3, 4, 5, 6];
-  const formArray_new = [
-    { id: 1, title: "Personal Information" },
-    { id: 2, title: "Address " },
-    { id: 3, title: "Education" },
-    { id: 4, title: "Job Experience" },
-    { id: 5, title: "Training & skills" },
-    { id: 6, title: "Upload photo" },
-  ];
+
+  const [formArray_new, setFormArray_new] = useState([
+    { id: 1, title: "Personal Information", show:false },
+    { id: 2, title: "Address", show:false },
+    { id: 3, title: "Education", show: false },
+    { id: 4, title: "Job Experience", show: false },
+    { id: 5, title: "Training & skills", show: false },
+    { id: 6, title: "Upload photo", show: false },
+  ]);
+
   const [formNo, setFormNo] = useState(formArray[0]);
   const [page, setPage] = useState("Registration");
   // const [fullName, setFullName] = useState(firstName + "" + lastName);
@@ -245,8 +247,14 @@ const Admin_Candidate_Registration = () => {
                 {formArray_new.map((v, i) => (
                   <>
                     <div
-                      key={i}
-                      className={`w-[35px] my-3 text-black rounded-full relative text-sm ${
+                      key={i} onClick={() => {
+                        
+                       if(v.show){
+                        setPage(v.title);
+                        setFormNo(i + 1);
+                       }
+        }}
+                      className={`${v.show?'cursor-pointer':''} w-[35px] my-3 text-black rounded-full relative text-sm ${
                         i <= formNo - 1 ? "bg-[#1E3767]" : "bg-[#D9D9D9]"
                       } h-[35px] flex justify-center items-center`}
                     >
@@ -257,7 +265,7 @@ const Admin_Candidate_Registration = () => {
                       >
                         {v.title}
                       </span>
-                      <span className="text-white"> {v.id}</span>
+                      <span  className="text-white "> {v.id}</span>
                     </div>
 
                     {i !== formArray_new.length - 1 && (
@@ -291,6 +299,9 @@ const Admin_Candidate_Registration = () => {
             setFirstName={setFirstName}
             lastName={lastName}
             setLastName={setLastName}
+            formArray_new = {formArray}
+            page = {page}
+            
           />
         ) : page === "Personal Information" ? (
           <PersonalInformation
@@ -302,6 +313,7 @@ const Admin_Candidate_Registration = () => {
             // setFullName={setFullName}
             firstName={firstName}
             setFirstName={setFirstName}
+            
             lastName={lastName}
             setLastName={setLastName}
             dateOfIssue={dateOfIssue}
@@ -360,6 +372,9 @@ const Admin_Candidate_Registration = () => {
             setIsVisitOpen={setIsVisitOpen}
             relativeStaying={relativeStaying}
             setRelativeStaying={setRelativeStaying}
+            page = {page}
+            setFormArray_new = {setFormArray_new}
+            formArray_new = {formArray_new}
           />
         ) : page === "Address" ? (
           <Registration_2
@@ -369,6 +384,9 @@ const Admin_Candidate_Registration = () => {
             country={country}
             address={address}
             setAddress={setAddress}
+            setFormArray_new= {setFormArray_new}
+            page = {page}
+            formArray_new = {formArray_new}
           />
         ) : page === "Education" ? (
           <Registration_3
@@ -381,6 +399,9 @@ const Admin_Candidate_Registration = () => {
             academic_file={academic_file}
             setAcademic_file={setAcademic_file}
             country = {country}
+            setFormArray_new = {setFormArray_new}
+            page = {page}
+            formArray_new = {formArray_new}
             
           />
         ) : page === "Job Experience" ? (
@@ -392,6 +413,9 @@ const Admin_Candidate_Registration = () => {
             setExperience={setExperience}
             experience_file={experience_file}
             setExperience_file={setExperience_file}
+            setFormArray_new  = {setFormArray_new}
+            page = {page}
+            formArray_new = {formArray_new}
           />
         ) : page === "Training & skills" ? (
           <Registration_5
@@ -402,6 +426,9 @@ const Admin_Candidate_Registration = () => {
             setTraining={setTraining}
             training_file={training_file}
             setTraining_file={setTraining_file}
+            setFormArray_new = {setFormArray_new}
+            page = {page}
+            formArray_new = {formArray_new}
           />
         ) : page === "Upload photo" ? (
           <Registration_6
@@ -412,6 +439,8 @@ const Admin_Candidate_Registration = () => {
             setPhoto={setPhoto}
             handleSubmit={handleSubmit}
             loading={loading}
+            page = {page}
+            formArray_new  = {formArray_new}
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />

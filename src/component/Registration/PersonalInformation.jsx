@@ -74,6 +74,9 @@ const PersonalInformation = ({
   relativeStaying,
   setRelativeStaying,
   isUpdateCandidate,
+  setFormArray_new,
+  page,
+  formArray_new
 }) => {
   const location = useLocation();
   const [medicalList, setMedicalList] = useState([]);
@@ -93,6 +96,7 @@ const PersonalInformation = ({
     nid_file: "",
   });
 
+  console.log()
   // get current user
   useEffect(() => {
     const json_data = window.localStorage.getItem("user");
@@ -203,6 +207,18 @@ const PersonalInformation = ({
     }
   };
 
+
+  const updatePageAccordingClick = (page, setFormArray_new) => {
+    console.log('clicked', formArray_new)
+
+    setFormArray_new(previousData =>
+      previousData.map(item =>
+        item.title === page ? { ...item, show: true } : item
+      )
+    );
+  };
+  
+
   const handleNextPage = () => {
     // if (data?.role_id === 4 && !handleQuotaCheck()) {
     //   console.log("Not get data");
@@ -236,6 +252,8 @@ const PersonalInformation = ({
         ) {
           setPage("Address");
           next();
+          updatePageAccordingClick(page, setFormArray_new) 
+
         } else {
           toast.error("Your passport needs at least 1.5 year of validity");
         }
@@ -247,6 +265,7 @@ const PersonalInformation = ({
         ) {
           setPage("Address");
           next();
+          updatePageAccordingClick(page, setFormArray_new) 
         } else {
           toast.error("Your passport needs at least 1 year of validity");
         }

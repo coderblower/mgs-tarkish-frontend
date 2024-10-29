@@ -8,8 +8,23 @@ const Registration_2 = ({
   setAddress,
   next,
   pre,
+  page,
+  setFormArray_new,
+  formArray_new
 }) => {
-  // console.log(country);
+
+
+  const updatePageAccordingClick = (page, setFormArray_new) => {
+    console.log(formArray_new, 'clicked')
+    setFormArray_new(previousData =>
+      previousData.map(item =>
+        item.title === page ? { ...item, show: true } : item
+      )
+    );
+  };
+  
+
+  console.log(page);
 
   return (
     <div className="lg:mb-10">
@@ -159,6 +174,7 @@ const Registration_2 = ({
           onClick={() => {
             setPage("Education");
             next();
+            updatePageAccordingClick(page, setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

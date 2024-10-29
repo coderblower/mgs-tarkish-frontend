@@ -10,9 +10,18 @@ const Registration_5 = ({
   pre,
   training_file,
   setTraining_file,
+  page,
+  setFormArray_new
 }) => {
   const [uploadError, setUploadError] = useState("");
-
+  const updatePageAccordingClick = (page, setFormArray_new) => {
+    setFormArray_new(previousData =>
+      previousData.map(item =>
+        item.title === page ? { ...item, show: true } : item
+      )
+    );
+  };
+  
   return (
     <div className="lg:mb-10">
       <div>
@@ -179,6 +188,7 @@ const Registration_5 = ({
             setUploadError("");
             setPage("Upload photo");
             next();
+            updatePageAccordingClick(page, setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

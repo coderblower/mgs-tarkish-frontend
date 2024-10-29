@@ -11,10 +11,15 @@ const Registration_6 = ({
   setPhoto,
   handleSubmit,
   loading,
+ 
+
 }) => {
+  
   const [img, setImg] = useState(null);
   const fileInputRef = useRef(null);
   const [uploadError, setUploadError] = useState("");
+
+  
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];

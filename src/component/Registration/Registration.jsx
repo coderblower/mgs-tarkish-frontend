@@ -11,6 +11,8 @@ const Registration = ({
   setPhone,
   setPassword,
   setPhoneNumber,
+  page,
+  setFormArray_new
 }) => {
   const {
     register,
