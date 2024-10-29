@@ -57,6 +57,7 @@ const Agent_Candidate_Registration = () => {
   const [spousesName, setSpousesName] = useState("");
   const [spouses_birth_date, setSpouses_birth_date] = useState("");
   const [nid_file, setNid_file] = useState(null);
+  const [pif_file, setPif_file] = useState(null);
   const [referred_by, setreferenceBy] = useState("");
 
   // console.log(
@@ -202,6 +203,7 @@ const Agent_Candidate_Registration = () => {
       experience_file,
       training_file,
       nid_file,
+      pif_file,
       referred_by,
     };
 
@@ -386,6 +388,8 @@ const Agent_Candidate_Registration = () => {
             setNid={setNid}
             nid_file={nid_file}
             setNid_file={setNid_file}
+            pif_file={pif_file}
+            setPif_file={setPif_file}
             country={country}
             setCountry={setCountry}
             passport={passport}

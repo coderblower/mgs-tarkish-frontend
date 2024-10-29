@@ -50,6 +50,7 @@ const Admin_Candidate_Registration = () => {
   const [experience_file, setExperience_file] = useState(null);
   const [training_file, setTraining_file] = useState(null);
   const [nid_file, setNid_file] = useState(null);
+  const [pif_file, setPif_file] = useState(null);
   const [referred_by, setreferenceBy] = useState("");
 
   console.log(55, passport_file);
@@ -155,6 +156,7 @@ const Admin_Candidate_Registration = () => {
       experience_file,
       training_file,
       nid_file,
+      pif_file,
       referred_by,
     };
     console.log("========>160", payload);
@@ -350,6 +352,8 @@ const Admin_Candidate_Registration = () => {
             setExpireDate={setExpireDate}
             nid_file={nid_file}
             setNid_file={setNid_file}
+            pif_file={pif_file}
+            setPif_file={setPif_file}
             referred_by={referred_by}
             setreferenceBy={setreferenceBy}
             isVisitOpen={isVisitOpen}

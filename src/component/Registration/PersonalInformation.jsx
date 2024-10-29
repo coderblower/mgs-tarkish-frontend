@@ -49,6 +49,8 @@ const PersonalInformation = ({
   setExpireDate,
   nid_file,
   setNid_file,
+  pif_file,
+  setPif_file,
   visitRussiaNumber,
   setVisitRussiaNumber,
   russia_trip_date,
@@ -152,6 +154,10 @@ const PersonalInformation = ({
     if (!nid_file) {
       isValid = false;
       errors.nid_file = "NID file file  is required.";
+    }
+    if (!pif_file) {
+      isValid = false;
+      errors.pif_file = "PIF  file  is required.";
     }
     // toast.error("Please Fill up all the Requird field");
     setFormErrors(errors);
@@ -472,6 +478,27 @@ const PersonalInformation = ({
             </div>
             {formErrors.nid_file && (
               <p className="text-red-500 text-sm mt-1">{formErrors.nid_file}</p>
+            )}
+          </div>
+
+
+          <div>
+            <p className="text-[17px] font-[500] mb-2">
+              PIF Certificate File*
+            </p>
+            <div
+              className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
+            >
+              <div className="w-[90px] py-[5px]  bg-[#1e3767] rounded-l-[5px]">
+                <FileUplod setFile={setPif_file} />
+              </div>
+              <h2>
+                {(pif_file && pif_file?.name) ||
+                  pif_file?.slice(27, pif_file?.length)}
+              </h2>
+            </div>
+            {formErrors.pif_file && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.pif_file}</p>
             )}
           </div>
 
