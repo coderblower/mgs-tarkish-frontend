@@ -53,7 +53,7 @@ const Admin_Candidate_Registration = () => {
   const [pif_file, setPif_file] = useState(null);
   const [referred_by, setreferenceBy] = useState("");
 
-  console.log(55, passport_file);
+  
 
   const [academic, setAcademic] = useState({
     level_of_education: "",

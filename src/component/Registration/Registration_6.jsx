@@ -11,6 +11,7 @@ const Registration_6 = ({
   setPhoto,
   handleSubmit,
   loading,
+  payload
  
 
 }) => {

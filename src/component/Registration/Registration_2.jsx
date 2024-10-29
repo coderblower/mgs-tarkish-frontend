@@ -15,11 +15,12 @@ const Registration_2 = ({
 
 
   const updatePageAccordingClick = (page, setFormArray_new) => {
-    console.log(formArray_new, 'clicked')
+    
     setFormArray_new(previousData =>
       previousData.map(item =>
         item.title === page ? { ...item, show: true } : item
       )
+      
     );
   };
   

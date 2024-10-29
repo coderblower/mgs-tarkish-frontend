@@ -209,8 +209,7 @@ const PersonalInformation = ({
 
 
   const updatePageAccordingClick = (page, setFormArray_new) => {
-    console.log('clicked', formArray_new)
-
+    console.log()
     setFormArray_new(previousData =>
       previousData.map(item =>
         item.title === page ? { ...item, show: true } : item
