@@ -1,7 +1,35 @@
 import React, { useEffect, useRef } from "react";
 
+const Table = ({ data, title }) => (
+  <div className="mb-6">
+    <h2 className="text-lg font-semibold mb-2">{title}</h2>
+    <table className="w-full text-left text-gray-800 border border-gray-300 rounded-md">
+      <thead>
+        <tr>
+          <th className="p-2 border-b bg-gray-200">Field</th>
+          <th className="p-2 border-b bg-gray-200">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(data).map(([key, value]) => (
+          <tr key={key}>
+            <td className="p-2 border-b font-medium capitalize">
+              {key.replace(/_/g, ' ')}
+            </td>
+            <td className="p-2 border-b">
+              {typeof value === 'object' && !(value instanceof File)
+                ? <span>Nested Data</span> // Display a placeholder for nested data
+                : value instanceof File ? value.name : value || 'N/A'}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
 const ReviewModal = ({ modals, setModals, payload }) => {
-  const modalRef = useRef();
+  let modalRef = useRef();
 
   useEffect(() => {
     const handlerClose = (e) => {
@@ -17,9 +45,7 @@ const ReviewModal = ({ modals, setModals, payload }) => {
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center z-50 ${
-        modals ? "" : "hidden"
-      }`}
+      className={`fixed inset-0 flex items-center justify-center z-50 ${modals ? "" : "hidden"}`}
     >
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div
@@ -33,25 +59,16 @@ const ReviewModal = ({ modals, setModals, payload }) => {
           &times;
         </span>
 
-        <div className="w-full text-black mt-5 space-y-4">
-          <h2 className="text-lg font-semibold mb-4">Review Form Data</h2>
+        <div className="w-full text-black">
+          <h1 className="text-2xl font-bold mb-4">Form Data Review</h1>
+          {/* Main fields */}
+          <Table data={payload} title="Main Information" />
 
-          {/* Mapping over payload */}
-          {Object.entries(payload).map(([key, value]) => (
-            <div
-              key={key}
-              className="flex flex-col md:flex-row md:justify-between border-b border-gray-300 py-2"
-            >
-              <span className="font-medium capitalize text-gray-600">
-                {key.replace(/_/g, " ")}:
-              </span>
-              <span className="text-gray-800">
-                {typeof value === "object" && value !== null
-                  ? JSON.stringify(value, null, 2)
-                  : value?.toString() || "N/A"}
-              </span>
-            </div>
-          ))}
+          {/* Nested tables for specific sections */}
+          {payload.address && <Table data={payload.address} title="Address" />}
+          {payload.academic && <Table data={payload.academic} title="Academic Information" />}
+          {payload.experience && <Table data={payload.experience} title="Experience" />}
+          {payload.training && <Table data={payload.training} title="Training & Skills" />}
         </div>
       </div>
     </div>

@@ -13,7 +13,9 @@ const Registration_6 = ({
   setPhoto,
   handleSubmit,
   loading,
-  payload
+  payload,
+  uploadImg,
+  setUploadImg
  
 
 }) => {
@@ -24,6 +26,7 @@ const Registration_6 = ({
   const [uploadError, setUploadError] = useState("");
 
   const [showModal,  setShowModal] = useState(false);
+
 
 
 
@@ -41,7 +44,8 @@ const Registration_6 = ({
         setPhoto(file);
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImg(reader.result);
+          
+          setUploadImg(reader.result)
         };
         reader.readAsDataURL(file);
       } else {
@@ -71,7 +75,7 @@ const Registration_6 = ({
             {img || photo ? (
               <div className="h-[342px] lg:w-[318px]  flex items-center justify-center">
                 <img
-                  src={img || `${API_URL}/${photo}`}
+                  src={uploadImg || `${API_URL}/${photo}`}
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -95,7 +99,7 @@ const Registration_6 = ({
               ref={fileInputRef}
             />
             <div className="lg:flex lg:items-center lg:gap-4 mt-4">
-              {!img ? (
+              {!uploadImg ? (
                 <button
                   onClick={triggerFileInput}
                   className=" text-center transition-transform active:scale-95 py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md  w-full"
@@ -126,13 +130,13 @@ const Registration_6 = ({
         </div>
       </div>
       <div className=" flex gap-4 items-center justify-end">
-        <button
+      {uploadImg && ( <button
           onClick={() => setShowModal(true)}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"
         >
           Review
-        </button>
+        </button>)} 
 
         {/* // <button 
           onClick={() => {

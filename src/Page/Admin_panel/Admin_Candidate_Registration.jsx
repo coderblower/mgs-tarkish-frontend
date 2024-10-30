@@ -52,6 +52,7 @@ const Admin_Candidate_Registration = () => {
   const [nid_file, setNid_file] = useState(null);
   const [pif_file, setPif_file] = useState(null);
   const [referred_by, setreferenceBy] = useState("");
+  const [uploadImg, setUploadImg] = useState(null);
 
   
 
@@ -443,6 +444,8 @@ const Admin_Candidate_Registration = () => {
             page = {page}
             formArray_new  = {formArray_new}
             payload={payload}
+            uploadImg = {uploadImg}
+            setUploadImg = {setUploadImg}
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />
