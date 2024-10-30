@@ -41,18 +41,18 @@ const Admin_Candidate_List = () => {
   // }, [newSearchValue]);
 
   useEffect(() => {
-    handleCSVData();
+    // handleCSVData();
   }, []);
 
   const fetchCandidate = async (search) => {
     setLoading(true);
     try {
-      const res = await post(`/api/user/search_candidate?page=${currentPage}`, {
+      const res = await post(`/api/user/search_candidate?page=${ search && 1 || currentPage}`, {
         pg: "a",
         phone: search,
         country: parseInt(countryResult) ? parseInt(countryResult) : "",
       });
-      console.log(res);
+      console.log(res );
       setCandate(res?.data?.data);
       setPaginations({
         per_page: res?.data?.per_page,
