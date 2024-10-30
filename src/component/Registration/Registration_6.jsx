@@ -19,7 +19,7 @@ const Registration_6 = ({
  
 
 }) => {
-  console.log(payload)
+  
   
   const [img, setImg] = useState(null);
   const fileInputRef = useRef(null);
