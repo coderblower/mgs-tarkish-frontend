@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import upload from "../../../public/images/upload.png";
 import Loading from "../../component/Loading";
 import toast, { Toaster } from "react-hot-toast";
+import ReviewModal from "../ReviewModal";
+
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Registration_6 = ({
@@ -15,10 +17,17 @@ const Registration_6 = ({
  
 
 }) => {
+  console.log(payload)
   
   const [img, setImg] = useState(null);
   const fileInputRef = useRef(null);
   const [uploadError, setUploadError] = useState("");
+
+  const [showModal,  setShowModal] = useState(false);
+
+
+
+
 
   
 
@@ -106,11 +115,19 @@ const Registration_6 = ({
               <p className="text-red-500 text-sm mt-1">{uploadError}</p>
             )}
           </div>
+
+
+          <ReviewModal modals={showModal} setModals={setShowModal} payload={payload}>
+          
+         </ReviewModal>
+
+
+
         </div>
       </div>
       <div className=" flex gap-4 items-center justify-end">
         <button
-          onClick={() => setPage("/user_registration")}
+          onClick={() => setShowModal(true)}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"
         >
