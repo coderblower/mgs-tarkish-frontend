@@ -42,7 +42,7 @@ const Registration_3 = ({
       setUploadError("");
       setPage("Job Experience");
       next();
-      updatePageAccordingClick(page, setFormArray_new);
+      updatePageAccordingClick("Job Experience", setFormArray_new);
     }
   };
 
@@ -211,6 +211,7 @@ const Registration_3 = ({
           onClick={() => {
             setPage("Job Experience");
             next();
+            updatePageAccordingClick("Job Experience", setFormArray_new);
           }}
           className="py-[12px] lg:px-[40px] px-[30px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

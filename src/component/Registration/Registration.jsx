@@ -12,8 +12,20 @@ const Registration = ({
   setPassword,
   setPhoneNumber,
   page,
-  setFormArray_new
+  setFormArray_new,
+  formArray_new
 }) => {
+
+  const updatePageAccordingClick = (page, setFormArray_new) => {
+    
+    setFormArray_new(previousData =>
+      previousData.map(item =>
+        item.title === page ? { ...item, show: true } : item
+      )
+      
+    );
+  };
+
   const {
     register,
     handleSubmit,
@@ -33,6 +45,7 @@ const Registration = ({
     setPassword(pass);
     setPhoneNumber(phone);
     setPage("Personal Information");
+    updatePageAccordingClick("Personal Information", setFormArray_new) 
   };
 
   return (

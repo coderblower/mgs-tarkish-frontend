@@ -251,7 +251,7 @@ const PersonalInformation = ({
         ) {
           setPage("Address");
           next();
-          updatePageAccordingClick(page, setFormArray_new) 
+          updatePageAccordingClick("Address", setFormArray_new) 
 
         } else {
           toast.error("Your passport needs at least 1.5 year of validity");

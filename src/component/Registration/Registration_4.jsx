@@ -189,6 +189,7 @@ const Registration_4 = ({
           onClick={() => {
             setPage("Training & skills");
             next();
+            updatePageAccordingClick("Training & skills", setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"
@@ -215,7 +216,7 @@ const Registration_4 = ({
             // setUploadError("");
             setPage("Training & skills");
             next();
-            updatePageAccordingClick(page, setFormArray_new) 
+            updatePageAccordingClick("Training & skills", setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

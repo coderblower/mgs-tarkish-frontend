@@ -162,6 +162,7 @@ const Registration_5 = ({
           onClick={() => {
             setPage("Upload photo");
             next();
+            updatePageAccordingClick("Upload photo", setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"
@@ -188,7 +189,7 @@ const Registration_5 = ({
             setUploadError("");
             setPage("Upload photo");
             next();
-            updatePageAccordingClick(page, setFormArray_new) 
+            updatePageAccordingClick("Upload photo", setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

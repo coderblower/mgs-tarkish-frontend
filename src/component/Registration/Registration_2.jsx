@@ -175,7 +175,7 @@ const Registration_2 = ({
           onClick={() => {
             setPage("Education");
             next();
-            updatePageAccordingClick(page, setFormArray_new) 
+            updatePageAccordingClick("Education", setFormArray_new) 
           }}
           className="py-[12px] px-[40px] transition-transform active:scale-95 bg-[#1E3767] text-white font-bold rounded-md mt-5 flex gap-2"
           type="button"

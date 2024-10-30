@@ -299,8 +299,9 @@ const Admin_Candidate_Registration = () => {
             setFirstName={setFirstName}
             lastName={lastName}
             setLastName={setLastName}
-            formArray_new = {formArray}
             page = {page}
+            setFormArray_new = {setFormArray_new}
+            formArray_new = {formArray_new}
             
           />
         ) : page === "Personal Information" ? (
