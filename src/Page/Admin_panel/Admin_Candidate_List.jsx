@@ -40,17 +40,20 @@ const Admin_Candidate_List = () => {
     preloadCandidates(); // Preload next pages
   }, [currentPage, search, countryResult]);
 
-  const fetchCandidate = async (search) => {
+  const fetchCandidate = async (search, page) => {
     setLoading(true);
     try {
-      const res = await post(`/api/user/search_candidate?page=${search && 1 || currentPage}`, {
+      const res = await post(`/api/user/search_candidate?page=${page}`, {
         pg: "a",
         phone: search,
         country: parseInt(countryResult) || "",
       });
-      console.log(res)
       const data = res?.data?.data || [];
+  
+      // Store the fetched data in the cache for the current page
+      setCachedCandidates((prevCache) => ({ ...prevCache, [page]: data }));
       setCandidate(data);
+  
       setPaginations({
         per_page: res?.data?.per_page || 10,
         total: res?.data?.total || 0,
@@ -59,6 +62,32 @@ const Admin_Candidate_List = () => {
       console.log("Error fetching candidates:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+
+  const preloadCandidates = async () => {
+    for (let i = 1; i <= 2; i++) {
+      const prevPage = currentPage-i;
+      const nextPage = currentPage + i;
+
+      
+      if (cachedCandidates[nextPage]) continue; // Skip if data for this page is already cached
+  
+      try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const res = await post(`/api/user/search_candidate?page=${nextPage}`, {
+          pg: "a",
+          phone: search,
+          country: parseInt(countryResult) || "",
+        });
+        const data = res?.data?.data || [];
+  
+        // Cache the preloaded data for the next page
+        setCachedCandidates((prevCache) => ({ ...prevCache, [nextPage]: data }));
+      } catch (error) {
+        console.log(`Error preloading candidates for page ${nextPage}:`, error);
+      }
     }
   };
 
