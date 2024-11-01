@@ -33,29 +33,24 @@ const Admin_Candidate_List = () => {
 
 
   useEffect(() => {
-    if (cachedCandidates[currentPage]) {
-      // Load from cache if data for the current page is already preloaded
+    if (!search && cachedCandidates[currentPage]) {
       setCandidate(cachedCandidates[currentPage]);
     } else {
-      // Fetch data for the current page if not cached
       fetchCandidate(search, currentPage);
     }
-    preloadCandidates(); // Preload next pages
+    if (!search) preloadCandidates();
   }, [currentPage, search, countryResult]);
-
-
-
+  
   const fetchCandidate = async (search, page) => {
     setLoading(true);
     try {
-      const res = await post(`/api/user/search_candidate?page=${page}`, {
+      console.log("Fetching candidates for search:", search);
+      const res = await post(`/api/user/search_candidate?page=${search ? 1 : page}`, {
         pg: "a",
         phone: search,
         country: parseInt(countryResult) || "",
       });
       const data = res?.data?.data || [];
-  
-      // Store the fetched data in the cache for the current page
       setCachedCandidates((prevCache) => ({ ...prevCache, [page]: data }));
       setCandidate(data);
   
@@ -143,6 +138,7 @@ const Admin_Candidate_List = () => {
               setSearch={setSearch}
               newSearchValue={newSearchValue}
               setNewSearchValue={setNewSearchValue}
+              search = {search}
             />
             {csv_data?.length > 0 && (
               <div className="mt-2">

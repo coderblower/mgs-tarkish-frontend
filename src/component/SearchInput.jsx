@@ -6,19 +6,31 @@ const SearchInput = ({
   setNewSearchValue,
   setSearch,
   placeholder,
+  search
 }) => {
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setNewSearchValue(value);
+  
+    // Trigger search immediately if input is cleared
+    if (value === "") {
+      setSearch(" "); // Clear the search state immediately
+    } else {
+      setSearch(value); // Update search normally
+    }
+  };
+
   return (
     <div className="flex bg-[#D9D9D9] rounded-full ">
-      <input
-        value={newSearchValue}
-        onChange={(e) => setNewSearchValue(e.target.value)}
-        className={` bg-transparent px-5 py-2 outline-none input_aprarnce_none w-full`}
-        // className={` bg-transparent px-5 py-2 ${
-        //   medicalReports ? "w-[205px]" : "w-[300px]"
-        // } outline-none input_aprarnce_none`}
-        type="text"
-        placeholder={placeholder}
-      />
+    <input
+      value={newSearchValue}
+      onChange={handleInputChange} // Using a function to handle changes
+      className={`bg-transparent px-5 py-2 outline-none input_aprarnce_none w-full`}
+      type="text"
+      placeholder={placeholder}
+    />
+
       {/* <img src={search_icon} /> */}
       <button
         onClick={() => setSearch(newSearchValue)}
