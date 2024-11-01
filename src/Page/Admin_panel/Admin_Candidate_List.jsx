@@ -26,8 +26,11 @@ const Admin_Candidate_List = () => {
     total: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [prevPage, setPrevPage] = useState(1);
   const [countryResult, setCountryResult] = useState("");
+  
   const [cachedCandidates, setCachedCandidates] = useState({}); 
+
 
   useEffect(() => {
     if (cachedCandidates[currentPage]) {
@@ -39,6 +42,8 @@ const Admin_Candidate_List = () => {
     }
     preloadCandidates(); // Preload next pages
   }, [currentPage, search, countryResult]);
+
+
 
   const fetchCandidate = async (search, page) => {
     setLoading(true);
@@ -67,7 +72,7 @@ const Admin_Candidate_List = () => {
 
 
   const preloadCandidates = async () => {
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 1; i <= 4; i++) {
       const prevPage = currentPage-i;
       const nextPage = currentPage + i;
 
@@ -81,6 +86,8 @@ const Admin_Candidate_List = () => {
           phone: search,
           country: parseInt(countryResult) || "",
         });
+        console.log('resolved ', res);
+
         const data = res?.data?.data || [];
   
         // Cache the preloaded data for the next page
