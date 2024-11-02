@@ -32,19 +32,26 @@ const Admin_Candidate_List = () => {
   const [cachedCandidates, setCachedCandidates] = useState({}); 
 
 
+  useEffect(()=>{
+    if(search != ' '){
+      fetchCandidate(search, currentPage);
+    }
+
+  }, [search]); 
+
   useEffect(() => {
-    if (!search && cachedCandidates[currentPage]) {
+    if (cachedCandidates[currentPage]) {
       setCandidate(cachedCandidates[currentPage]);
     } else {
       fetchCandidate(search, currentPage);
     }
-    if (!search) preloadCandidates();
-  }, [currentPage, search, countryResult]);
+     preloadCandidates();
+  }, [currentPage, countryResult]);
   
   const fetchCandidate = async (search, page) => {
     setLoading(true);
     try {
-      console.log("Fetching candidates for search:", search);
+      console.log("Fetching candidates for search:", search, );
       const res = await post(`/api/user/search_candidate?page=${search ? 1 : page}`, {
         pg: "a",
         phone: search,

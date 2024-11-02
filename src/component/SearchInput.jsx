@@ -14,11 +14,10 @@ const SearchInput = ({
     setNewSearchValue(value);
   
     // Trigger search immediately if input is cleared
-    if (value === "") {
-      setSearch(" "); // Clear the search state immediately
-    } else {
+ 
       setSearch(value); // Update search normally
-    }
+ 
+    console.log(search)
   };
 
   return (
