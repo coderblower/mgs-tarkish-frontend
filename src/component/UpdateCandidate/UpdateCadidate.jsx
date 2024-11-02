@@ -168,6 +168,12 @@ const UpdateCadidate = ({userId}) => {
         setTraining(training_data || {});
       }
     }
+
+
+    setFormNo(6)
+
+
+
   }, [data]);
 
   const fetchSingleUser = async () => {
