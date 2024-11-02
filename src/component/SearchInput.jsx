@@ -1,41 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import search_icon from "../assets/search_icon.svg";
+import delete_icon from "../../public/images/delete_icon.svg";
+
 
 const SearchInput = ({
   newSearchValue,
   setNewSearchValue,
   setSearch,
   placeholder,
-  search
+  search,
 }) => {
+  const handleClearSearch = () => {
+    setNewSearchValue(""); // Clear the input value
+    setSearch(""); // Clear the search state
+  };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setNewSearchValue(value);
-  
-    // Trigger search immediately if input is cleared
- 
-      setSearch(value); // Update search normally
- 
-    console.log(search)
+    setSearch(value); // Update search as the user types
   };
 
-  return (
-    <div className="flex bg-[#D9D9D9] rounded-full ">
-    <input
-      value={newSearchValue}
-      onChange={handleInputChange} // Using a function to handle changes
-      className={`bg-transparent px-5 py-2 outline-none input_aprarnce_none w-full`}
-      type="text"
-      placeholder={placeholder}
-    />
+  // Synchronize `search` state with `newSearchValue` when `newSearchValue` is cleared
+  useEffect(() => {
+    if (newSearchValue === "") {
+      setSearch("");
+    }
+  }, [newSearchValue, setSearch]);
 
-      {/* <img src={search_icon} /> */}
+  return (
+    <div className="flex bg-[#D9D9D9] rounded-full">
+      <input
+        value={newSearchValue}
+        onChange={handleInputChange}
+        className="bg-transparent px-5 py-2 outline-none input_aprarnce_none w-full"
+        type="text"
+        placeholder={placeholder}
+      />
       <button
         onClick={() => setSearch(newSearchValue)}
-        className="bg-[#1E3767] text-white px-4 py-2 rounded-r-full"
+        className= { `bg-[#1E3767] text-white px-4 py-2 w-[120px] rounded-r-full`}
       >
-        Search
+        {search && (
+         
+            <img onClick={handleClearSearch} className="ml-5" src={delete_icon} alt="Clear Search" />
+         
+        ) || ( `Search` )}
       </button>
     </div>
   );
