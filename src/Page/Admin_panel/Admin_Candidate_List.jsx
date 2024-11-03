@@ -17,6 +17,8 @@ import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
 import UserProfileModal from "../../component/CandidateModal";
 import DocumentView from "../../component/ProfileMenu/DocumentView";
 
+import MultiLevelDropdown from "../../component/MultiLevelDropdown";
+
 import CandidateModal from "../../component/CandidateModal";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
@@ -34,6 +36,8 @@ const Admin_Candidate_List = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [prevPage, setPrevPage] = useState(1);
   const [countryResult, setCountryResult] = useState("");
+  const [agent, setAgent] = useState("");
+
   
   const [cachedCandidates, setCachedCandidates] = useState({}); 
   const [showBio, setShowBio] = useState(false); 
@@ -41,14 +45,34 @@ const Admin_Candidate_List = () => {
   const [ documentViewModal, SetDocumentViewModal] = useState(false); 
   const [ gridView, setGridView] = useState(false); 
   const [userId, setUserId] = useState(null); 
+  const [agentSubmenu, setAgentSubmenu] = useState([]);
+
+  useEffect(() => {
+    fetchAgentSubmenu();
+  }, []);
+
+  const fetchAgentSubmenu = async () => {
+    try {
+      const response = await post('api/partner/get_partners_name', { role_id: 4 });
+      const data = response?.data || [];
+      setAgentSubmenu(data);
+      console.log(agentSubmenu) // Store submenu items
+    } catch (error) {
+      console.error("Error fetching agent submenu items:", error);
+    }
+  };
+
+
+
+
 
 
   useEffect(()=>{
-    if(search != ' '){
-      fetchCandidate(search, currentPage);
-    }
-
-  }, [search]); 
+    
+      fetchCandidate( search,  currentPage);
+    
+    setCurrentPage(1)
+  }, [search, agent, countryResult]); 
 
   useEffect(() => {
     if (cachedCandidates[currentPage]) {
@@ -60,12 +84,14 @@ const Admin_Candidate_List = () => {
   }, [currentPage, countryResult]);
   
   const fetchCandidate = async (search, page) => {
+    
     setLoading(true);
     try {
       console.log("Fetching candidates for search:", search, );
       const res = await post(`/api/user/search_candidate?page=${search ? 1 : page}`, {
         pg: "a",
         phone: search,
+        agent: agent,
         country: parseInt(countryResult) || "",
       });
       const data = res?.data?.data || [];
@@ -114,10 +140,26 @@ const Admin_Candidate_List = () => {
   const handleCSVData = async () => {
     setLoading(true);
     try {
-      const res = await post(`/api/candidate/all`, { pg: "" });
-      if (res?.data) {
-        setAllCandidate(res.data);
-      }
+      const res = await post(`api/user/search_candidate`, {
+        pg: "a",
+        phone: search,
+        agent: agent,
+        country: parseInt(countryResult) || "",
+        export_all: true,
+      }, {
+        responseType: 'blob',});
+      console.log(res);
+      if (res) {
+        // Create a link element, set its href to the CSV file URL, and click it
+        const blob = new Blob([res], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'candidates.csv'); // or any other filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } 
     } catch (error) {
       console.log("Error fetching CSV data:", error);
     } finally {
@@ -127,12 +169,13 @@ const Admin_Candidate_List = () => {
 
   return (
     <div className="lg:mt-10 mt-2">
-      <div className="lg:flex justify-between items-center ">
-        <h2 className="font-bold text-[24px] ">
+       <h2 className="font-bold text-[24px] mb-10 ">
           Candidates ({paginations?.total})
         </h2>
-        <div className="lg:flex block gap-4 mt-6 lg:mt-0">
-          <div className="flex gap-4">
+      <div className="lg:flex justify-between items-center ">
+       
+        <div className="lg:flex block gap-4 mt-6 lg:mt-0 mb-4">
+          <div className="flex gap-4 ">
 
             <button 
               onClick={()=>setGridView(!gridView)}
@@ -150,13 +193,24 @@ const Admin_Candidate_List = () => {
               <option value="1">Russia</option>
             </select>
 
-            <select className="px-4 py-1 border-2 rounded-md outline-none">
-              <option value="grapefruit">Agent Center</option>
-              <option value="lime">Training Center</option>
-              <option value="mango">Medical Center</option>
+            <select
+              value={agent}
+              onChange={(e) => setAgent(e.target.value)}
+              className="px-4 py-1 border-2 rounded-md outline-none"
+            >
+              <option value="">Agent List</option>
+              {agentSubmenu.map((x) => (
+                <option key={x.id} value={x.name}> {/* Assuming each agent has a unique `id` */}
+                  {x.name}
+                </option>
+              ))}
             </select>
+
+
+
+      
           </div>
-          <div className="flex gap-4 mt-6 lg:mt-0">
+          <div className="flex gap-4 mt-6 lg:mt-0 w-[400px]">
             <SearchInput
               placeholder="Search Candidates"
               search={search}
@@ -165,11 +219,11 @@ const Admin_Candidate_List = () => {
               setNewSearchValue={setNewSearchValue}
               search = {search}
             />
-            {csv_data?.length > 0 && (
-              <div className="mt-2">
-                <CSVBtn data={csv_data} filename={"Candidates List"} />
-              </div>
-            )}
+            <button
+              onClick={()=>handleCSVData()}
+            >
+              Export  CSV 
+            </button>
           </div>
         </div>
       </div>
