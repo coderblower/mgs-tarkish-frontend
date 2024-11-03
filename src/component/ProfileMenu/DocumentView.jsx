@@ -11,8 +11,8 @@ import toast, { Toaster } from "react-hot-toast";
 import TableLoading from "../TableLoading";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
-const DocumentView = () => {
-  const { id } = useParams();
+const DocumentView = ({userId}) => {
+  const { id = userId } = useParams();
   const [candidateID, setCandidateID] = useState();
   const [approvelStatus, setApprovelStatus] = useState("");
   const [approvelNote, setApprovelNote] = useState("");

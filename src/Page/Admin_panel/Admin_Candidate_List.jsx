@@ -12,6 +12,12 @@ import TableLoading from "../../component/TableLoading";
 import success_icon from "../../../public/images/success.svg";
 import documentUploadet from "../../../public/images/document.svg";
 import documentNotUploadet from "../../../public/images/documentNot.svg";
+import Profile_Details from "../../component/ProfileMenu/Profile_Details";
+import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
+import UserProfileModal from "../../component/CandidateModal";
+import DocumentView from "../../component/ProfileMenu/DocumentView";
+
+import CandidateModal from "../../component/CandidateModal";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Admin_Candidate_List = () => {
@@ -30,21 +36,33 @@ const Admin_Candidate_List = () => {
   const [countryResult, setCountryResult] = useState("");
   
   const [cachedCandidates, setCachedCandidates] = useState({}); 
+  const [showBio, setShowBio] = useState(false); 
+  const [editProfile, setEditProfile] = useState(false); 
+  const [ documentViewModal, SetDocumentViewModal] = useState(false); 
+  const [ gridView, setGridView] = useState(false); 
+  const [userId, setUserId] = useState(null); 
 
+
+  useEffect(()=>{
+    if(search != ' '){
+      fetchCandidate(search, currentPage);
+    }
+
+  }, [search]); 
 
   useEffect(() => {
-    if (!search && cachedCandidates[currentPage]) {
+    if (cachedCandidates[currentPage]) {
       setCandidate(cachedCandidates[currentPage]);
     } else {
       fetchCandidate(search, currentPage);
     }
-    if (!search) preloadCandidates();
-  }, [currentPage, search, countryResult]);
+     preloadCandidates();
+  }, [currentPage, countryResult]);
   
   const fetchCandidate = async (search, page) => {
     setLoading(true);
     try {
-      console.log("Fetching candidates for search:", search);
+      console.log("Fetching candidates for search:", search, );
       const res = await post(`/api/user/search_candidate?page=${search ? 1 : page}`, {
         pg: "a",
         phone: search,
@@ -115,6 +133,13 @@ const Admin_Candidate_List = () => {
         </h2>
         <div className="lg:flex block gap-4 mt-6 lg:mt-0">
           <div className="flex gap-4">
+
+            <button 
+              onClick={()=>setGridView(!gridView)}
+            >
+             {gridView ? ` grid`: `  list `}
+            </button>
+
             <select
               value={countryResult}
               onChange={(e) => setCountryResult(e.target.value)}
@@ -149,7 +174,7 @@ const Admin_Candidate_List = () => {
         </div>
       </div>
 
-      <div className="overflow-auto mt-6">
+  { gridView && (    <div className="overflow-auto mt-6">
         <table className="table table-zebra overflow-x-auto">
           <thead className="border-b-2">
             <tr className="uppercase bg-[#f2f2f2]">
@@ -205,20 +230,48 @@ const Admin_Candidate_List = () => {
                       )}
                     </th>
                     <th>
-                      <div className="flex items-center justify-between gap-3">
-                        <Link to={`/admin/user_profile/${item.id}`}>
+                      <div className="flex items-center justify-between gap-3 w-[90px]">
+                        {/* <Link to={`/admin/user_profile/${item.id}`}>
                           <img src={veiw_icon} alt="" className="w-5" />
-                        </Link>
-                        <Link to={`/admin/user_update/${item.id}`}>
+                        </Link> */}
+
+                        <button
+                          onClick={ ()=> {
+                            setShowBio(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                          <img src={veiw_icon} alt="" className="w-5" /> 
+                        </button>
+
+
+                        <button
+                          onClick={ ()=> {
+                            setEditProfile(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                          <img src={edit_icon} alt="" className="w-5" /> 
+                        </button>
+{/*  */}
+                        {/* <Link to={`/admin/user_update/${item.id}`}>
                           <img src={edit_icon} alt="" className="w-5" />
-                        </Link>
-                        <NavLink to={`/admin/document_view/${item?.id}`}>
-                          <img
+                        </Link> */}
+
+
+                        <button
+                          onClick={ ()=> {
+                            SetDocumentViewModal(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                            <img
                             src={item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending" ? documentNotUploadet : documentUploadet}
                             alt="file"
                             className="max-w-[20px] max-h-[20px]"
                           />
-                        </NavLink>
+                        </button>
+
                       </div>
                     </th>
                   </tr>
@@ -226,18 +279,88 @@ const Admin_Candidate_List = () => {
               })}
           </tbody>
         </table>
+      </div>)}
+
+      {
+        !gridView && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+  {candidate.map((item, i) => (
+    <div key={i} className="border p-4 rounded-lg shadow-md flex flex-col items-center">
+      {/* Candidate Photo */}
+      <img
+        className="h-20 w-20 rounded-full"
+        src={item?.candidate?.photo ? `${API_URL}/${item?.candidate?.photo}` : user_img}
+        alt="Candidate"
+      />
+
+      {/* Candidate Name */}
+      <h3 className="text-center font-semibold mt-2">{item?.name}</h3>
+
+      {/* Candidate Passport */}
+      <p className="text-center text-sm text-gray-500">{item?.candidate?.passport || "N/A"}</p>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center gap-2 mt-3">
+        <button onClick={() => {setShowBio(true); setUserId(item?.id)}}>
+          <img src={veiw_icon} alt="View" className="w-5" />
+        </button>
+        <button onClick={() =>{ setEditProfile(true); setUserId(item?.id)}}>
+          <img src={edit_icon} alt="Edit" className="w-5" />
+        </button>
+        <button onClick={() => {SetDocumentViewModal(true); setUserId(item?.id)}}>
+          <img
+            src={
+              item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending"
+                ? documentNotUploadet
+                : documentUploadet
+            }
+            alt="Documents"
+            className="w-5"
+          />
+        </button>
       </div>
+    </div>
+  ))}
+</div>
+
+        )
+      }
 
       {loading && (
         <div className="flex justify-center min-w-full mt-20">
           <TableLoading />
         </div>
       )}
+
+
       {!loading && candidate?.length === 0 && (
         <div className="flex justify-center min-w-full mt-20">
           <h4 className="text-black font-bold text-xl">No Data Found!</h4>
         </div>
       )}
+
+      {showBio&& (
+        <UserProfileModal modals={showBio} setModals={setShowBio}>
+         <Profile_Details userId = {userId} />
+        </UserProfileModal>
+      )}
+
+
+    {editProfile&& (
+            <UserProfileModal modals={editProfile} setModals={setEditProfile}>
+            <UpdateCadidate userId = {userId} />
+            </UserProfileModal>
+          )}
+        
+
+    {documentViewModal&& (
+            <UserProfileModal modals={documentViewModal} setModals={SetDocumentViewModal}>
+            <DocumentView userId = {userId} />
+            </UserProfileModal>
+          )}
+
+
+
 
       {!loading && candidate?.length > 0 && paginations?.total > paginations?.per_page && (
         <Pagination paginations={paginations} currentPage={currentPage} setCurrentPage={setCurrentPage} />

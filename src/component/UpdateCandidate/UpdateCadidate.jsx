@@ -11,8 +11,8 @@ import Registration_7 from "../../component/Registration/Success";
 import Success from "../../component/Registration/Success";
 import PersonalInformation from "../Registration/PersonalInformation";
 
-const UpdateCadidate = () => {
-  const { id } = useParams("");
+const UpdateCadidate = ({userId}) => {
+  const { id = userId } = useParams("");
   const [data, setData] = useState(null);
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -168,6 +168,12 @@ const UpdateCadidate = () => {
         setTraining(training_data || {});
       }
     }
+
+
+    setFormNo(6)
+
+
+
   }, [data]);
 
   const fetchSingleUser = async () => {
@@ -181,14 +187,14 @@ const UpdateCadidate = () => {
   };
 
   const formArray = [1, 2, 3, 4, 5, 6];
-  const formArray_new = [
-    { id: 1, title: "Personal Information" },
-    { id: 2, title: "Address " },
-    { id: 3, title: "Education" },
-    { id: 4, title: "Job Experience" },
-    { id: 5, title: "Training & skills" },
-    { id: 6, title: "Upload photo" },
-  ];
+  const [formArray_new, setFormArray_new] = useState([
+    { id: 1, title: "Personal Information", show:true },
+    { id: 2, title: "Address", show:true },
+    { id: 3, title: "Education", show: true },
+    { id: 4, title: "Job Experience", show: true },
+    { id: 5, title: "Training & skills", show: true },
+    { id: 6, title: "Upload photo", show: true },
+  ]);
   const [formNo, setFormNo] = useState(formArray[0]);
   const [page, setPage] = useState("Personal Information");
 
@@ -284,26 +290,32 @@ const UpdateCadidate = () => {
   return (
     <div className="mt-[38px]">
       <div>
-        {page === "Registration" || page === "success" ? null : (
+      {page === "Registration" || page === "success" ? null : (
           <div>
-            <div className="whitespace-nowrap px-10">
+            <div className="whitespace-nowrap lg:px-10 ">
               <div className="flex justify-center items-center mb-10">
                 {formArray_new.map((v, i) => (
                   <>
                     <div
-                      key={i}
-                      className={`w-[35px] my-3 text-black rounded-full relative text-sm ${
+                      key={i} onClick={() => {
+                        
+                       if(v.show){
+                        setPage(v.title);
+                        setFormNo(i + 1);
+                       }
+        }}
+                      className={`${v.show?'cursor-pointer':''} w-[35px] my-3 text-black rounded-full relative text-sm ${
                         i <= formNo - 1 ? "bg-[#1E3767]" : "bg-[#D9D9D9]"
                       } h-[35px] flex justify-center items-center`}
                     >
                       <span
-                        className={`absolute -top-10 text font-[500] hidden sm:block ${
+                        className={`absolute -top-10 text font-[500] hidden lg:block ${
                           i <= formNo - 1 ? "text-black" : "text-black/70"
                         }`}
                       >
                         {v.title}
                       </span>
-                      <span className="text-white"> {v.id}</span>
+                      <span  className="text-white "> {v.id}</span>
                     </div>
 
                     {i !== formArray_new.length - 1 && (

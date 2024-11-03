@@ -13,10 +13,10 @@ import TableLoading from "../TableLoading";
 import delete_icon from "../../../public/images/delete_icon.svg";
 import toast, { Toaster } from "react-hot-toast";
 
-const Profile_Details = () => {
+const Profile_Details = ({userId}) => {
   const [loading, setloading] = useState(false);
   const pdfRef = useRef();
-  const { id } = useParams();
+  const { id = userId} = useParams();
   const [uploadPIFFile, setUploadPIFFile] = useState(null);
   const [isPIFFile, setIsPIFFile] = useState(null);
   const [medicalList, setMedicalList] = useState([]);
@@ -32,6 +32,8 @@ const Profile_Details = () => {
     const url = `${API_URL}/${data}`;
     saveAs(url, "image.svg");
   };
+
+  console.log(userId, 'id found', id)
 
   const handleClick = () => {
     const url = `${API_URL}/${data?.candidate?.qr_code}`;
