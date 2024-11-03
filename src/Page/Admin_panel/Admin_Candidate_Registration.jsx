@@ -172,18 +172,16 @@ const Admin_Candidate_Registration = () => {
         },
       });
 
-      if (res?.message?.phone) {
-        toast.error(res?.message?.phone[0]);
-      }
-      if (res?.message?.email) {
-        toast.error(res?.message?.email[0]);
-      }
-      if (res?.message?.password) {
-        toast.error(res?.message?.password[0]);
-      }
-      if (res?.message?.name) {
-        toast.error(res?.message?.name[0]);
-      }
+      
+      if (res?.message) {
+        // Loop through each key in the message object
+        Object.keys(res.message).forEach(key => {
+            // Show the toast notification for the first message of each key
+            toast.error(res.message[key][0]);
+        });
+    }
+
+      console.log(res);
 
       if (res?.success) {
         setPage("success");
