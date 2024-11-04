@@ -43,7 +43,7 @@ const Admin_Candidate_List = () => {
   const [showBio, setShowBio] = useState(false); 
   const [editProfile, setEditProfile] = useState(false); 
   const [ documentViewModal, SetDocumentViewModal] = useState(false); 
-  const [ gridView, setGridView] = useState(false); 
+  const [ gridView, setGridView] = useState(true); 
   const [userId, setUserId] = useState(null); 
   const [agentSubmenu, setAgentSubmenu] = useState([]);
 
@@ -232,7 +232,7 @@ const Admin_Candidate_List = () => {
         <table className="table table-zebra overflow-x-auto">
           <thead className="border-b-2">
             <tr className="uppercase bg-[#f2f2f2]">
-              <th>ID</th>
+              <th>SL</th>
               <th>Name</th>
               <th>Passport</th>
               <th>Created By</th>

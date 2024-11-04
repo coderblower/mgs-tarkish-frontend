@@ -20,15 +20,16 @@ const DocumentView = ({userId}) => {
   const [statusValue, setStatusValuet] = useState();
   const [statusMessage, setStatusMessage] = useState();
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(id);
 
   useEffect(() => {
     if (id) {
       fetchUser().then((result) => {
-        // console.log(result);
+        
         setData(result);
       });
     }
-  }, [id]);
+  }, [id, refresh]);
 
   // Get user role
   useEffect(() => {
@@ -38,6 +39,7 @@ const DocumentView = ({userId}) => {
   }, []);
 
   const [userRole, setUserRole] = useState();
+  const [deletedData, setDeletedData] = useState({}); 
 
   // Fetch user
   const fetchUser = async () => {
@@ -50,6 +52,8 @@ const DocumentView = ({userId}) => {
       setCandidateID(response?.data?.candidate?.id);
       setApprovelNote(response?.data?.candidate?.note);
       setApprovelStatus(response?.data?.candidate?.approval_status);
+      setDeletedData(response?.data?.candidate?.delete_files ?? {});
+      
       const {
         photo,
         nid_file,
@@ -58,42 +62,59 @@ const DocumentView = ({userId}) => {
         experience_file,
         training_file,
         pif_file,
+        
+
       } = response?.data?.candidate;
+
+
 
       allFile.push({
         id: 1,
+        toDelete: 'photo', 
         title: "Profile Photo",
         url: photo ? photo : null,
         error: "Profile Photo not uploaded",
       });
       allFile.push({
         id: 2,
+        toDelete: 'nid_file',
         title: "NID Photo",
         url: nid_file ? nid_file : null,
         error: "NID file not uploaded",
       });
       allFile.push({
         id: 3,
+        toDelete: 'passport_file',
         title: "Passport Photo",
         url: passport_file ? passport_file : null,
         error: "Passport file not uploaded",
       });
       allFile.push({
         id: 4,
+        toDelete: 'academic_file',
         title: "Academic Photo",
         url: academic_file ? academic_file : null,
         error: "Academic file not uploaded",
       });
       allFile.push({
         id: 5,
+        toDelete: 'experience_file',
         title: "Experience Photo",
         url: experience_file ? experience_file : null,
         error: "Experience file not uploaded",
       });
       allFile.push({
         id: 6,
+        toDelete: 'training_file',
         title: "Training Photo",
         url: training_file ? training_file : null,
+        error: "Training file not uploaded",
+      });
+      allFile.push({
+        id: 7,
+        toDelete: 'pif_file',
+        title: "PIF",
+        url: pif_file ? pif_file : null,
         error: "Training file not uploaded",
       });
       setLoading(false);
@@ -171,7 +192,10 @@ const DocumentView = ({userId}) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[30px] relative mt-[50px]">
         {!loading &&
           data?.length > 0 &&
-          data.map((file, i) => <DocumentCard key={i} file={file} />)}
+          data.map((file, i) => {
+            console.log(deletedData, file.toDelete)
+        
+            return !deletedData[file?.toDelete]? <DocumentCard key={i} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
       </div>
 
       {/* Loading  */}
