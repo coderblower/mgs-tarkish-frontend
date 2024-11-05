@@ -250,7 +250,7 @@ const Admin_Candidate_List = () => {
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
                 return (
                   <tr className="whitespace-nowrap" key={i}>
-                    <th>{index}</th>
+                    <th>{item.id}</th>
                     <th>
                       <div className="flex gap-1 items-center">
                         {item?.candidate?.photo && item?.candidate?.passport_file && item?.candidate?.nid_file && item?.candidate?.training_file && (
