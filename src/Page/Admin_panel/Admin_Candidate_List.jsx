@@ -95,6 +95,7 @@ const Admin_Candidate_List = () => {
         country: parseInt(countryResult) || "",
       });
       const data = res?.data?.data || [];
+      console.log(data);
       setCachedCandidates((prevCache) => ({ ...prevCache, [page]: data }));
       setCandidate(data);
   
@@ -236,7 +237,7 @@ const Admin_Candidate_List = () => {
               <th>Name</th>
               <th>Passport</th>
               <th>Created By</th>
-              <th>Phone</th>
+              <th>Current Status</th>
               <th>Status</th>
               <th>Photo</th>
               <th className="text-center">QR</th>
@@ -247,6 +248,7 @@ const Admin_Candidate_List = () => {
             {!loading &&
               candidate?.length > 0 &&
               candidate?.map((item, i) => {
+                console.log(item)
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
                 return (
                   <tr className="whitespace-nowrap" key={i}>
@@ -261,7 +263,7 @@ const Admin_Candidate_List = () => {
                     </th>
                     <th>{item?.candidate?.passport || "Null"}</th>
                     <th>{item?.created_by?.name}</th>
-                    <th>{item?.phone}</th>
+                    <th>{item?.candidate?.current_status||  item?.candidate?.approval_status  }</th>
                     <th>{item?.candidate?.approval_status}</th>
                     <th>
                       <img
