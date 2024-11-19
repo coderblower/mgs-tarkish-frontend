@@ -16,6 +16,8 @@ import Profile_Details from "../../component/ProfileMenu/Profile_Details";
 import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
 import UserProfileModal from "../../component/CandidateModal";
 import DocumentView from "../../component/ProfileMenu/DocumentView";
+import grid from "../../../public/images/grid.svg";
+import list from "../../../public/images/list.svg";
 
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
@@ -173,16 +175,12 @@ const Admin_Candidate_List = () => {
        <h2 className="font-bold text-[24px] mb-10 ">
           Candidates ({paginations?.total})
         </h2>
-      <div className="lg:flex justify-between items-center ">
+      <div className="lg:flex justify-center items-center ">
        
         <div className="lg:flex block gap-4 mt-6 lg:mt-0 mb-4">
           <div className="flex gap-4 ">
 
-            <button 
-              onClick={()=>setGridView(!gridView)}
-            >
-             {gridView ? ` grid`: `  list `}
-            </button>
+           
 
             <select
               value={countryResult}
@@ -192,6 +190,7 @@ const Admin_Candidate_List = () => {
               <option value="">--select--</option>
               <option value="2">Turkey</option>
               <option value="1">Russia</option>
+              <option value="3">Hungary</option>
             </select>
 
             <select
@@ -206,6 +205,11 @@ const Admin_Candidate_List = () => {
                 </option>
               ))}
             </select>
+            <button  className="mx-5"
+              onClick={()=>setGridView(!gridView)}
+            >
+             {gridView ? (<img src={grid} className=" w-[20px]"  alt="" />): (<img src={list} alt=""  className=" w-[20px]" />)} 
+            </button>
 
 
 
