@@ -553,7 +553,7 @@ const PersonalInformation = ({
 
           <div>
             <p className="text-[17px] font-[500] mb-2">
-            Upload Passport All pages *
+            Upload Passport All pages 
             </p>
             <div
               className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
