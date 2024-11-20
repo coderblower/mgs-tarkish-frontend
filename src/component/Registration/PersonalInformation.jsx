@@ -76,7 +76,16 @@ const PersonalInformation = ({
   isUpdateCandidate,
   setFormArray_new,
   page,
-  formArray_new
+  formArray_new,
+  passport_all_page,
+  setPassport_all_page,
+  birth_certificate,
+  setBirth_certificate,
+  resume,
+  setResume,
+  cv,
+  setCv
+
 }) => {
   const location = useLocation();
   const [medicalList, setMedicalList] = useState([]);
@@ -96,7 +105,7 @@ const PersonalInformation = ({
     nid_file: "",
   });
 
-  console.log()
+
   // get current user
   useEffect(() => {
     const json_data = window.localStorage.getItem("user");
@@ -163,6 +172,27 @@ const PersonalInformation = ({
       isValid = false;
       errors.pif_file = "PIF  file  is required.";
     }
+
+ 
+
+    if (!cv) {
+      isValid = false;
+      errors.cv = "Plese upload CV  file. ";
+    }
+
+    if (!resume) {
+      isValid = false;
+      errors.resume = "Plese upload Resume  file. ";
+    }
+
+    if (!birth_certificate) {
+      isValid = false;
+      errors.resume = "Plese upload birth_certificate  file. ";
+    }
+
+    
+    
+
     // toast.error("Please Fill up all the Requird field");
     setFormErrors(errors);
     return isValid;
@@ -519,6 +549,93 @@ const PersonalInformation = ({
               <p className="text-red-500 text-sm mt-1">{formErrors.pif_file}</p>
             )}
           </div>
+
+
+          <div>
+            <p className="text-[17px] font-[500] mb-2">
+            Upload Passport All pages *
+            </p>
+            <div
+              className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
+            >
+              <div className="w-[90px] py-[5px]  bg-[#1e3767] rounded-l-[5px]">
+                <FileUplod setFile={setPassport_all_page} />
+              </div>
+              <h2>
+                {(passport_all_page && passport_all_page?.name) ||
+                  passport_all_page?.slice(27, passport_all_page?.length)}
+              </h2>
+            </div>
+           
+          </div>
+          
+
+
+          <div>
+            <p className="text-[17px] font-[500] mb-2">
+            Upload CV Document *
+            </p>
+            <div
+              className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
+            >
+              <div className="w-[90px] py-[5px]  bg-[#1e3767] rounded-l-[5px]">
+                <FileUplod setFile={setCv} />
+              </div>
+              <h2>
+                {(cv && cv?.name) ||
+                  cv?.slice(27, cv?.length)}
+              </h2>
+            </div>
+            {formErrors.cv && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.cv}</p>
+            )}
+          </div>
+
+
+          <div>
+            <p className="text-[17px] font-[500] mb-2">
+            Upload Resume Document *
+            </p>
+            <div
+              className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
+            >
+              <div className="w-[90px] py-[5px]  bg-[#1e3767] rounded-l-[5px]">
+                <FileUplod setFile={setResume} />
+              </div>
+              <h2>
+                {(resume && resume?.name) ||
+                  resume?.slice(27, resume?.length)}
+              </h2>
+            </div>
+            {formErrors.resume && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.resume}</p>
+            )}
+          </div>
+
+
+          
+          <div>
+            <p className="text-[17px] font-[500] mb-2">
+            Upload  Birth Certificate   *
+            </p>
+            <div
+              className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
+            >
+              <div className="w-[90px] py-[5px]  bg-[#1e3767] rounded-l-[5px]">
+                <FileUplod setFile={setBirth_certificate} />
+              </div>
+              <h2>
+                {(birth_certificate && birth_certificate?.name) ||
+                  birth_certificate?.slice(27, birth_certificate?.length)}
+              </h2>
+            </div>
+            {formErrors.birth_certificate && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.birth_certificate}</p>
+            )}
+          </div>
+
+
+
 
           <div>
             <div className="flex items-end gap-4 ">

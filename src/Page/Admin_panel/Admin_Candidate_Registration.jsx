@@ -51,6 +51,11 @@ const Admin_Candidate_Registration = () => {
   const [training_file, setTraining_file] = useState(null);
   const [nid_file, setNid_file] = useState(null);
   const [pif_file, setPif_file] = useState(null);
+  const [passport_all_page, setPassport_all_page] = useState(null);
+  const [birth_certificate, setBirth_certificate] = useState(null);
+  const [resume, setResume] = useState(null);
+  const [ cv, setCv] = useState(null);
+  
   const [referred_by, setreferenceBy] = useState("");
   const [uploadImg, setUploadImg] = useState(null);
 
@@ -159,6 +164,10 @@ const Admin_Candidate_Registration = () => {
     nid_file,
     pif_file,
     referred_by,
+    cv,
+    resume,
+    birth_certificate,
+    passport_all_page
   };
   const handleSubmit = async () => {
 
@@ -375,6 +384,16 @@ const Admin_Candidate_Registration = () => {
             page = {page}
             setFormArray_new = {setFormArray_new}
             formArray_new = {formArray_new}
+
+            passport_all_page = {passport_all_page}
+            setPassport_all_page  = {setPassport_all_page}
+            birth_certificate = {birth_certificate}
+            setBirth_certificate = {setBirth_certificate}
+            resume = {resume}
+            setResume = {setResume}
+            cv = {cv}
+            setCv = {setCv}
+
           />
         ) : page === "Address" ? (
           <Registration_2
@@ -451,7 +470,7 @@ const Admin_Candidate_Registration = () => {
           <Success navList="/admin" />
         ) : null}
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
+      {/* <Toaster position="top-right" reverseOrder={false} /> */}
     </div>
   );
 };
