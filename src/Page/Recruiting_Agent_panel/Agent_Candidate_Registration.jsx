@@ -59,6 +59,10 @@ const Agent_Candidate_Registration = () => {
   const [nid_file, setNid_file] = useState(null);
   const [pif_file, setPif_file] = useState(null);
   const [referred_by, setreferenceBy] = useState("");
+  const [passport_all_page, setPassport_all_page] = useState(null);
+  const [birth_certificate, setBirth_certificate] = useState(null);
+  const [resume, setResume] = useState(null);
+  const [ cv, setCv] = useState(null);
 
   // console.log(
   //   "==>39",
@@ -132,6 +136,60 @@ const Agent_Candidate_Registration = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isVisitOpen, setIsVisitOpen] = useState();
   const [relativeStaying, setRelativeStaying] = useState();
+  const payload = {
+    name: firstName + " " + lastName,
+    fullName: firstName + " " + lastName,
+    firstName,
+    lastName,
+    expiry_date: expireDate,
+    email,
+    issued_by:
+      country === "1" &&
+      "Department of Immigration & Passports of the Ministry of Home Affairs",
+    dateOfIssue,
+    visitRussiaNumber,
+    russia_trip_date,
+    hostOrganization,
+    route_Journey,
+    relativesStaying,
+    refusedRussian,
+    deportedRussia,
+    spousesName,
+    spouses_birth_date,
+    phone,
+    password,
+    gender: gender,
+    marital_status: marital_status,
+    religion: religion,
+    nid,
+    passport,
+    father_name: fathersName,
+    mother_name: mothersName,
+    birth_date,
+    country,
+    is_active: 1,
+    address,
+    city: "Dhaka",
+    academic,
+    experience,
+    training,
+    photo,
+    training_status: true,
+    medical_status: true,
+    medical_center_id: medical,
+    designation_id,
+    passport_file,
+    academic_file,
+    experience_file,
+    training_file,
+    nid_file,
+    pif_file,
+    referred_by,
+    cv,
+    resume,
+    birth_certificate,
+    passport_all_page
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -155,68 +213,28 @@ const Agent_Candidate_Registration = () => {
 
   console.log(passport_file);
 
+
+
+
   const handleSubmit = async () => {
-    const payload = {
-      name: firstName + " " + lastName,
-      fullName: firstName + " " + lastName,
-      firstName,
-      lastName,
-      expiry_date: expireDate,
-      email,
-      issued_by:
-        country === "1" &&
-        "Department of Immigration & Passports of the Ministry of Home Affairs",
-      dateOfIssue,
-      visitRussiaNumber,
-      russia_trip_date,
-      hostOrganization,
-      route_Journey,
-      relativesStaying,
-      refusedRussian,
-      deportedRussia,
-      spousesName,
-      spouses_birth_date,
-      phone,
-      password,
-      gender: gender,
-      marital_status: marital_status,
-      religion: religion,
-      nid,
-      passport,
-      father_name: fathersName,
-      mother_name: mothersName,
-      birth_date,
-      country,
-      is_active: 1,
-      address,
-      city: "Dhaka",
-      academic,
-      experience,
-      training,
-      photo,
-      training_status: true,
-      medical_status: true,
-      medical_center_id: medical,
-      designation_id,
-      passport_file,
-      academic_file,
-      experience_file,
-      training_file,
-      nid_file,
-      pif_file,
-      referred_by,
-    };
+ 
 
     // console.log(138, payload);
 
     setLoading(true);
     try {
+      
       const res = await post("api/user/create", payload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        maxContentLength: Infinity,  // Allow larger content lengths
+        maxBodyLength: Infinity,
       });
 
+      console.log(res);
+
+      
       if (res?.message?.phone) {
         toast.error(res?.message?.phone[0]);
       }
@@ -412,6 +430,14 @@ const Agent_Candidate_Registration = () => {
             setIsVisitOpen={setIsVisitOpen}
             relativeStaying={relativeStaying}
             setRelativeStaying={setRelativeStaying}
+            passport_all_page = {passport_all_page}
+            setPassport_all_page  = {setPassport_all_page}
+            birth_certificate = {birth_certificate}
+            setBirth_certificate = {setBirth_certificate}
+            resume = {resume}
+            setResume = {setResume}
+            cv = {cv}
+            setCv = {setCv}
           />
         ) : page === "Address" ? (
           <Registration_2
@@ -461,6 +487,9 @@ const Agent_Candidate_Registration = () => {
             setPhoto={setPhoto}
             handleSubmit={handleSubmit}
             loading={loading}
+            payload={payload}
+
+
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />
@@ -468,7 +497,7 @@ const Agent_Candidate_Registration = () => {
           <Success navList="/agent_panel" />
         ) : null}
       </div>
-      <Toaster position="top-right" reverseOrder={false} />
+      {/* <Toaster position="top-right" reverseOrder={false} /> */}
     </div>
   );
 };

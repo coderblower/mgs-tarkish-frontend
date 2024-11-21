@@ -160,6 +160,7 @@ const Agent_Candidate_List = () => {
             <option value="">--select--</option>
             <option value="2">Turkey</option>
             <option value="1">Russia</option>
+            <option value="3">Hungery</option>
           </select>
 
           {/* search candidate */}

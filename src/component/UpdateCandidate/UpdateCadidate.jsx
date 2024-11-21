@@ -198,49 +198,51 @@ const UpdateCadidate = ({userId}) => {
   const [formNo, setFormNo] = useState(formArray[0]);
   const [page, setPage] = useState("Personal Information");
 
+  const payload = {
+    id: candidate_id,
+    gender: gender,
+    marital_status: marital_status,
+    religion: religion,
+    nid,
+    nid_file,
+    passport,
+    fullName: firstName + " " + lastName,
+    firstName,
+    lastName,
+    dateOfIssue,
+    visitRussiaNumber,
+    russia_trip_date,
+    hostOrganization,
+    route_Journey,
+    relativesStaying,
+    refusedRussian,
+    deportedRussia,
+    spousesName,
+    spouses_birth_date,
+    expiry_date: expireDate,
+    father_name: fathersName,
+    mother_name: mothersName,
+    birth_date,
+    country,
+    is_active: 1,
+    address,
+    city: "Dhaka",
+    academic,
+    experience,
+    training,
+    photo,
+    training_status: 1,
+    medical_status: 1,
+    medical_center_id: medical,
+    designation_id,
+    passport_file,
+    academic_file,
+    experience_file,
+    training_file,
+  };
+
   const handleSubmit = async () => {
-    const payload = {
-      id: candidate_id,
-      gender: gender,
-      marital_status: marital_status,
-      religion: religion,
-      nid,
-      nid_file,
-      passport,
-      fullName: firstName + " " + lastName,
-      firstName,
-      lastName,
-      dateOfIssue,
-      visitRussiaNumber,
-      russia_trip_date,
-      hostOrganization,
-      route_Journey,
-      relativesStaying,
-      refusedRussian,
-      deportedRussia,
-      spousesName,
-      spouses_birth_date,
-      expiry_date: expireDate,
-      father_name: fathersName,
-      mother_name: mothersName,
-      birth_date,
-      country,
-      is_active: 1,
-      address,
-      city: "Dhaka",
-      academic,
-      experience,
-      training,
-      photo,
-      training_status: 1,
-      medical_status: 1,
-      medical_center_id: medical,
-      designation_id,
-      passport_file,
-      academic_file,
-      experience_file,
-      training_file,
-    };
+  
     console.log(payload);
     setLoading(true);
     try {
@@ -491,6 +493,7 @@ const UpdateCadidate = ({userId}) => {
             setPhoto={setPhoto}
             handleSubmit={handleSubmit}
             loading={loading}
+            payload={payload}
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />

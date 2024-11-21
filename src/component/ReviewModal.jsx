@@ -29,6 +29,7 @@ const Table = ({ data, title }) => (
 );
 
 const ReviewModal = ({ modals, setModals, payload }) => {
+  
   let modalRef = useRef();
 
   useEffect(() => {
@@ -62,13 +63,22 @@ const ReviewModal = ({ modals, setModals, payload }) => {
         <div className="w-full text-black">
           <h1 className="text-2xl font-bold mb-4">Form Data Review</h1>
           {/* Main fields */}
-          <Table data={payload} title="Main Information" />
 
-          {/* Nested tables for specific sections */}
-          {payload.address && <Table data={payload.address} title="Address" />}
-          {payload.academic && <Table data={payload.academic} title="Academic Information" />}
-          {payload.experience && <Table data={payload.experience} title="Experience" />}
-          {payload.training && <Table data={payload.training} title="Training & Skills" />}
+
+        {payload && (
+<>
+<Table data={payload} title="Main Information" />
+
+{/* Nested tables for specific sections */}
+{payload.address && <Table data={payload.address} title="Address" />}
+{payload.academic && <Table data={payload.academic} title="Academic Information" />}
+{payload.experience && <Table data={payload.experience} title="Experience" />}
+{payload.training && <Table data={payload.training} title="Training & Skills" />}
+
+</>
+
+
+        )}
         </div>
       </div>
     </div>
