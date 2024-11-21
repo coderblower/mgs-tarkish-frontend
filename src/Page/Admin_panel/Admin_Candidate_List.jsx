@@ -58,7 +58,7 @@ const Admin_Candidate_List = () => {
       const response = await post('api/partner/get_partners_name', { role_id: 4 });
       const data = response?.data || [];
       setAgentSubmenu(data);
-      console.log(agentSubmenu) // Store submenu items
+      console.log(data) // Store submenu items
     } catch (error) {
       console.error("Error fetching agent submenu items:", error);
     }

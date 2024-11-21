@@ -5,7 +5,7 @@ import notQR_img from "../../../public/images/notQR.jpeg";
 import delete_icon from "../../../public/images/delete_icon.svg";
 import edit_icon from "../../assets/update.svg";
 import veiw_icon from "../../../public/images/veiw_ison.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, json } from "react-router-dom";
 import Pagination from "../../component/Pagination";
 import SearchInput from "../../component/SearchInput";
 import TableLoading from "../../component/TableLoading";
@@ -16,12 +16,17 @@ import documentNotUploadet from "../../../public/images/documentNot.svg";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Agent_Candidate_List = () => {
-  const [candidate, setCandate] = useState(null);
+  const [candidate, setCandidate] = useState(null);
   const [allCandidate, setAllCandate] = useState([]);
   const [csv_data, setCsv_data] = useState([]);
   const [countryResult, setCountryResult] = useState();
-  const [search, setSearch] = useState("");
   const [newSearchValue, setNewSearchValue] = useState("");
+  const [cachedCandidates, setCachedCandidates] = useState({}); 
+  const [search, setSearch] = useState("");
+
+  const agent = JSON.parse(window.localStorage.getItem('user')).name;
+
+  
 
   const [paginations, setPaginations] = useState({
     per_page: "",
@@ -31,115 +36,97 @@ const Agent_Candidate_List = () => {
 
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
-    fetchCandidate();
+    if (cachedCandidates[currentPage]) {
+      setCandidate(cachedCandidates[currentPage]);
+    } else {
+      fetchCandidate(search, currentPage);
+    }
+     preloadCandidates();
   }, [currentPage]);
 
-  // // search candidate
-  // useEffect(() => {
-  //   if (newSearchValue === "") {
-  //     setSearch("");
-  //   }
-  // }, [newSearchValue]);
+ 
 
-  const fetchCandidate = async () => {
-    setLoading(true);
+
+  useEffect(()=>{
+    
+    fetchCandidate( search,  currentPage);
+  
+  setCurrentPage(1)
+}, [search,  countryResult]); 
+
+
+
+const fetchCandidate = async (search, page) => {
+  
+  setLoading(true);
+  try {
+    console.log("Fetching candidates for search:", search, );
+    const res = await post(`/api/user/search_candidate?page=${search ? 1 : page}`, {
+      pg: "a",
+      phone: search,
+      agent: agent,
+
+    });
+    const data = res?.data?.data || [];
+    console.log(data);
+    setCachedCandidates((prevCache) => ({ ...prevCache, [page]: data }));
+    setCandidate(data);
+
+    setPaginations({
+      per_page: res?.data?.per_page || 10,
+      total: res?.data?.total || 0,
+    });
+  } catch (error) {
+    console.log("Error fetching candidates:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+const preloadCandidates = async () => {
+  for (let i = 1; i <= 4; i++) {
+    const prevPage = currentPage-i;
+    const nextPage = currentPage + i;
+
+    
+    if (cachedCandidates[nextPage]) continue; // Skip if data for this page is already cached
+
     try {
-      const res = await post(
-        `/api/candidate/candidate_by_creator?page=${currentPage}`
-      );
-      console.log(res);
-      setCandate(res?.data?.data);
-      setAllCandate(res?.data_all);
-      setPaginations({
-        per_page: res.data.per_page,
-        total: res.data.total,
-      });
+      await new Promise(resolve => setTimeout(resolve, 500));
+      const res = await post(`/api/user/search_candidate?page=${nextPage}`);
+      console.log('resolved ', res);
+
+      const data = res?.data?.data || [];
+
+      // Cache the preloaded data for the next page
+      setCachedCandidates((prevCache) => ({ ...prevCache, [nextPage]: data }));
     } catch (error) {
-      setLoading(false);
-      console.log("Error creating app:", error);
-    } finally {
-      setLoading(false);
+      console.log(`Error preloading candidates for page ${nextPage}:`, error);
     }
-  };
+  }
+};
 
-  useEffect(() => {
-    const handleSearch = async (data) => {
-      try {
-        const res = await post(`api/user/search_candidate`, {
-          phone: data,
-        });
-        console.log(res);
-        if (res) {
-          setCandate(res?.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    handleSearch(search);
-  }, [search]);
 
-  const handleCountrySearch = async (data) => {
-    setCountryResult(data);
-    try {
-      const res = await post(`api/user/search_candidate`, {
-        phone: "",
-        country: parseInt(data) ? parseInt(data) : "",
-      });
-      console.log(res);
-      if (res) {
-        setCandate(res?.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // console.log(candidate?.candidate?.country === 1);
 
-  useEffect(() => {
-    if (allCandidate) {
-      console.log(allCandidate);
-      const transformedData = allCandidate?.map((item, i) => {
-        return {
-          id: item.id,
-          Name: item?.name,
-          Passport: item?.candidate?.passport,
-          Designation: item?.candidate?.designation?.name,
-          Created_By: item?.created_by?.name,
-          Submission_Date: item?.updated_at.slice(0, 10),
-          photo: item?.candidate?.photo?.slice(
-            27,
-            item?.candidate?.photo?.length
-          ),
-          Country: item?.candidate?.country == "2" ? "Turkey" : "Russia",
-          NID_File: item?.candidate?.nid_file?.slice(
-            27,
-            item?.candidate?.nid_file?.length
-          ),
-          Passport_File: item?.candidate?.passport_file?.slice(
-            27,
-            item?.candidate?.passport_file?.length
-          ),
-          Academic_File: item?.candidate?.academic_file?.slice(
-            27,
-            item?.candidate?.academic_file?.length
-          ),
-          Experience_File: item?.candidate?.experience_file?.slice(
-            27,
-            item?.candidate?.experience_file?.length
-          ),
-          Training_File: item?.candidate?.training_file?.slice(
-            27,
-            item?.candidate?.training_file?.length
-          ),
-          Status: item?.result == null ? "pending" : item?.result,
-        };
-      });
-      setCsv_data(transformedData);
-    }
-  }, [candidate]);
 
   // console.log(candidate);
   return (
