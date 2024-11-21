@@ -341,7 +341,7 @@ const Profile_Details = ({userId}) => {
                           data={
                             data?.candidate?.country === "1"
                               ? "Russia"
-                              : "Turkey" || "Not Found"
+                              : data?.candidate?.country === "2" ? "Turkey" : data?.candidate?.country === "3" ? "Hungery" : " Not Found "  
                           }
                         />
 
