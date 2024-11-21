@@ -179,6 +179,8 @@ const Admin_Candidate_Registration = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        maxContentLength: Infinity,  // Allow larger content lengths
+        maxBodyLength: Infinity,
       });
 
       
