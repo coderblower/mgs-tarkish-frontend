@@ -491,7 +491,7 @@ const PersonalInformation = ({
             <div className="flex items-end gap-4 ">
               <div className="w-[100%] ">
                 <InputField
-                  title="NID/Birth Certificate*"
+                  title="NID Number*"
                   value={nid}
                   setValue={setNid}
                   placeholder="Enter your NID/Birth Certificate"
@@ -511,7 +511,7 @@ const PersonalInformation = ({
 
           <div>
             <p className="text-[17px] font-[500] mb-2">
-              NID/Birth Certificate File*
+              Upload NID *
             </p>
             <div
               className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
@@ -532,7 +532,7 @@ const PersonalInformation = ({
 
           <div>
             <p className="text-[17px] font-[500] mb-2">
-              PIF Certificate File*
+             Upload PIF *
             </p>
             <div
               className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
@@ -573,7 +573,7 @@ const PersonalInformation = ({
 
           <div>
             <p className="text-[17px] font-[500] mb-2">
-            Upload CV Document *
+            Upload CV *
             </p>
             <div
               className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
@@ -594,7 +594,7 @@ const PersonalInformation = ({
 
           <div>
             <p className="text-[17px] font-[500] mb-2">
-            Upload Resume Document *
+            Upload Resume *
             </p>
             <div
               className={`flex items-center gap-4  border-2 border-[#C5BFBF] text-gray-700 font-[500]  w-full  rounded-md outline-none bg-white cursor-pointer`}
