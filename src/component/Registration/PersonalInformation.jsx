@@ -671,7 +671,7 @@ const PersonalInformation = ({
                 <div>
                 <InputField
             type="date"
-            title="Passport Expiry Date"
+            title="Passport Expiry Date *"
             value={expireDate}
             setValue={setExpireDate}
             placeholder="Enter your Expiry Date"

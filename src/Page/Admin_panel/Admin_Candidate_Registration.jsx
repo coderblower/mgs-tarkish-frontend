@@ -167,7 +167,9 @@ const Admin_Candidate_Registration = () => {
     cv,
     resume,
     birth_certificate,
-    passport_all_page
+    passport_all_page,
+    verified_certificated: verified_certificated || false,
+
   };
   const handleSubmit = async () => {
 
