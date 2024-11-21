@@ -128,6 +128,9 @@ const PersonalInformation = ({
       nid_file: "",
     };
 
+    const isUserUpdatePage = location.pathname.includes("/admin/user_update") || 
+    location.pathname.includes("/agent_panel/user_update");
+
     // if (country === "1") {
     //   if (!firstName) {
     //     isValid = false;
@@ -173,7 +176,27 @@ const PersonalInformation = ({
       errors.pif_file = "PIF  file  is required.";
     }
 
- 
+
+
+       
+
+        if (expireDate && !isUserUpdatePage) {
+        const currentDate = new Date();
+        const expireDateObject = new Date(expireDate);
+        const timeDifference = expireDateObject.getTime() - currentDate.getTime();
+        const yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365);
+
+        const requiredYears = country === "1" ? 1.5 : 1;
+
+        if (yearsDifference < requiredYears) {
+        isValid = false;
+        errors.passport_validity = `Your passport needs at least ${requiredYears} year${requiredYears > 1 ? "s" : ""} of validity`;
+        }
+        } else if (!isUserUpdatePage) {
+        isValid = false;
+        errors.passport_validity = "You should provide a valid passport";
+        }
+
 
     if (!cv) {
       isValid = false;
@@ -262,46 +285,13 @@ const PersonalInformation = ({
     if (!validateForm()) {
       return;
     }
+    
 
-    if (
-      expireDate ||
-      location.pathname.includes("/admin/user_update") ||
-      location.pathname.includes("/agent_panel/user_update")
-    ) {
-      const currentDate = new Date();
-      const expireDateObject = new Date(expireDate);
-      const timeDifference = expireDateObject.getTime() - currentDate.getTime();
-      const yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365);
+    setPage("Address");
+    next();
+    updatePageAccordingClick("Address", setFormArray_new) 
 
-      if (country === "1") {
-        if (
-          yearsDifference >= 1.5 ||
-          location.pathname.includes("/admin/user_update") ||
-          location.pathname.includes("/agent_panel/user_update")
-        ) {
-          setPage("Address");
-          next();
-          updatePageAccordingClick("Address", setFormArray_new) 
 
-        } else {
-          toast.error("Your passport needs at least 1.5 year of validity");
-        }
-      } else {
-        if (
-          yearsDifference >= 1 ||
-          location.pathname.includes("/admin/user_update") ||
-          location.pathname.includes("/agent_panel/user_update")
-        ) {
-          setPage("Address");
-          next();
-          updatePageAccordingClick("Address", setFormArray_new) 
-        } else {
-          toast.error("Your passport needs at least 1 year of validity");
-        }
-      }
-    } else {
-      toast.error("Invalid expiration date");
-    }
   };
 
   // console.log(designation_id);
@@ -676,13 +666,29 @@ const PersonalInformation = ({
             )}
           </div>
 
-          <InputField
+
+              <div>
+                <div>
+                <InputField
             type="date"
             title="Passport Expiry Date"
             value={expireDate}
             setValue={setExpireDate}
             placeholder="Enter your Expiry Date"
           />
+
+                </div>
+                <div>
+                {formErrors.passport_validity && (
+              <p className="text-red-500 text-sm mt-1">
+                {formErrors.passport_validity}
+              </p>
+            )}
+                </div>
+
+              </div>
+      
+          
           <SelectField
             title="Select Medical Center"
             value={medical}
