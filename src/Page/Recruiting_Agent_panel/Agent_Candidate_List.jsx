@@ -65,7 +65,7 @@ const Agent_Candidate_List = () => {
     
     fetchCandidate( search,  currentPage);
   
-    setCurrentPage(1)
+    
   }, [search,  countryResult]); 
 
 

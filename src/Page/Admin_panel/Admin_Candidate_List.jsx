@@ -74,7 +74,6 @@ const Admin_Candidate_List = () => {
     
       fetchCandidate( search,  currentPage);
     
-    setCurrentPage(1)
   }, [search, agent, countryResult]); 
 
   useEffect(() => {
