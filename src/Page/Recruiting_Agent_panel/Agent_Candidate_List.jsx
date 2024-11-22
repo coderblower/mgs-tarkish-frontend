@@ -54,8 +54,8 @@ const Agent_Candidate_List = () => {
     
     fetchCandidate( search,  currentPage);
   
-  setCurrentPage(1)
-}, [search,  countryResult]); 
+    setCurrentPage(1)
+  }, [search,  countryResult]); 
 
 
 
@@ -68,6 +68,7 @@ const fetchCandidate = async (search, page) => {
       pg: "a",
       phone: search,
       agent: agent,
+      country: countryResult,
 
     });
     const data = res?.data?.data || [];
@@ -141,7 +142,7 @@ const preloadCandidates = async () => {
         <div className="flex gap-4 mt-[20px] lg:mt-0">
           <select
             value={countryResult}
-            onChange={(e) => handleCountrySearch(e.target.value)}
+            onChange={(e) => setCountryResult(e.target.value)}
             className="px-4 py-1  border-2  rounded-md outline-none"
           >
             <option value="">--select--</option>
