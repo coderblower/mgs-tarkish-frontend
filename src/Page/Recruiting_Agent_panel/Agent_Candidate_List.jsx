@@ -13,6 +13,13 @@ import CSVBtn from "../../component/CSVBtn";
 import success_icon from "../../../public/images/success.svg";
 import documentUploadet from "../../../public/images/document.svg";
 import documentNotUploadet from "../../../public/images/documentNot.svg";
+import exportImg from "../../../public/images/export.svg";
+
+import Profile_Details from "../../component/ProfileMenu/Profile_Details";
+import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
+import UserProfileModal from "../../component/CandidateModal";
+import DocumentView from "../../component/ProfileMenu/DocumentView"
+
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Agent_Candidate_List = () => {
@@ -23,6 +30,10 @@ const Agent_Candidate_List = () => {
   const [newSearchValue, setNewSearchValue] = useState("");
   const [cachedCandidates, setCachedCandidates] = useState({}); 
   const [search, setSearch] = useState("");
+  const [showBio, setShowBio] = useState(false); 
+  const [editProfile, setEditProfile] = useState(false); 
+  const [ documentViewModal, SetDocumentViewModal] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const agent = JSON.parse(window.localStorage.getItem('user')).name;
 
@@ -112,6 +123,36 @@ const preloadCandidates = async () => {
 };
 
 
+const handleCSVData = async () => {
+  
+  try {
+    const res = await post(`api/user/search_candidate`, {
+      pg: "a",
+      phone: search,
+      agent: agent,
+      country: parseInt(countryResult) || "",
+      export_all: true,
+    }, {
+      responseType: 'blob',});
+    console.log(res);
+    if (res) {
+      // Create a link element, set its href to the CSV file URL, and click it
+      const blob = new Blob([res], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'candidates.csv'); // or any other filename
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } 
+  } catch (error) {
+    console.log("Error fetching CSV data:", error);
+  } finally {
+    
+  }
+};
+
 
 
 
@@ -151,6 +192,17 @@ const preloadCandidates = async () => {
             <option value="3">Hungery</option>
           </select>
 
+
+          <div className=" flex gap-5 mx-5 ">
+         
+
+
+          <button onClick={()=>handleCSVData()} >
+              <img src={exportImg} className=" w-[22px]" alt="" />
+            </button>
+        </div>
+          
+
           {/* search candidate */}
           <SearchInput
             placeholder="Search Candidates "
@@ -159,11 +211,7 @@ const preloadCandidates = async () => {
             newSearchValue={newSearchValue}
             setNewSearchValue={setNewSearchValue}
           />
-          {csv_data?.length > 0 && (
-            <div className="mt-2">
-              <CSVBtn data={csv_data} filename={"Candidates List"} />
-            </div>
-          )}
+       
         </div>
       </div>
       {/* table  */}
@@ -188,6 +236,7 @@ const preloadCandidates = async () => {
               candidate?.length > 0 &&
               candidate?.map((item, i) => {
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
+
                 return (
                   <>
                     <tr className="whitespace-nowrap">
@@ -239,45 +288,49 @@ const preloadCandidates = async () => {
                         )}
                       </th>
                       <th>
-                        <div className="flex gap-4 items-center justify-between">
-                          <Link to={`/agent_panel/user_profile/${item.id}`}>
-                            <img
-                              src={veiw_icon}
-                              alt=""
-                              className="max-w-[30px] max-h-[30px]"
-                            />
-                          </Link>
-                          <Link to={`/agent_panel/user_update/${item.id}`}>
-                            <img
-                              src={edit_icon}
-                              alt=""
-                              className="max-w-[20px] max-h-[20px]"
-                            />
-                          </Link>
+                         <div className="flex items-center justify-between gap-3 w-[90px]">
+                        {/* <Link to={`/admin/user_profile/${item.id}`}>
+                          <img src={veiw_icon} alt="" className="w-5" />
+                        </Link> */}
 
-                          {item?.candidate?.approval_status === "reject" ||
-                          item?.candidate?.approval_status === "pending" ? (
-                            <NavLink
-                              to={`/agent_panel/document_view/${item?.id}`}
-                            >
-                              <img
-                                src={documentNotUploadet}
-                                alt="file"
-                                className="max-w-[20px] max-h-[20px]"
-                              />
-                            </NavLink>
-                          ) : (
-                            <NavLink
-                              to={`/agent_panel/document_view/${item?.id}`}
-                            >
-                              <img
-                                src={documentUploadet}
-                                alt="file"
-                                className="max-w-[20px] max-h-[20px] cursor-pointer"
-                              />
-                            </NavLink>
-                          )}
-                        </div>
+                        <button
+                          onClick={ ()=> {
+                            setShowBio(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                          <img src={veiw_icon} alt="" className="w-5" /> 
+                        </button>
+
+
+                        <button
+                          onClick={ ()=> {
+                            setEditProfile(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                          <img src={edit_icon} alt="" className="w-5" /> 
+                        </button>
+{/*  */}
+                        {/* <Link to={`/admin/user_update/${item.id}`}>
+                          <img src={edit_icon} alt="" className="w-5" />
+                        </Link> */}
+
+
+                        <button
+                          onClick={ ()=> {
+                            SetDocumentViewModal(true)
+                            setUserId(item?.id)
+                          }}
+                          >
+                            <img
+                            src={item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending" ? documentNotUploadet : documentUploadet}
+                            alt="file"
+                            className="max-w-[20px] max-h-[20px]"
+                          />
+                        </button>
+
+                      </div>
                       </th>
                     </tr>
                   </>
@@ -305,6 +358,31 @@ const preloadCandidates = async () => {
             setCurrentPage={setCurrentPage}
           />
         )}
+
+       
+
+
+
+{showBio&& (
+        <UserProfileModal modals={showBio} setModals={setShowBio}>
+         <Profile_Details userId = {userId} />
+        </UserProfileModal>
+      )}
+
+
+    {editProfile&& (
+            <UserProfileModal modals={editProfile} setModals={setEditProfile}>
+            <UpdateCadidate userId = {userId} />
+            </UserProfileModal>
+          )}
+        
+
+    {documentViewModal&& (
+            <UserProfileModal modals={documentViewModal} setModals={SetDocumentViewModal}>
+            <DocumentView userId = {userId} />
+            </UserProfileModal>
+          )}
+
     </div>
   );
 };

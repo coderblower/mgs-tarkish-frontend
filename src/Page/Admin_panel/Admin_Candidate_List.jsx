@@ -18,6 +18,7 @@ import UserProfileModal from "../../component/CandidateModal";
 import DocumentView from "../../component/ProfileMenu/DocumentView";
 import grid from "../../../public/images/grid.svg";
 import list from "../../../public/images/list.svg";
+import exportImg from "../../../public/images/export.svg";
 
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
@@ -205,17 +206,30 @@ const Admin_Candidate_List = () => {
                 </option>
               ))}
             </select>
-            <button  className="mx-5"
-              onClick={()=>setGridView(!gridView)}
-            >
-             {gridView ? (<img src={grid} className=" w-[20px]"  alt="" />): (<img src={list} alt=""  className=" w-[20px]" />)} 
+
+            
+          
+
+</div>
+        
+
+        <div className=" flex gap-5 mx-5 ">
+          <button  className="mx-2"
+                  onClick={()=>setGridView(!gridView)}
+                >
+                {gridView ? (<img src={grid} className=" w-[20px]"  alt="" />): (<img src={list} alt=""  className=" w-[20px]" />)} 
+                </button>
+
+
+          <button onClick={()=>handleCSVData()} >
+              <img src={exportImg} className=" w-[22px]" alt="" />
             </button>
+        </div>
+          
 
-
-
-      
-          </div>
-          <div className="flex gap-4 mt-6 lg:mt-0 w-[400px]">
+          
+          <div className="flex gap-4 mt-6 lg:mt-0 w-[300px]">
+            
             <SearchInput
               placeholder="Search Candidates"
               search={search}
@@ -224,11 +238,7 @@ const Admin_Candidate_List = () => {
               setNewSearchValue={setNewSearchValue}
               search = {search}
             />
-            <button
-              onClick={()=>handleCSVData()}
-            >
-              Export  CSV 
-            </button>
+         
           </div>
         </div>
       </div>
