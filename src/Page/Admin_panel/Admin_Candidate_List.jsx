@@ -31,6 +31,7 @@ const Admin_Candidate_List = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [newSearchValue, setNewSearchValue] = useState("");
+  
   const [paginations, setPaginations] = useState({
     per_page: 10,
     total: 0,
