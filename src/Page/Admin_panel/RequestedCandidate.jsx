@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { post } from "../../api/axios";
 import TableLoading from "../../component/TableLoading";
 import Pagination from "../../component/Pagination";
+import exportImg from "../../../public/images/export.svg";
+
 
 
 
@@ -90,6 +92,40 @@ const RequestedCandidate = () => {
     }
   };
 
+
+
+  const handleCSVData = async () => {
+    setLoading(true);
+    try {
+    let res =   await post(`/api/candidate/all`, {
+        pg: "",
+        approval_status: "pending",
+        country: parseInt(country) || "",
+        agent,
+        export_all: true,
+      }, {
+        responseType: 'blob',});
+      console.log(res);
+      if (res) {
+        // Create a link element, set its href to the CSV file URL, and click it
+        const blob = new Blob([res], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'candidates.csv'); // or any other filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } 
+    } catch (error) {
+      console.log("Error fetching CSV data:", error);
+      
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="lg:mt-10 mt-2">
       {/* Partner Registration filter */}
@@ -138,7 +174,7 @@ const RequestedCandidate = () => {
            <button
              onClick={()=>handleCSVData()}
            >
-             Export  CSV 
+             <img src={exportImg} className="w-[20px]" alt="" />
            </button>
          </div>
        </div>
