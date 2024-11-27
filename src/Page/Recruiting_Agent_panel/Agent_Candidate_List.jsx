@@ -252,7 +252,7 @@ const handleCSVData = async () => {
                                 <img src={success_icon} alt="success" />
                               )}
                           </>
-                          <>{item?.name}</>
+                          <>{ (item?.name) || item?.candidate?.firstName + ' ' + item?.candidate?.lastName}</>
                         </div>
                       </th>
                       <th>{item?.candidate?.passport || "Null"}</th>
