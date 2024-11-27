@@ -62,6 +62,13 @@ const DocumentView = ({userId}) => {
         experience_file,
         training_file,
         pif_file,
+        passport_all_page,
+        cv,
+        resume,
+        birth_certificate
+
+
+
         
 
       } = response?.data?.candidate;
@@ -117,6 +124,38 @@ const DocumentView = ({userId}) => {
         url: pif_file ? pif_file : null,
         error: "Training file not uploaded",
       });
+
+      allFile.push({
+        id: 8,
+        toDelete: 'passport_all_page',
+        title: "Passport All page",
+        url: passport_all_page ? passport_all_page : null,
+        error: "Training file not uploaded",
+      });
+
+      allFile.push({
+        id: 9,
+        toDelete: 'cv',
+        title: "CV",
+        url: cv ? cv : null,
+        error: "Training file not uploaded",
+      });
+
+      allFile.push({
+        id: 10,
+        toDelete: 'resume',
+        title: "Resume",
+        url: resume ? resume : null,
+        error: "Training file not uploaded",
+      });
+      allFile.push({
+        id: 11,
+        toDelete: 'birth_certificate',
+        title: "CV",
+        url: birth_certificate ? birth_certificate : null,
+        error: "Training file not uploaded",
+      });
+
       setLoading(false);
     } catch (error) {
       console.error("Error creating app:", error);
@@ -154,7 +193,7 @@ const DocumentView = ({userId}) => {
   return (
     <div>
       <div className="flex items-center justify-between mt-8">
-        <h2 className="font-bold text-[24px] ">Document View</h2>
+        <h2 className="font-bold text-[24px] ">Document view</h2>
       </div>
 
       {/* Rejectet candidate  */}
@@ -195,7 +234,7 @@ const DocumentView = ({userId}) => {
           data.map((file, i) => {
             console.log(deletedData, file.toDelete)
         
-            return !deletedData[file?.toDelete]? <DocumentCard key={i} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
+            return !deletedData[file?.toDelete] && file.url ? <DocumentCard key={i} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
       </div>
 
       {/* Loading  */}

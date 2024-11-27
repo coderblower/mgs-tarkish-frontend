@@ -22,7 +22,7 @@ const DocumentCard = ({ file, userId, setRefresh}) => {
     setDeleteError(""); // Reset any previous errors
 
     try {
-      const response = await post(`http://127.0.0.1:8000/api/candidate/delete_file/${userId}`, 
+      const response = await post(`/api/candidate/delete_file/${userId}`, 
     {
        file: toDelete 
     });

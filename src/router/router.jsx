@@ -448,10 +448,7 @@ const router = createBrowserRouter([
         path: "document_view/:id",
         element: <DocumentView />,
       },
-      {
-        path: "document_view/:id",
-        element: <DocumentView />,
-      },
+     
       {
         path: "user_profile/:id",
         element: <Profile_Details />,
