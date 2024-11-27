@@ -95,6 +95,8 @@ const RequestedCandidate = () => {
 
 
   const handleCSVData = async () => {
+
+    console.log( country, agent )
     setLoading(true);
     try {
     let res =   await post(`/api/candidate/all`, {
