@@ -418,7 +418,7 @@ const Admin_Candidate_List = () => {
 
     {editProfile&& (
             <UserProfileModal modals={editProfile} setModals={setEditProfile}>
-            <UpdateCadidate userId = {userId} />
+            <UpdateCadidate ty = 'edit' userId = {userId} />
             </UserProfileModal>
           )}
         

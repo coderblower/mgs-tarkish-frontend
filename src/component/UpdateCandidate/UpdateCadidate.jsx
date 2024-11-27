@@ -11,7 +11,7 @@ import Registration_7 from "../../component/Registration/Success";
 import Success from "../../component/Registration/Success";
 import PersonalInformation from "../Registration/PersonalInformation";
 
-const UpdateCadidate = ({userId}) => {
+const UpdateCadidate = ({userId, ty}) => {
   const { id = userId } = useParams("");
   const [data, setData] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -444,6 +444,7 @@ const UpdateCadidate = ({userId}) => {
             relativeStaying={relativeStaying}
             setRelativeStaying={setRelativeStaying}
             isUpdateCandidate={true}
+            type = {ty}
           />
         ) : page === "Address" ? (
           <Registration_2

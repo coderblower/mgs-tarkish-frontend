@@ -84,7 +84,8 @@ const PersonalInformation = ({
   resume,
   setResume,
   cv,
-  setCv
+  setCv,
+  ty
 
 }) => {
   const location = useLocation();
@@ -171,7 +172,7 @@ const PersonalInformation = ({
       isValid = false;
       errors.nid_file = "NID file file  is required.";
     }
-    if (!pif_file) {
+    if (!pif_file &&  ty == 'edit') {
       isValid = false;
       errors.pif_file = "PIF  file  is required.";
     }
@@ -198,17 +199,17 @@ const PersonalInformation = ({
         }
 
 
-    if (!cv) {
+    if (!cv && country == '3') {
       isValid = false;
       errors.cv = "Plese upload CV  file. ";
     }
 
-    if (!resume) {
+    if (!resume  && country == '3') {
       isValid = false;
       errors.resume = "Plese upload Resume  file. ";
     }
 
-    if (!birth_certificate) {
+    if (!birth_certificate && country == '3') {
       isValid = false;
       errors.resume = "Plese upload birth_certificate  file. ";
     }
