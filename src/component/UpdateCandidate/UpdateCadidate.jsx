@@ -258,10 +258,11 @@ const UpdateCadidate = ({userId, ty}) => {
     academic_file,
     experience_file,
     training_file,
-
-
-
-
+    pif_file,
+    passport_all_page,
+    birth_certificate,
+    resume,
+    cv 
   };
 
   const handleSubmit = async () => {
