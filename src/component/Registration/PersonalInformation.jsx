@@ -211,7 +211,7 @@ const PersonalInformation = ({
 
     if (!birth_certificate && country == '3') {
       isValid = false;
-      errors.resume = "Plese upload birth_certificate  file. ";
+      errors.birth_certificate = "Plese upload birth_certificate  file. ";
     }
 
     
