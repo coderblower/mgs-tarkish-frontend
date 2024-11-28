@@ -151,7 +151,7 @@ const DocumentView = ({userId}) => {
       allFile.push({
         id: 11,
         toDelete: 'birth_certificate',
-        title: "CV",
+        title: "Birth Certificate",
         url: birth_certificate ? birth_certificate : null,
         error: "Training file not uploaded",
       });
