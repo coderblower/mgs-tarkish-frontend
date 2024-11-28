@@ -56,6 +56,11 @@ const UpdateCadidate = ({userId, ty}) => {
   const [spouses_birth_date, setSpouses_birth_date] = useState("");
   const [isVisitOpen, setIsVisitOpen] = useState();
   const [relativeStaying, setRelativeStaying] = useState();
+  const [pif_file, setPif_file] = useState(null);
+  const [passport_all_page, setPassport_all_page] = useState(null);
+  const [birth_certificate, setBirth_certificate] = useState(null);
+  const [resume, setResume] = useState(null);
+  const [ cv, setCv] = useState(null);
 
   //
 
@@ -138,6 +143,20 @@ const UpdateCadidate = ({userId, ty}) => {
       setRussia_trip_date(data?.candidate?.russia_trip_date);
       setSpousesName(data?.candidate?.spousesName);
       setSpouses_birth_date(data?.candidate?.spouses_birth_date);
+
+
+      setPif_file(data?.candidate?.pif_file);
+      
+      setPassport_all_page(data?.candidate?.passport_all_page);
+
+      setBirth_certificate(data?.candidate?.birth_certificate);
+
+      setResume(data?.candidate?.resume);
+     
+      setCv(data?.candidate?.cv);
+      
+      
+    
 
       if (
         data?.candidate?.visitRussiaNumber ||
@@ -239,6 +258,10 @@ const UpdateCadidate = ({userId, ty}) => {
     academic_file,
     experience_file,
     training_file,
+
+
+
+
   };
 
   const handleSubmit = async () => {
@@ -444,6 +467,21 @@ const UpdateCadidate = ({userId, ty}) => {
             relativeStaying={relativeStaying}
             setRelativeStaying={setRelativeStaying}
             isUpdateCandidate={true}
+            pif_file  = {pif_file}
+            setPif_file = {setPif_file}
+            passport_all_page = {passport_all_page} 
+            setPassport_all_page = {setPassport_all_page}
+            birth_certificate = {birth_certificate} 
+            setBirth_certificate =  {setBirth_certificate}
+
+            resume  = {resume}           
+            setResume={ setResume}
+
+            cv = {cv}
+            setCv  = { setCv}
+
+
+
             type = {ty}
           />
         ) : page === "Address" ? (

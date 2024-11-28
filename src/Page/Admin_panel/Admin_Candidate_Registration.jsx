@@ -169,6 +169,8 @@ const Admin_Candidate_Registration = () => {
     birth_certificate,
     passport_all_page,
     verified_certificated:  false,
+    
+
 
   };
   const handleSubmit = async () => {
