@@ -288,7 +288,7 @@ const handleCSVData = async () => {
                         )}
                       </th>
                       <th>
-                         <div className="flex items-center justify-between gap-3 w-[90px]">
+                         <div className="flex items-center justify-around gap-3 w-[90px]">
                         {/* <Link to={`/admin/user_profile/${item.id}`}>
                           <img src={veiw_icon} alt="" className="w-5" />
                         </Link> */}
@@ -303,14 +303,14 @@ const handleCSVData = async () => {
                         </button>
 
 
-                        <button
+                        {/* <button
                           onClick={ ()=> {
                             setEditProfile(true)
                             setUserId(item?.id)
                           }}
                           >
                           <img src={edit_icon} alt="" className="w-5" /> 
-                        </button>
+                        </button> */}
 {/*  */}
                         {/* <Link to={`/admin/user_update/${item.id}`}>
                           <img src={edit_icon} alt="" className="w-5" />
