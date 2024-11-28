@@ -31,15 +31,21 @@ const DocumentView = ({userId}) => {
     }
   }, [id, refresh]);
 
+  const [userRole, setUserRole] = useState();
+  const [deletedData, setDeletedData] = useState({}); 
+
   // Get user role
   useEffect(() => {
     const json_data = window.localStorage.getItem("user");
     const user_data = JSON.parse(json_data);
     setUserRole(user_data);
+    
   }, []);
 
-  const [userRole, setUserRole] = useState();
-  const [deletedData, setDeletedData] = useState({}); 
+
+
+
+  
 
   // Fetch user
   const fetchUser = async () => {
@@ -47,7 +53,7 @@ const DocumentView = ({userId}) => {
     let allFile = [];
     try {
       const response = await post(`api/user/get_user`, { id: id });
-      console.log(response.data, "====>");
+      console.log( userRole, "====>");
       // setData(response.data);
       setCandidateID(response?.data?.candidate?.id);
       setApprovelNote(response?.data?.candidate?.note);
@@ -234,7 +240,7 @@ const DocumentView = ({userId}) => {
           data.map((file, i) => {
             console.log(deletedData, file.toDelete)
         
-            return !deletedData[file?.toDelete] && file.url ? <DocumentCard key={i} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
+            return !deletedData[file?.toDelete] && file.url ? <DocumentCard key={i} userRole = {userRole} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
       </div>
 
       {/* Loading  */}

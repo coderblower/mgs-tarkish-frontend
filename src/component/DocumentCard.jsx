@@ -11,11 +11,11 @@ import { toast } from "react-toastify";
  // Import your delete icon
 import "./DocumentCard.css";
 
-const DocumentCard = ({ file, userId, setRefresh}) => {
+const DocumentCard = ({ file, userId, userRole }) => {
   const { id, title, url, error, toDelete } = file;
   const [loading, setLoading] = useState(false);
   const [deleteError, setDeleteError] = useState("");
-
+console.log(userRole)
   // Function to handle file deletion
   const handleDelete = async () => {
     setLoading(true);
@@ -62,13 +62,13 @@ const DocumentCard = ({ file, userId, setRefresh}) => {
     <div className="documentCard_container border h-[400px] rounded-md relative overflow-hidden transition-all shadow-md">
       {/* Delete Icon */}
       <div className="absolute top-2 right-2 z-10"> {/* Add z-index to ensure it’s on top */}
-  <img
+    {userRole?.role_id  == 1 && (  <img
     src={delete_icon}
     alt="Delete"
     className="w-[24px] h-[24px] cursor-pointer"
     onClick={handleDelete} // Call the delete handler on click
     style={{ pointerEvents: 'auto' }} // Ensure pointer events are enabled
-  />
+  />)}
 </div>
 
 
