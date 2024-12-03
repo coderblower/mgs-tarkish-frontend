@@ -438,7 +438,7 @@ const router = createBrowserRouter([
       },
       {
         path: "registration",
-        element: <Agent_Candidate_Registration />,
+        element: <Admin_Candidate_Registration />,
       },
       {
         path: "list",
