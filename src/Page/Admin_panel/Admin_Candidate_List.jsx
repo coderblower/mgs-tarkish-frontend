@@ -19,6 +19,7 @@ import DocumentView from "../../component/ProfileMenu/DocumentView";
 import grid from "../../../public/images/grid.svg";
 import list from "../../../public/images/list.svg";
 import exportImg from "../../../public/images/export.svg";
+import jsPDF from 'jspdf';
 
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
@@ -50,6 +51,7 @@ const Admin_Candidate_List = () => {
   const [ gridView, setGridView] = useState(true); 
   const [userId, setUserId] = useState(null); 
   const [agentSubmenu, setAgentSubmenu] = useState([]);
+  
 
   useEffect(() => {
     fetchAgentSubmenu();
@@ -170,6 +172,36 @@ const Admin_Candidate_List = () => {
       setLoading(false);
     }
   };
+
+  const handleImageClick = async (url) => {
+    try {
+      // Fetch the image as a Blob
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Create a temporary object URL for the image blob
+      const imageUrl = URL.createObjectURL(blob);
+
+      // Load the image into jsPDF
+      const pdf = new jsPDF();
+      const img = new Image();
+      img.src = imageUrl;
+
+      img.onload = () => {
+        const width = img.width;
+        const height = img.height;
+
+        // Add the image to the PDF
+        pdf.addImage(img, 'PNG', 10, 10, width / 4, height / 4); // Adjust scaling if needed
+        pdf.save('qr_code.pdf');
+
+        // Revoke the object URL to free up memory
+        URL.revokeObjectURL(imageUrl);
+      };
+    } catch (error) {
+      console.error('Error fetching or converting the image:', error);
+    }
+  }; 
 
   return (
     <div className="lg:mt-10 mt-2">
@@ -294,6 +326,7 @@ const Admin_Candidate_List = () => {
                           className="h-[40px] w-[40px]"
                           src={`${API_URL}/${item?.candidate?.qr_code}`}
                           alt=""
+                          onClick={(e) => handleImageClick(e.target.src)}
                         />
                       ) : (
                         <img className="h-[40px] w-[40px]" src={notQR_img} alt="" />
