@@ -57,7 +57,7 @@ const MedicalReports = () => {
       // console.log("=======>39");
 
       if (response.success) {
-        console.log("done");
+        console.log(response);
         setLoading(false);
         setCount(response.count);
         setCandate(response?.data?.data);

@@ -339,9 +339,7 @@ const Profile_Details = ({userId}) => {
                         <TextTitle
                           title="Country:"
                           data={
-                            data?.candidate?.country === "1"
-                              ? "Russia"
-                              : data?.candidate?.country === "2" ? "Turkey" : data?.candidate?.country === "3" ? "Hungery" : " Not Found "  
+                            data?.candidate?.country?.name
                           }
                         />
 
