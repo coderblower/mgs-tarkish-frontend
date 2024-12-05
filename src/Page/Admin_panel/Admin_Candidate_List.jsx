@@ -175,6 +175,9 @@ const Admin_Candidate_List = () => {
 
   const handleImageClick = async (url) => {
     try {
+      
+      console.log('ss '); 
+
       // Fetch the image as a Blob
       const response = await fetch(url);
       const blob = await response.blob();
