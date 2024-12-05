@@ -177,9 +177,10 @@ const Admin_Candidate_List = () => {
     try {
       
       console.log('ss '); 
+      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
       // Fetch the image as a Blob
-      const response = await fetch(url);
+      const response = await fetch(proxyUrl + url);
       const blob = await response.blob();
 
       // Create a temporary object URL for the image blob
