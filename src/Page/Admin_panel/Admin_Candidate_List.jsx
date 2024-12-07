@@ -328,7 +328,7 @@ const Admin_Candidate_List = () => {
                       item?.candidate?.approval_status !== "reject" &&
                       item?.candidate?.approval_status !== "pending" ? (
                         <img
-                          className="h-[40px] w-[40px]"
+                          className="h-[40px] w-[40px] cursor-pointer"
                           src={`${API_URL}/${item?.candidate?.qr_code}`}
                           alt=""
                           onClick={() => handleImageClick(item.id)}
