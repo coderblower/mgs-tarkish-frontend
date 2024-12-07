@@ -182,7 +182,7 @@ const Admin_Candidate_List = () => {
       const response = await get(`/api/candidate/get_qr/${id}`, {
         responseType: 'blob',}).then((response) => {
           console.log(response); 
-          const blob = new Blob([response.data], { type: response.headers['content-type'] });
+          const blob = new Blob([response], { type: 'image/svg+xml' });
           const url = window.URL.createObjectURL(blob);
 
           // Create an <a> element for download
