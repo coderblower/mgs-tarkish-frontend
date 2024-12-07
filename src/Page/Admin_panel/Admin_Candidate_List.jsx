@@ -180,10 +180,8 @@ const Admin_Candidate_List = () => {
 
       // Fetch the image as a Blob
       const response = await get(`/api/candidate/get_qr/${id}`, {
-        responseType: 'blob', // Ensure the response is a Blob
-        headers: {
-            'Accept': 'application/json',
-        },}).then((response) => {
+        responseType: 'blob',}).then((response) => {
+          console.log(response); 
           const blob = new Blob([response.data], { type: response.headers['content-type'] });
           const url = window.URL.createObjectURL(blob);
 
