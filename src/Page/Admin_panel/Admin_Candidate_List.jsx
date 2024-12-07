@@ -185,8 +185,9 @@ const Admin_Candidate_List = () => {
           const blob = new Blob([response], { type: 'image/svg+xml' });
           
           const pdf = new jsPDF();
-          pdf.addImage(blob, 'PNG', 10, 10, 180, 160); 
+          pdf.addImage(blob, 'PNG', 10, 10, 180, 160); // Adjust coordinates and size as needed
           const pdfBlob = pdf.output('blob');
+
           const url = window.URL.createObjectURL(pdfBlob);
 
           // Create an <a> element for download
