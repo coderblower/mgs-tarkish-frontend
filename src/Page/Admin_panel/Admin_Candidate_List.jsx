@@ -176,12 +176,12 @@ const Admin_Candidate_List = () => {
   const handleImageClick = async (url) => {
     try {
       
-      console.log('ss '); 
+       
 
       // Fetch the image as a Blob
       const response = await get(url);
       const blob = await response.blob();
-
+      console.log(response);
       // Create a temporary object URL for the image blob
       const imageUrl = URL.createObjectURL(blob);
 
