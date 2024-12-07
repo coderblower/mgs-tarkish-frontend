@@ -24,7 +24,6 @@ import jsPDF from 'jspdf';
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
 import CandidateModal from "../../component/CandidateModal";
-import { get } from "react-hook-form";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Admin_Candidate_List = () => {
