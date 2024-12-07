@@ -173,13 +173,13 @@ const Admin_Candidate_List = () => {
     }
   };
 
-  const handleImageClick = async (url) => {
+  const handleImageClick = async (id) => {
     try {
       
-       
+      
 
       // Fetch the image as a Blob
-      const response = await get(url);
+      const response = await get(`/api/candidate/get_qr/${id}`);
       const blob = await response.blob();
       console.log(response);
       // Create a temporary object URL for the image blob
@@ -329,7 +329,7 @@ const Admin_Candidate_List = () => {
                           className="h-[40px] w-[40px]"
                           src={`${API_URL}/${item?.candidate?.qr_code}`}
                           alt=""
-                          onClick={(e) => handleImageClick(e.target.src)}
+                          onClick={() => handleImageClick(item.id)}
                         />
                       ) : (
                         <img className="h-[40px] w-[40px]" src={notQR_img} alt="" />
