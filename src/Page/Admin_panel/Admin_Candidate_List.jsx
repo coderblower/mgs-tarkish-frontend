@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { post } from "../../api/axios";
+import { post, get } from "../../api/axios";
 import user_img from "../../../public/images/Avater.png";
 import notQR_img from "../../../public/images/notQR.jpeg";
 import veiw_icon from "../../../public/images/veiw_ison.svg";
@@ -24,6 +24,7 @@ import jsPDF from 'jspdf';
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
 import CandidateModal from "../../component/CandidateModal";
+import { get } from "react-hook-form";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Admin_Candidate_List = () => {
@@ -177,10 +178,9 @@ const Admin_Candidate_List = () => {
     try {
       
       console.log('ss '); 
-      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
       // Fetch the image as a Blob
-      const response = await fetch(proxyUrl + url);
+      const response = await get(url);
       const blob = await response.blob();
 
       // Create a temporary object URL for the image blob
