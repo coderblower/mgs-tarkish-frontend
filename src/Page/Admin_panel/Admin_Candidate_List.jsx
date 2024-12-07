@@ -182,13 +182,11 @@ const Admin_Candidate_List = () => {
       const response = await get(`/api/candidate/get_qr/${id}`, {
         responseType: 'blob',}).then((response) => {
           console.log(response); 
-          const blob = new Blob([response], { type: 'image/svg+xml' });
+          const blob = new Blob([response],  { type: 'application/pdf' });
           
-          const pdf = new jsPDF();
-          pdf.addImage(blob, 'PNG', 10, 10, 180, 160); // Adjust coordinates and size as needed
-          const pdfBlob = pdf.output('blob');
+         
 
-          const url = window.URL.createObjectURL(pdfBlob);
+          const url = window.URL.createObjectURL(blob);
 
           // Create an <a> element for download
           const a = document.createElement('a');
