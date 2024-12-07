@@ -179,32 +179,33 @@ const Admin_Candidate_List = () => {
       
 
       // Fetch the image as a Blob
-      const response = await get(`/api/candidate/get_qr/${id}`);
-      const blob = await response.blob();
-      console.log(response);
-      // Create a temporary object URL for the image blob
-      const imageUrl = URL.createObjectURL(blob);
+      const response = await get(`/api/candidate/get_qr/${id}`, {
+        responseType: 'blob', // Ensure the response is a Blob
+        headers: {
+            'Accept': 'application/json',
+        },}).then((response) => {
+          const blob = new Blob([response.data], { type: response.headers['content-type'] });
+          const url = window.URL.createObjectURL(blob);
 
-      // Load the image into jsPDF
-      const pdf = new jsPDF();
-      const img = new Image();
-      img.src = imageUrl;
+          // Create an <a> element for download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'qr_code.png'; // Set the filename
+          document.body.appendChild(a);
+          a.click(); // Trigger the download
+          a.remove(); // Cleanup the element
 
-      img.onload = () => {
-        const width = img.width;
-        const height = img.height;
+          // Revoke the blob URL
+          window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+          console.error('Error downloading QR code:', error);
+      });
+  } catch(error){
+    console.log(error)
+  }
 
-        // Add the image to the PDF
-        pdf.addImage(img, 'PNG', 10, 10, width / 4, height / 4); // Adjust scaling if needed
-        pdf.save('qr_code.pdf');
-
-        // Revoke the object URL to free up memory
-        URL.revokeObjectURL(imageUrl);
-      };
-    } catch (error) {
-      console.error('Error fetching or converting the image:', error);
-    }
-  }; 
+}
 
   return (
     <div className="lg:mt-10 mt-2">
