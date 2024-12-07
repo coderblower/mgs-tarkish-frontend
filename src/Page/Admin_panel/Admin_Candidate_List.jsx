@@ -183,12 +183,16 @@ const Admin_Candidate_List = () => {
         responseType: 'blob',}).then((response) => {
           console.log(response); 
           const blob = new Blob([response], { type: 'image/svg+xml' });
-          const url = window.URL.createObjectURL(blob);
+          
+          const pdf = new jsPDF();
+          pdf.addImage(blob, 'PNG', 10, 10, 180, 160); 
+          const pdfBlob = pdf.output('blob');
+          const url = window.URL.createObjectURL(pdfBlob);
 
           // Create an <a> element for download
           const a = document.createElement('a');
           a.href = url;
-          a.download = 'qr_code.png'; // Set the filename
+          a.download = 'qr_code.pdf'; // Set the filename
           document.body.appendChild(a);
           a.click(); // Trigger the download
           a.remove(); // Cleanup the element
