@@ -189,7 +189,7 @@ const UpdateCadidate = ({userId, ty}) => {
     }
 
 
-    setFormNo(6)
+    setFormNo(1)
 
 
 
@@ -208,37 +208,37 @@ const UpdateCadidate = ({userId, ty}) => {
   const formArray = [1, 2, 3, 4, 5, 6];
   const [formArray_new, setFormArray_new] = useState([
     { id: 1, title: "Personal Information", show:true },
-    { id: 2, title: "Address", show:true },
-    { id: 3, title: "Education", show: true },
-    { id: 4, title: "Job Experience", show: true },
-    { id: 5, title: "Training & skills", show: true },
-    { id: 6, title: "Upload photo", show: true },
+    { id: 2, title: "Address", show:false },
+    { id: 3, title: "Education", show: false },
+    { id: 4, title: "Job Experience", show: false },
+    { id: 5, title: "Training & skills", show: false },
+    { id: 6, title: "Upload photo", show: false },
   ]);
   const [formNo, setFormNo] = useState(formArray[0]);
   const [page, setPage] = useState("Personal Information");
 
   const payload = {
     id: candidate_id,
-    gender: gender,
+    fullName: firstName + " " + lastName,
+    firstName,
+    lastName,
+    expiry_date: expireDate,
+    visitRussiaNumber,
+    dateOfIssue,
+    hostOrganization,
+    route_Journey,
+    relativesStaying,
+    refusedRussian,
+    spousesName,
+    gender,
+    spouses_birth_date,
     marital_status: marital_status,
     religion: religion,
     nid,
     nid_file,
     passport,
-    fullName: firstName + " " + lastName,
-    firstName,
-    lastName,
-    dateOfIssue,
-    visitRussiaNumber,
     russia_trip_date,
-    hostOrganization,
-    route_Journey,
-    relativesStaying,
-    refusedRussian,
     deportedRussia,
-    spousesName,
-    spouses_birth_date,
-    expiry_date: expireDate,
     father_name: fathersName,
     mother_name: mothersName,
     birth_date,
@@ -262,7 +262,8 @@ const UpdateCadidate = ({userId, ty}) => {
     passport_all_page,
     birth_certificate,
     resume,
-    cv 
+    cv,
+    verified_certificated: false
   };
 
   const handleSubmit = async () => {
@@ -275,6 +276,8 @@ const UpdateCadidate = ({userId, ty}) => {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      console.log(res);
 
       if (res?.success) {
         setPage("success");
@@ -320,7 +323,9 @@ const UpdateCadidate = ({userId, ty}) => {
           <div>
             <div className="whitespace-nowrap lg:px-10 ">
               <div className="flex justify-center items-center mb-10">
-                {formArray_new.map((v, i) => (
+                {formArray_new.map((v, i) => {
+                  
+                  return (
                   <>
                     <div
                       key={i} onClick={() => {
@@ -352,7 +357,10 @@ const UpdateCadidate = ({userId, ty}) => {
                       ></div>
                     )}
                   </>
-                ))}
+                )
+                }
+                
+                )}
               </div>
             </div>
 
@@ -482,7 +490,7 @@ const UpdateCadidate = ({userId, ty}) => {
             setCv  = { setCv}
 
 
-
+            setFormArray_new= {setFormArray_new}
             type = {ty}
           />
         ) : page === "Address" ? (
@@ -493,6 +501,7 @@ const UpdateCadidate = ({userId, ty}) => {
             address={address}
             country={country}
             setAddress={setAddress}
+            setFormArray_new= {setFormArray_new}
           />
         ) : page === "Education" ? (
           <Registration_3
@@ -503,6 +512,8 @@ const UpdateCadidate = ({userId, ty}) => {
             setAcademic={setAcademic}
             academic_file={academic_file}
             setAcademic_file={setAcademic_file}
+            country={country}
+            setFormArray_new= {setFormArray_new}
           />
         ) : page === "Job Experience" ? (
           <Registration_4
@@ -513,6 +524,7 @@ const UpdateCadidate = ({userId, ty}) => {
             setExperience={setExperience}
             experience_file={experience_file}
             setExperience_file={setExperience_file}
+            setFormArray_new= {setFormArray_new}
           />
         ) : page === "Training & skills" ? (
           <Registration_5
@@ -523,6 +535,7 @@ const UpdateCadidate = ({userId, ty}) => {
             setTraining={setTraining}
             training_file={training_file}
             setTraining_file={setTraining_file}
+            setFormArray_new= {setFormArray_new}
           />
         ) : page === "Upload photo" ? (
           <Registration_6
@@ -534,6 +547,7 @@ const UpdateCadidate = ({userId, ty}) => {
             handleSubmit={handleSubmit}
             loading={loading}
             payload={payload}
+            setFormArray_new= {setFormArray_new}
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />

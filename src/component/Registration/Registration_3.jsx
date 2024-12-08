@@ -15,6 +15,10 @@ const Registration_3 = ({
   setFormArray_new
 }) => {
 
+
+  console.log(country, academic); 
+
+
   const [uploadError, setUploadError] = useState("");
   const [formError, setFormError] = useState({});
 
@@ -31,12 +35,14 @@ const Registration_3 = ({
     // Validation for required fields
     
     if ( (country == 3) && !academic?.level_of_education) {
-      
+      console.log(newFormError)
       newFormError.level_of_education = "Minimum SSC  is required";
+      console.log(newFormError)
     }
+    
 
     setFormError(newFormError);
-
+    console.log(formError, newFormError, academic?.level_of_education);
     // Proceed only if there are no errors
     if (Object.keys(newFormError).length === 0) {
       setUploadError("");
