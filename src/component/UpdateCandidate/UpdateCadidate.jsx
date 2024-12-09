@@ -102,6 +102,8 @@ const UpdateCadidate = ({userId, ty}) => {
     present_address: "",
   });
 
+  
+
   useEffect(() => {
     fetchSingleUser();
   }, [id]);

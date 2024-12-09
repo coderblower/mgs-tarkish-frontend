@@ -85,7 +85,7 @@ const PersonalInformation = ({
   setResume,
   cv,
   setCv,
-  ty
+  type
 
 }) => {
   const location = useLocation();
@@ -112,6 +112,7 @@ const PersonalInformation = ({
     const json_data = window.localStorage.getItem("user");
     const user_data = JSON.parse(json_data);
     setData(user_data);
+  console.log(type)
   }, []);
   const [data, setData] = useState(null);
 
@@ -172,7 +173,7 @@ const PersonalInformation = ({
       isValid = false;
       errors.nid_file = "NID file file  is required.";
     }
-    if (!pif_file &&  ty == 'edit') {
+    if (!pif_file &&  type == 'edit') {
       isValid = false;
       errors.pif_file = "PIF  file  is required.";
     }
