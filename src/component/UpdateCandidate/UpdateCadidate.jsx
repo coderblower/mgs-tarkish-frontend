@@ -119,7 +119,7 @@ const UpdateCadidate = ({userId, ty}) => {
       setExpireDate(data?.candidate?.expiry_date);
       setGender(data?.candidate?.gender);
       setNid(data?.candidate?.nid);
-      setCountry(data?.candidate?.country);
+      setCountry(data?.candidate?.country?.id);
       setPassport(data?.candidate?.passport);
       setMothersName(data?.candidate?.mother_name);
       setBirth_date(data?.candidate?.birth_date);
