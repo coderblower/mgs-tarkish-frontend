@@ -1,5 +1,5 @@
 import right_arow from "../../../public/images/right_arow.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileUplod from "../FileUplod";
 
 const Registration_3 = ({
@@ -21,6 +21,24 @@ const Registration_3 = ({
 
   const [uploadError, setUploadError] = useState("");
   const [formError, setFormError] = useState({});
+  
+
+  useEffect(()=>{
+    (country = 3 && ['HSC', 'SSC', 'BBA', 'MBA', 'DIPLOMA'].some((x)=>{
+      console.log(x, academic?.level_of_education, (academic?.level_of_education || '').toUpperCase());
+       if( (academic?.level_of_education || '').toUpperCase() == x ){
+          console.log('passed');
+        setAcademic({
+          ...academic,
+          level_of_education: x,
+        })
+        return true;
+      }
+    })) || setAcademic({
+      ...academic,
+      level_of_education: null,
+    })
+  },[])
 
   const updatePageAccordingClick = (page, setFormArray_new) => {
     setFormArray_new(previousData =>
@@ -77,6 +95,7 @@ const Registration_3 = ({
                     <option value="HSC">HSC</option>
                     <option value="BBA">BA/ BBA/ BSc/ BEng</option>
                     <option value="MBA">MA/ MSc/ MBA</option>
+                    <option value="DIPLOMA">DIPLOMA </option>
                     {/* Add more options as needed */}
                   </select>
                 ) || (
