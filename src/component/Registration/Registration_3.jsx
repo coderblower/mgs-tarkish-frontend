@@ -58,9 +58,14 @@ const Registration_3 = ({
       console.log(newFormError)
     }
     
+    if ( (country == 3) && !academic_file) {
+      console.log('fired ')
+      newFormError.academic_file = "Please Provide Education Certificate  ";
+      
+    }
 
     setFormError(newFormError);
-    console.log(formError, newFormError, academic?.level_of_education);
+    console.log(formError, newFormError, academic_file, country);
     // Proceed only if there are no errors
     if (Object.keys(newFormError).length === 0) {
       setUploadError("");
@@ -229,6 +234,9 @@ const Registration_3 = ({
         {uploadError && (
           <p className="text-red-500 text-sm mt-1">{uploadError}</p>
         )}
+        {formError.academic_file && (
+                  <p className="text-red-500 text-sm">{formError.academic_file }</p>
+                )}
       </div>
 
       <div className="flex gap-4 items-center justify-end">
