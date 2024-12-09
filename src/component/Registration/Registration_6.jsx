@@ -36,6 +36,7 @@ const Registration_6 = ({
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
+    console.log(file, photo)
     if (file) {
       const allowedExtensions = ["jpg", "jpeg", "png", "svg"];
       const extension = file.name.split(".").pop().toLowerCase();
@@ -44,7 +45,7 @@ const Registration_6 = ({
         setPhoto(file);
         const reader = new FileReader();
         reader.onloadend = () => {
-          
+          console.log(reader.result)
           setUploadImg(reader.result)
         };
         reader.readAsDataURL(file);

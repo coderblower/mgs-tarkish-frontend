@@ -61,6 +61,7 @@ const UpdateCadidate = ({userId, ty}) => {
   const [birth_certificate, setBirth_certificate] = useState(null);
   const [resume, setResume] = useState(null);
   const [ cv, setCv] = useState(null);
+  const [uploadImg, setUploadImg] = useState(null);
 
   //
 
@@ -548,6 +549,8 @@ const UpdateCadidate = ({userId, ty}) => {
             loading={loading}
             payload={payload}
             setFormArray_new= {setFormArray_new}
+            uploadImg = {uploadImg}
+            setUploadImg = {setUploadImg}
           />
         ) : page === "logout" ? (
           <Registration_7 setPage={setPage} />
