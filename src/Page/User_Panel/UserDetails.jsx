@@ -280,7 +280,7 @@ const UserDetails = () => {
                           />
                           <TextTitle
                             title="Country:"
-                            data={data?.candidate?.country}
+                            data={data?.candidate?.country?.name}
                           />
                         </div>
                       </div>
