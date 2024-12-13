@@ -55,8 +55,8 @@ const Agent_list = () => {
       if (res) {
         setAgents(res?.data?.data);
         setPaginations({
-          per_page: res.data_p.per_page,
-          total: res.data_p.total,
+          per_page: res.data?.per_page,
+          total: res.data?.total,
         });
       }
     } catch (error) {
@@ -185,6 +185,7 @@ const Agent_list = () => {
             setCurrentPage={setCurrentPage}
           />
         )}
+        
     </div>
   );
 };
