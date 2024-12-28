@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { post } from "../../api/axios";
+import { post, get } from "../../api/axios";
 import user_img from "../../../public/images/Avater.png";
 import notQR_img from "../../../public/images/notQR.jpeg";
 import delete_icon from "../../../public/images/delete_icon.svg";
