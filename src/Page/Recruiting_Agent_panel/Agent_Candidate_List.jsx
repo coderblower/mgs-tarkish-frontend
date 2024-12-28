@@ -156,6 +156,40 @@ const handleCSVData = async () => {
 
 
 
+const handleImageClick = async (id) => {
+  try {
+    
+    
+
+    // Fetch the image as a Blob
+    const response = await get(`/api/candidate/get_qr/${id}`, {
+      responseType: 'blob',}).then((response) => {
+        console.log(response); 
+        const blob = new Blob([response],  { type: 'application/pdf' });
+        
+       
+
+        const url = window.URL.createObjectURL(blob);
+
+        // Create an <a> element for download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'qr_code.pdf'; // Set the filename
+        document.body.appendChild(a);
+        a.click(); // Trigger the download
+        a.remove(); // Cleanup the element
+
+        // Revoke the blob URL
+        window.URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+        console.error('Error downloading QR code:', error);
+    });
+} catch(error){
+  console.log(error)
+}
+
+}
 
 
 
@@ -271,22 +305,19 @@ const handleCSVData = async () => {
                         />
                       </th>
                       <th className="flex justify-center">
-                        {item?.candidate?.qr_code &&
-                        item?.candidate?.approval_status !== "reject" &&
-                        item?.candidate?.approval_status !== "pending" ? (
-                          <img
-                            className="h-[40px] w-[40px] "
-                            src={`${API_URL}/${item?.candidate?.qr_code}`}
-                            alt=""
-                          />
-                        ) : (
-                          <img
-                            className="h-[40px] w-[40px] "
-                            src={notQR_img}
-                            alt=""
-                          />
-                        )}
-                      </th>
+                      {item?.candidate?.qr_code &&
+                      item?.candidate?.approval_status !== "reject" &&
+                      item?.candidate?.approval_status !== "pending" ? (
+                        <img
+                          className="h-[40px] w-[40px] cursor-pointer"
+                          src={`${API_URL}/${item?.candidate?.qr_code}`}
+                          alt=""
+                          onClick={() => handleImageClick(item.id)}
+                        />
+                      ) : (
+                        <img className="h-[40px] w-[40px]" src={notQR_img} alt="" />
+                      )}
+                    </th>
                       <th>
                          <div className="flex items-center justify-around gap-3 w-[90px]">
                         {/* <Link to={`/admin/user_profile/${item.id}`}>
