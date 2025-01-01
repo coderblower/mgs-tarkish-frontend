@@ -3,6 +3,7 @@ const API_URL = import.meta.env.VITE_BASE_URL;
 const FullPageDocumentViewer = ({ file, onClose }) => {
 
   
+    console.log(file);
     
     const fullUrl = `${API_URL}/${file.url}`; // Prefix the file URL with API_URL
   
