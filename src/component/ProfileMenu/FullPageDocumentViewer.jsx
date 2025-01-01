@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactImageMagnify from "react-image-magnify"; // Install with npm install react-image-magnify
-import { Document, Page } from '@react-pdf/renderer';
- // Install with npm install @react-pdf-viewer/core
+import { Document, Page } from '@react-pdf/renderer'; // Install with npm install @react-pdf-viewer/core
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -11,8 +10,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
   const isPDF = file?.url?.toLowerCase().endsWith(".pdf");
   const isImage = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i.test(file?.url);
 
-  const [pageNumber, setPageNumber] = React.useState(1);
-  const [zoom, setZoom] = React.useState(1.0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [zoom, setZoom] = useState(1.0);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
@@ -60,40 +59,49 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-            <div className="w-[400px] h-[400px] flex justify-center items-center">
-  <ReactImageMagnify
-   {...{
-    smallImage: {
-      alt: "Document Viewer",
-      isFluidWidth: true, // Ensures responsiveness
-      src: fullUrl,
-      style: {
-        maxWidth: "100px", // Set the initial small image size (you can adjust this value)
-        maxHeight: "100px", // Optional, maintain aspect ratio
-      },
-    },
-    largeImage: {
-      src: fullUrl,
-      width: 8400, // Larger image dimensions for 6x zoom (100px * 6 = 600px, so a larger image)
-      height: 10800, // Larger image dimensions for 6x zoom
-    },
-    enlargedImageContainerStyle: {
-      background: "#fff", // Optional background for zoomed area
-      boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    enlargedImageContainerDimensions: {
-      width: "150%", // Adjust zoomed width (relative to the small image, you can tweak this)
-      height: "150%", // Adjust zoomed height (relative to the small image)
-    },
-    lensStyle: {
-      background: "rgba(0,0,0,0.2)", // Optional lens styling
-    },
-  }}
-  />
-</div>
+          <div className="w-full h-full flex justify-center items-center">
+            <ReactImageMagnify
+              {...{
+                smallImage: {
+                  alt: "Document Viewer",
+                  isFluidWidth: true, // Ensures responsiveness
+                  src: fullUrl,
+                  style: {
+                    maxWidth: "100%", // Set the initial small image size (this is fluid and will adjust for responsiveness)
+                    maxHeight: "100%", // Optional, maintain aspect ratio
+                  },
+                },
+                largeImage: {
+                  src: fullUrl,
+                  width: 8400, // Larger image dimensions for zoom effect
+                  height: 10800, // Larger image dimensions for zoom effect
+                },
+                enlargedImageContainerStyle: {
+                  background: "#fff", // Optional background for zoomed area
+                  boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
+                  position: "absolute", // Ensures it fits well in the container
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  overflow: "hidden", // Hide any overflowed parts of the zoomed image
+                },
+                enlargedImageContainerDimensions: {
+                  width: "100%", // Make the container take up the full window
+                  height: "100%", // Make the container take up the full window
+                },
+                largeImageStyle: {
+                  objectFit: "contain", // Ensure the image fits inside the zoomed area without being cropped
+                },
+                lensStyle: {
+                  background: "rgba(0,0,0,0.3)", // Optional lens styling
+                },
+              }}
+            />
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-700">
             <p>Unsupported file format</p>
