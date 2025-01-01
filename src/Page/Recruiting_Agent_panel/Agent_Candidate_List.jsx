@@ -193,14 +193,6 @@ const handleImageClick = async (id) => {
 
 
 
-
-
-
-
-
-
-
-
   // console.log(candidate?.candidate?.country === 1);
 
 

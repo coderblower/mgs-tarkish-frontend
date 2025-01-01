@@ -9,6 +9,7 @@ import reject_img from "../../../public/images/alert_icon.svg";
 import DocumentCard from "../DocumentCard";
 import toast, { Toaster } from "react-hot-toast";
 import TableLoading from "../TableLoading";
+import FullPageDocumentViewer from "./FullPageDocumentViewer.jsx";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const DocumentView = ({userId}) => {
@@ -21,6 +22,18 @@ const DocumentView = ({userId}) => {
   const [statusMessage, setStatusMessage] = useState();
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(id);
+
+
+  const [selectedDocument, setSelectedDocument] = useState(null);
+
+  const openDocument = (file) => {
+    setSelectedDocument(file);
+  };
+
+  const closeDocument = () => {
+    setSelectedDocument(null);
+  }
+
 
   useEffect(() => {
     if (id) {
@@ -236,12 +249,22 @@ const DocumentView = ({userId}) => {
       {/* document view  */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[30px] relative mt-[50px]">
         {!loading &&
-          data?.length > 0 &&
+          data?.length > 0 && !selectedDocument && 
           data.map((file, i) => {
             console.log(deletedData, file.toDelete)
         
-            return !deletedData[file?.toDelete] && file.url ? <DocumentCard key={i} userRole = {userRole} userId = {userId} setRefresh = {setRefresh} file={file} />: ''})}
+            return !deletedData[file?.toDelete] && file.url ? <DocumentCard key={i} userRole = {userRole} userId = {userId} setRefresh = {setRefresh} file={file}  openDocument={openDocument}/>: ''
+            })
+            
+            }
       </div>
+
+      {selectedDocument && (
+        <FullPageDocumentViewer
+          file={selectedDocument}
+          onClose={closeDocument} // Close handler
+        />
+      )}
 
       {/* Loading  */}
       {loading && (

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
  // Import your delete icon
 import "./DocumentCard.css";
 
-const DocumentCard = ({ file, userId, userRole }) => {
+const DocumentCard = ({ file, userId, userRole,openDocument }) => {
   const { id, title, url, error, toDelete } = file;
   const [loading, setLoading] = useState(false);
   const [deleteError, setDeleteError] = useState("");
@@ -94,9 +94,9 @@ console.log(userRole)
 
       {/* Details button div */}
       {url && (
-        <div className="details_btn absolute -bottom-[400px] h-[330px] bg-[#1e3767] w-full text-white flex justify-center rounded-full">
-          <Link to={`${API_URL}/${url}`} target="_blank">
-            <div className="h-[50px] flex items-center gap-2 mt-[30px]">
+        <div onClick={openDocument}  className="details_btn absolute -bottom-[400px] h-[330px] bg-[#1e3767] w-full text-white flex justify-center rounded-full cursor-pointer">
+        
+            <div className="h-[50px] flex items-center gap-2 mt-[30px] ">
               <h2 className="text-[18px] font-[500]">{title}</h2>
               <img
                 className="w-[20px] -rotate-[50deg] -mt-[6px]"
@@ -104,7 +104,7 @@ console.log(userRole)
                 alt=""
               />
             </div>
-          </Link>
+        
         </div>
       )}
 

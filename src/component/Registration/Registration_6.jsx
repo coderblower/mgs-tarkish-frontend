@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import upload from "../../../public/images/upload.png";
 import Loading from "../../component/Loading";
 import toast, { Toaster } from "react-hot-toast";
