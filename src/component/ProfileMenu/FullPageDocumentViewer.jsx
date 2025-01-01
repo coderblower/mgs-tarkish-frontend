@@ -60,7 +60,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-[20px] h-[20px] flex justify-center items-center">
   <ReactImageMagnify
     {...{
       smallImage: {
