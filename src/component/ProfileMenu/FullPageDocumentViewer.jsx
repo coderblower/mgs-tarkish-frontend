@@ -60,7 +60,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-            <div className="w-[20px] h-[20px] flex justify-center items-center">
+            <div className="w-[200px] h-[200px] flex justify-center items-center">
   <ReactImageMagnify
     {...{
       smallImage: {
@@ -74,16 +74,16 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
       },
       largeImage: {
         src: fullUrl,
-        width: 600, // Larger image dimensions for zoom
-        height: 600,
+        width: 1200, // Larger image dimensions for zoom
+        height: 1200,
       },
       enlargedImageContainerStyle: {
         background: "#fff", // Optional background for zoomed area
         boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
       },
       enlargedImageContainerDimensions: {
-        width: "150%", // Adjust zoomed width (relative to the small image)
-        height: "150%", // Adjust zoomed height
+        width: "200%", // Adjust zoomed width (relative to the small image)
+        height: "200%", // Adjust zoomed height
       },
       lensStyle: {
         background: "rgba(0,0,0,0.2)", // Optional lens styling
