@@ -90,7 +90,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
       },
     }}
   />
-</div>;
+</div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-700">
             <p>Unsupported file format</p>
