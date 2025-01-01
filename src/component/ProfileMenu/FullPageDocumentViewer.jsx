@@ -74,8 +74,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
       },
       largeImage: {
         src: fullUrl,
-        width: 1200, // Larger image dimensions for zoom
-        height: 1200,
+        width: 600, // Larger image dimensions for zoom
+        height: 600,
       },
       enlargedImageContainerStyle: {
         background: "#fff", // Optional background for zoomed area
