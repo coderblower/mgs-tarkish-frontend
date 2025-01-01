@@ -68,8 +68,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         isFluidWidth: true, // Ensures responsiveness
         src: fullUrl,
         style: {
-          maxWidth: "200px", // Set the initial small image size
-          maxHeight: "200px", // Optional, maintain aspect ratio
+          maxWidth: "100px", // Set the initial small image size
+          maxHeight: "100px", // Optional, maintain aspect ratio
         },
       },
       largeImage: {
