@@ -1,6 +1,7 @@
 import React from "react";
 import ReactImageMagnify from "react-image-magnify"; // Install with npm install react-image-magnify
-import { Document, Page } from "react-pdf"; // Install with npm install @react-pdf-viewer/core
+import { Document, Page } from '@react-pdf/renderer';
+ // Install with npm install @react-pdf-viewer/core
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
