@@ -60,26 +60,37 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-          <div className="w-full h-full flex justify-center items-center">
-            <ReactImageMagnify
-              {...{
-                smallImage: {
-                  alt: "Document Viewer",
-                  isFluidWidth: true,
-                  src: fullUrl,
-                },
-                largeImage: {
-                  src: fullUrl,
-                  width: 1200,
-                  height: 1200,
-                },
-                enlargedImageContainerDimensions: {
-                  width: "200%",
-                  height: "200%",
-                },
-              }}
-            />
-          </div>
+            <div className="w-full h-full flex justify-center items-center">
+  <ReactImageMagnify
+    {...{
+      smallImage: {
+        alt: "Document Viewer",
+        isFluidWidth: true, // Ensures responsiveness
+        src: fullUrl,
+        style: {
+          maxWidth: "300px", // Set the initial small image size
+          maxHeight: "300px", // Optional, maintain aspect ratio
+        },
+      },
+      largeImage: {
+        src: fullUrl,
+        width: 1200, // Larger image dimensions for zoom
+        height: 1200,
+      },
+      enlargedImageContainerStyle: {
+        background: "#fff", // Optional background for zoomed area
+        boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
+      },
+      enlargedImageContainerDimensions: {
+        width: "150%", // Adjust zoomed width (relative to the small image)
+        height: "150%", // Adjust zoomed height
+      },
+      lensStyle: {
+        background: "rgba(0,0,0,0.2)", // Optional lens styling
+      },
+    }}
+  />
+</div>;
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-700">
             <p>Unsupported file format</p>
