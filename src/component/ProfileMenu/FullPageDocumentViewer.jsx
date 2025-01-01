@@ -62,33 +62,33 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         ) : isImage ? (
             <div className="w-[400px] h-[400px] flex justify-center items-center">
   <ReactImageMagnify
-   {...{
-    smallImage: {
-      alt: "Document Viewer",
-      isFluidWidth: true, // Ensures responsiveness
-      src: fullUrl,
-      style: {
-        maxWidth: "100px", // Set the initial small image size (you can adjust this value)
-        maxHeight: "100px", // Optional, maintain aspect ratio
+    {...{
+      smallImage: {
+        alt: "Document Viewer",
+        isFluidWidth: true, // Ensures responsiveness
+        src: fullUrl,
+        style: {
+          maxWidth: "100px", // Set the initial small image size
+          maxHeight: "100px", // Optional, maintain aspect ratio
+        },
       },
-    },
-    largeImage: {
-      src: fullUrl,
-      width: 8400, // Larger image dimensions for 6x zoom (100px * 6 = 600px, so a larger image)
-      height: 10800, // Larger image dimensions for 6x zoom
-    },
-    enlargedImageContainerStyle: {
-      background: "#fff", // Optional background for zoomed area
-      boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
-    },
-    enlargedImageContainerDimensions: {
-      width: "150%", // Adjust zoomed width (relative to the small image, you can tweak this)
-      height: "150%", // Adjust zoomed height (relative to the small image)
-    },
-    lensStyle: {
-      background: "rgba(0,0,0,0.2)", // Optional lens styling
-    },
-  }}
+      largeImage: {
+        src: fullUrl,
+        width: 1400, // Larger image dimensions for zoom
+        height: 1800,
+      },
+      enlargedImageContainerStyle: {
+        background: "#fff", // Optional background for zoomed area
+        boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
+      },
+      enlargedImageContainerDimensions: {
+        width: "150%", // Adjust zoomed width (relative to the small image)
+        height: "150%", // Adjust zoomed height
+      },
+      lensStyle: {
+        background: "rgba(0,0,0,0.2)", // Optional lens styling
+      },
+    }}
   />
 </div>
         ) : (
