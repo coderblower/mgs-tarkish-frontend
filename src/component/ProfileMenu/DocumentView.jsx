@@ -9,7 +9,7 @@ import reject_img from "../../../public/images/alert_icon.svg";
 import DocumentCard from "../DocumentCard";
 import toast, { Toaster } from "react-hot-toast";
 import TableLoading from "../TableLoading";
-import FullPageDocumentViewer from "./FullPageDocumentViewer.jsx";
+import FullPageDocumentViewer from "./FullPageDocumentViewer";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const DocumentView = ({userId}) => {
