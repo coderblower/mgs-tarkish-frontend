@@ -82,8 +82,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
       },
       enlargedImageContainerDimensions: {
-        width: "150%", // Adjust zoomed width (relative to the small image)
-        height: "150%", // Adjust zoomed height
+        width: "350%", // Adjust zoomed width (relative to the small image)
+        height: "350%", // Adjust zoomed height
       },
       lensStyle: {
         background: "rgba(0,0,0,0.2)", // Optional lens styling
