@@ -94,7 +94,7 @@ console.log(userRole)
 
       {/* Details button div */}
       {url && (
-        <div onClick={openDocument}  className="details_btn absolute -bottom-[400px] h-[330px] bg-[#1e3767] w-full text-white flex justify-center rounded-full cursor-pointer">
+        <div onClick={()=>{openDocument(file)}}  className="details_btn absolute -bottom-[400px] h-[330px] bg-[#1e3767] w-full text-white flex justify-center rounded-full cursor-pointer">
         
             <div className="h-[50px] flex items-center gap-2 mt-[30px] ">
               <h2 className="text-[18px] font-[500]">{title}</h2>
