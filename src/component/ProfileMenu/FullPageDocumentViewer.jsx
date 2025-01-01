@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_BASE_URL;
 
-export default FullPageDocumentViewer = ({ file, onClose }) => {
+const FullPageDocumentViewer = ({ file, onClose }) => {
 
   
     
@@ -39,4 +39,5 @@ export default FullPageDocumentViewer = ({ file, onClose }) => {
       </div>
     );
   };
-  
+
+  export default FullPageDocumentViewer;
