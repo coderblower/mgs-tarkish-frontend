@@ -74,16 +74,24 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
     },
     largeImage: {
       src: fullUrl,
-      width: 8400, // Larger image dimensions for 6x zoom (100px * 6 = 600px, so a larger image)
-      height: 10800, // Larger image dimensions for 6x zoom
+      width: 6000, // Set this large enough to allow proper zoom
+      height: 8000, // Set this large enough to allow proper zoom
     },
     enlargedImageContainerStyle: {
       background: "#fff", // Optional background for zoomed area
       boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
+      position: "absolute", // Position the zoomed image correctly
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     enlargedImageContainerDimensions: {
-      width: "150%", // Adjust zoomed width (relative to the small image, you can tweak this)
-      height: "150%", // Adjust zoomed height (relative to the small image)
+      width: "100%", // Ensure it fills the full container width
+      height: "100%", // Ensure it fills the full container height
     },
     lensStyle: {
       background: "rgba(0,0,0,0.2)", // Optional lens styling
