@@ -1,7 +1,6 @@
 import React from "react";
 import ReactImageMagnify from "react-image-magnify"; // Install with npm install react-image-magnify
-import { Document, Page } from '@react-pdf/renderer';
- // Install with npm install @react-pdf-viewer/core
+import { Document, Page } from '@react-pdf/renderer'; // Install with npm install @react-pdf-viewer/core
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -60,37 +59,43 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-            <div className="w-[400px] h-[400px] flex justify-center items-center">
-  <ReactImageMagnify
-    {...{
-      smallImage: {
-        alt: "Document Viewer",
-        isFluidWidth: true, // Ensures responsiveness
-        src: fullUrl,
-        style: {
-          maxWidth: "100px", // Set the initial small image size
-          maxHeight: "100px", // Optional, maintain aspect ratio
-        },
-      },
-      largeImage: {
-        src: fullUrl,
-        width: 1400, // Larger image dimensions for zoom
-        height: 1800,
-      },
-      enlargedImageContainerStyle: {
-        background: "#fff", // Optional background for zoomed area
-        boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
-      },
-      enlargedImageContainerDimensions: {
-        width: "150%", // Adjust zoomed width (relative to the small image)
-        height: "150%", // Adjust zoomed height
-      },
-      lensStyle: {
-        background: "rgba(0,0,0,0.2)", // Optional lens styling
-      },
-    }}
-  />
-</div>
+          <div className="w-full h-full flex justify-center items-center">
+            <div className="relative group w-[200px] h-[200px]">
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: "Document Viewer",
+                    isFluidWidth: true, // Ensures responsiveness
+                    src: fullUrl,
+                    style: {
+                      width: "100%", // Small size at first
+                      height: "100%",
+                      transition: "transform 0.3s ease-in-out", // Smooth transition for zoom effect
+                    },
+                  },
+                  largeImage: {
+                    src: fullUrl,
+                    width: 1400, // Larger image dimensions for zoom
+                    height: 1800,
+                  },
+                  enlargedImageContainerStyle: {
+                    background: "#fff", // Optional background for zoomed area
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
+                  },
+                  enlargedImageContainerDimensions: {
+                    width: "200%", // Adjust zoomed width (relative to the small image)
+                    height: "200%", // Adjust zoomed height
+                  },
+                  lensStyle: {
+                    background: "rgba(0,0,0,0.2)", // Optional lens styling
+                  },
+                }}
+              />
+              <div className="absolute inset-0 group-hover:scale-125 group-hover:transition-all group-hover:duration-300">
+                {/* Extra hover effect to zoom the image */}
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-700">
             <p>Unsupported file format</p>
