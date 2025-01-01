@@ -6,8 +6,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
     
     const fullUrl = `${API_URL}/${file.url}`; // Prefix the file URL with API_URL
   
-    const isPDF = file.url.toLowerCase().endsWith(".pdf");
-    const isImage = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i.test(file.url);
+    const isPDF = file?.url?.toLowerCase().endsWith(".pdf");
+    const isImage = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i.test(file?.url);
   
     return (
       <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
