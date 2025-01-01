@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf-viewer/core": "^3.12.0",
     "aws-sdk": "^2.1519.0",
     "axios": "^1.6.2",
     "canvg": "^4.0.2",
@@ -24,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
+    "react-image-magnify": "^2.7.4",
     "react-router-dom": "^6.19.0",
     "react-to-pdf": "^1.0.1",
     "react-to-print": "^2.14.15",
