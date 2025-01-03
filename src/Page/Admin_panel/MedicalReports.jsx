@@ -27,12 +27,14 @@ const MedicalReports = () => {
   const [search, setSearch] = useState("");
   const [newSearchValue, setNewSearchValue] = useState("");
 
+  const [countryResult, setCountryResult] = useState("");
+
   // console.log("all 28 =====>", agent_id);
 
   useEffect(() => {
     fetchEnrollList();
     handleCSVData();
-  }, [currentPage, user_id, result, agent_id, search]);
+  }, [currentPage, user_id, result, agent_id, search, countryResult]);
 
   // // search candidate
   // useEffect(() => {
@@ -52,6 +54,7 @@ const MedicalReports = () => {
           agent_id,
           passport: search,
           pg: "a",
+          country: parseInt(countryResult) || "",
         }
       );
       // console.log("=======>39");
@@ -234,6 +237,18 @@ const MedicalReports = () => {
                     {data?.name}
                   </option>
                 ))}
+            </select>
+
+            
+            <select
+              value={countryResult}
+              onChange={(e) => setCountryResult(e.target.value)}
+              className="px-4 py-1 border-2 rounded-md outline-none"
+            >
+              <option value="">--select--</option>
+              <option value="2">Turkey</option>
+              <option value="1">Russia</option>
+              <option value="3">Hungary</option>
             </select>
 
             <Select data={agent_id} setData={setAgent_id} option={agent_list} />
