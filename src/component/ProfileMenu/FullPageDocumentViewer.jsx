@@ -17,6 +17,15 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
       <div className="relative w-full h-full lg:w-[80%] lg:h-[90%] bg-white overflow-auto">
+      <a
+        href={fullUrl}
+        download={file?.url?.split("/").pop()} // Use the file name for download
+        className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Download
+      </a>
+
+      
         <button
           onClick={onClose}
           className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded"
