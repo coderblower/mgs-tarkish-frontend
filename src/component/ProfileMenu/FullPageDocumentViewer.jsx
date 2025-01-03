@@ -20,7 +20,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
       <a
         href={fullUrl}
         download={file?.url?.split("/").pop()} // Use the file name for download
-        className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded"
+        className="absolute top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded z-10"
       >
         Download
       </a>
@@ -69,7 +69,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
             </Document>
           </div>
         ) : isImage ? (
-            <div className="w-[400px] h-[400px] flex justify-center items-center">
+            <div className="w-[400px] h-[400px] flex mt-[100px] ml-[200px] justify-center items-center">
   <ReactImageMagnify
     {...{
       smallImage: {
@@ -83,16 +83,16 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
       },
       largeImage: {
         src: fullUrl,
-        width: 1400, // Larger image dimensions for zoom
-        height: 1800,
+        width: 800, // Larger image dimensions for zoom
+        height: 800,
       },
       enlargedImageContainerStyle: {
         background: "#fff", // Optional background for zoomed area
         boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // Optional shadow effect
       },
       enlargedImageContainerDimensions: {
-        width: "350%", // Adjust zoomed width (relative to the small image)
-        height: "350%", // Adjust zoomed height
+        width: "160%", // Adjust zoomed width (relative to the small image)
+        height: "80%", // Adjust zoomed height
       },
       lensStyle: {
         background: "rgba(0,0,0,0.2)", // Optional lens styling
