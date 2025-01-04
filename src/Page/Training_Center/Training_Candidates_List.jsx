@@ -29,9 +29,6 @@ const Training_Candidates_List = () => {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchCandidate();
-  }, [currentPage, filter]);
 
   // // search candidate
   // useEffect(() => {
@@ -82,39 +79,77 @@ const Training_Candidates_List = () => {
     }
   };
 
-  useEffect(() => {
-    if (search !== "") {
-      const handleSearch = async (data) => {
-        try {
-          const res = await post(`api/user/search_candidate`, {
-            phone: data,
-          });
-          console.log(res);
-          if (res) {
-            setCandate(res?.data);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      handleSearch(search);
+  const handleSearch = async (data) => {
+
+    console.log(data);
+
+    try {
+      const res = await post(`api/user/search_candidate?page=${currentPage}`, {
+        phone: data,
+      });
+      
+      if (res) {
+        setCandate(res?.data?.data);
+        setPaginations({
+          per_page: res.data.per_page,
+          total: res.data.total,
+        });
+        setCurrentPage(1);
+      }
+    } catch (err) {
+      console.log(err);
     }
+  };
+
+
+
+  useEffect(() => {
+
+
+    
+
+
+
   }, [search]);
 
-  const handleCountrySearch = async (data) => {
-    setCountryResult(data);
+  const handleCountrySearchFunc = async (data) => {
     try {
-      const res = await post(`api/user/search_candidate`, {
+      const res = await post(`api/user/search_candidate?page=${currentPage}`, {
         phone: "",
         country: parseInt(data) ? parseInt(data) : "",
       });
       console.log(res);
       if (res) {
-        setCandate(res?.data);
+        setCandate(res?.data?.data);
+        setPaginations({
+          per_page: res.data.per_page,
+          total: res.data.total,
+        });
       }
+      
     } catch (err) {
       console.log(err);
     }
+  }
+
+  useEffect(() => {
+
+
+    if (search){
+      handleSearch(search);      
+    } else if (countryResult) {
+      handleCountrySearchFunc(countryResult);
+    } else {
+      fetchCandidate();
+    }
+
+  }, [countryResult, currentPage, filter, search]);
+
+
+  const handleCountrySearch = async (data) => {
+    setCountryResult(data);
+    setCurrentPage(1);
+
   };
 
   return (
@@ -133,6 +168,7 @@ const Training_Candidates_List = () => {
             <option value="">--select--</option>
             <option value="2">Turkey</option>
             <option value="1">Russia</option>
+            <option value="3">Hungary</option>
           </select>
           <select
             value={filter}

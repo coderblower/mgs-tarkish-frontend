@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../../component/Pagination";
 import Modal from "../../component/Modal";
 import TableLoading from "../../component/TableLoading";
+import { toast } from "react-hot-toast";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Skill_Test = () => {
@@ -55,8 +56,14 @@ const Skill_Test = () => {
     try {
       const res = await post(`api/final_test/create`, payload);
       console.log(res);
+      if(!res.success){
+        
+        toast.error("Already submited this candidate"); 
+      }
+
       if (res.success) {
         setModals(false);
+        toast.success("Successfully Submitted");
       }
     } catch (err) {
       console.log(err);

@@ -3,6 +3,7 @@ import Navber from "../component/Navber";
 import ProfileMenu from "../component/ProfileMenu/ProfileMenu";
 import menu_icon from "../../public/images/menu_1.svg";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 const Training_Center = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -74,6 +75,8 @@ const Training_Center = () => {
         </div>
         <Outlet></Outlet>
       </div>
+
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
