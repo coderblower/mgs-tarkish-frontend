@@ -66,12 +66,15 @@ const DocumentView = ({userId}) => {
     let allFile = [];
     try {
       const response = await post(`api/user/get_user`, { id: id });
-      console.log( userRole, "====>");
+      console.log( userRole, "====>", response?.data);
       // setData(response.data);
       setCandidateID(response?.data?.candidate?.id);
       setApprovelNote(response?.data?.candidate?.note);
       setApprovelStatus(response?.data?.candidate?.approval_status);
       setDeletedData(response?.data?.candidate?.delete_files ?? {});
+
+
+      
       
       const {
         photo,

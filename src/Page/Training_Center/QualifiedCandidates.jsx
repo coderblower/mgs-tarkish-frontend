@@ -53,7 +53,7 @@ const QualifiedCandidates = () => {
     };
     console.log(payload);
     try {
-      const res = await post(`api/final_test/update`, payload);
+      const res = await post(`api/final_test/upload_certificate`, payload);
       console.log(res);
       if (res.success) {
         setModals(false);

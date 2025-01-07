@@ -15,7 +15,11 @@ const DocumentCard = ({ file, userId, userRole,openDocument }) => {
   const { id, title, url, error, toDelete } = file;
   const [loading, setLoading] = useState(false);
   const [deleteError, setDeleteError] = useState("");
-console.log(userRole)
+
+  console.log('=>>>>:', file)
+
+
+
   // Function to handle file deletion
   const handleDelete = async () => {
     setLoading(true);
