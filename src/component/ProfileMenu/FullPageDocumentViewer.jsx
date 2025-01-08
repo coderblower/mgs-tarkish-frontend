@@ -17,6 +17,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
   const isImage = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i.test(file?.url);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0); // Progress state
 
   const [pageNumber, setPageNumber] = React.useState(1);
   const [zoom, setZoom] = React.useState(1.0);
@@ -37,7 +38,13 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         setLoading(true);
         
         const response = await post(`/api/country/get_file`, payload , {
-          responseType: "blob", // Fetch as Blob
+          responseType: "blob",
+          onDownloadProgress: (event) => {
+            if (event.total > 0) {
+              const percentage = Math.round((event.loaded * 100) / event.total);
+              setProgress(percentage); // Update the progress state
+            }
+          }, // Fetch as Blob
         });
         console.log("Response Blob:", response); // Check the Blob object
         setFileData(response);
@@ -71,6 +78,8 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         Download
       </a>
 
+
+
       
         <button
           onClick={onClose}
@@ -78,6 +87,20 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         >
           Close
         </button>
+
+        {progress && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
+            <p>Loading: {progress}%</p>
+            <div className="w-full bg-gray-300 h-2">
+              <div
+                className="bg-blue-500 h-2"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+
         {isPDF ? (
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
             <div className="w-full h-full flex flex-col items-center">
