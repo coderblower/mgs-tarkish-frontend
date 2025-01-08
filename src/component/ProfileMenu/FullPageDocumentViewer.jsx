@@ -87,18 +87,19 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         >
           Close
         </button>
-
-        {progress && (
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
-            <p>Loading: {progress}%</p>
-            <div className="w-full bg-gray-300 h-2">
-              <div
-                className="bg-blue-500 h-2"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+       
+        {progress !== 100 && progress > 0 && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
+          <p style={{ color: '#000' }}>Loading: {progress}%</p>
+          <div className="w-full bg-gray-300 h-2">
+            <div
+              className="bg-blue-500 h-2"
+              style={{ width: `${progress}%` }}
+            />
           </div>
-        )}
+        </div>
+      )}
+
 
         {isPDF ? (
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
