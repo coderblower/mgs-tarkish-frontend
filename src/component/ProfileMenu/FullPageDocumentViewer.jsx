@@ -1,6 +1,8 @@
 import React from "react";
+import {post} from "../../api/axios";
 import ReactImageMagnify from "react-image-magnify"; // Install with npm install react-image-magnify
 import { Viewer, Worker  } from '@react-pdf-viewer/core';
+import { useState, useEffect } from "react";
  // Install with npm install @react-pdf-viewer/core
  import '@react-pdf-viewer/core/lib/styles/index.css';
 
@@ -10,14 +12,52 @@ const API_URL = import.meta.env.VITE_BASE_URL;
 
 const FullPageDocumentViewer = ({ file, onClose }) => {
   const fullUrl = `${API_URL}/${file?.url}`;
+  const [fileData, setFileData] = useState(null);
   const isPDF = file?.url?.toLowerCase().endsWith(".pdf");
   const isImage = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/i.test(file?.url);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [pageNumber, setPageNumber] = React.useState(1);
   const [zoom, setZoom] = React.useState(1.0);
 
 
   console.log('file: url >>>>', fullUrl)
+
+
+
+  useEffect(() => {
+    const fetchFile = async () => {
+      
+      try {
+        let payload = {
+          file: file?.url,
+        }
+        
+        setLoading(true);
+        const response = await post(`/get_file`, payload , {
+          responseType: "blob", // Fetch as Blob
+        });
+        console.log("Response Blob:", response); // Check the Blob object
+        setFileData(response);
+
+
+      } catch (err) {
+        console.error("Error fetching file:", err);
+        setError("Failed to load the PDF file.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+
+    if (file?.url) fetchFile();
+  }, [file?.url]);
+
+
+
+
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
@@ -66,7 +106,9 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
                   Zoom Out
                 </button>
               </div>
-              <Viewer fileUrl={fullUrl} />
+              {/* <Viewer
+                fileUrl={URL.createObjectURL(fileData)} // Create URL from Blob
+              /> */}
             </div>
           </Worker>
         ) : isImage ? (
