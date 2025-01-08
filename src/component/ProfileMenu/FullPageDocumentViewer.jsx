@@ -53,7 +53,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
     
 
     if (file?.url) fetchFile();
-  }, [file?.url]);
+  }, []);
 
 
 
