@@ -27,29 +27,33 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
 
 
   useEffect(() => {
-    console.log('fired >>>>', fullUrl)
-    // Prevent multiple fetches for the same file
-    if (!file?.url || loading) return; // If no URL or still loading, do nothing
-  
     const fetchFile = async () => {
+      
       try {
+        let payload = {
+          file: file?.url,
+        }
+        
         setLoading(true);
-        const response = await post(`/api/country/get_file`, { file: file?.url }, {
+        
+        const response = await post(`/api/country/get_file`, payload , {
           responseType: "blob", // Fetch as Blob
         });
-        console.log("Response Blob:", response);
-        setFileData(response.data); // Assuming the response has the `data` field for Blob
+        console.log("Response Blob:", response); // Check the Blob object
+        setFileData(response);
+
+
       } catch (err) {
         console.error("Error fetching file:", err);
-        setError("Failed to load the file.");
+        setError("Failed to load the PDF file.");
       } finally {
         setLoading(false);
       }
     };
-  
-    fetchFile();
-  }, [file?.url, loading]); // Add loading to prevent multiple fetches while in progress
-  
+    
+
+    if (file?.url) fetchFile();
+  }, [file?.url]);
 
 
 
