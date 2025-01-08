@@ -106,9 +106,12 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
                   Zoom Out
                 </button>
               </div>
-              <Viewer
-                fileUrl={URL.createObjectURL(fileData)} // Create URL from Blob
-              />
+              {/* Conditional rendering of the PDF Viewer */}
+              {fileData && (
+                <Viewer
+                  fileUrl={URL.createObjectURL(fileData)} // Create URL from Blob
+                />
+              )}
             </div>
           </Worker>
         ) : isImage ? (
