@@ -105,30 +105,30 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
             <div className="w-full h-full flex flex-col items-center">
               <div className="flex justify-between w-full px-4 py-2">
-                <button
+                {/* <button
                   onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Prev Page
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   onClick={() => setPageNumber((prev) => prev + 1)}
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   Next Page
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   onClick={() => setZoom((prev) => prev + 0.1)}
                   className="bg-green-500 text-white px-4 py-2 rounded"
                 >
                   Zoom In
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   onClick={() => setZoom((prev) => Math.max(prev - 0.1, 0.5))}
                   className="bg-green-500 text-white px-4 py-2 rounded"
                 >
                   Zoom Out
-                </button>
+                </button> */}
               </div>
               {/* Conditional rendering of the PDF Viewer */}
               {fileData && (
