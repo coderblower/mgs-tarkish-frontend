@@ -27,6 +27,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
 
 
   useEffect(() => {
+    console.log('fired >>>>', fullUrl)
     // Prevent multiple fetches for the same file
     if (!file?.url || loading) return; // If no URL or still loading, do nothing
   
