@@ -35,7 +35,7 @@ const FullPageDocumentViewer = ({ file, onClose }) => {
         }
         
         setLoading(true);
-        const response = await post(`/get_file`, payload , {
+        const response = await post(`/api/country/get_file`, payload , {
           responseType: "blob", // Fetch as Blob
         });
         console.log("Response Blob:", response); // Check the Blob object
