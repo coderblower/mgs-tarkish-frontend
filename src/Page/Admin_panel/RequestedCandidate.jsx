@@ -5,6 +5,8 @@ import TableLoading from "../../component/TableLoading";
 import Pagination from "../../component/Pagination";
 import exportImg from "../../../public/images/export.svg";
 
+import removeUser from "../../../public/images/user_cancel.svg";
+
 
 
 
@@ -56,6 +58,23 @@ const RequestedCandidate = () => {
     handleGetAllCandidate();
     
   }, [currentPage,country, agent]);
+
+
+  const handleDelete = async (id) => {
+    setLoading(true);
+    try {
+      const res = await post(`/api/candidate/delete_user/${id}`);
+      console.log(res);
+      if (res) {
+        handleGetAllCandidate();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log("Error creating app:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handleGetAllCandidate = async () => {
     setLoading(true);
@@ -217,16 +236,23 @@ const RequestedCandidate = () => {
                   <th>{item?.created_at.slice(0, 10)}</th>
 
                   <td>{item?.candidate?.approval_status}</td>
-                  <td className="text-center">
+                  <td className="text-center flex justify-center gap-2">
                     <Link to={`/admin/document_view/${item?.id}`}>
                       <button
-                        // onClick={handlePrint}
-                        className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                        className="py-2 px-1  text-white font-bold rounded-md transition-transform active:scale-95"
                       >
-                        <h2 className="whitespace-nowrap">Document View </h2>
+                        <img src={exportImg} alt="" className="w-[20px]" />
                       </button>
                     </Link>
+                    <button
+                        onClick={()=>handleDelete(item?.id)}
+                        className="py-2 px-1  text-white font-bold rounded-md transition-transform active:scale-95">
+                      
+                        <img src={removeUser} alt="" className="w-[20px]" />
+                      </button>
+                   
                   </td>
+
                 </tr>
               )})}
           </tbody>
