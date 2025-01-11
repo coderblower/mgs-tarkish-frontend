@@ -77,6 +77,7 @@ import Medical_list from "../Page/Admin_panel/Medical_List";
 import Agent_list from "../Page/Admin_panel/Agent_List";
 import Partner_Profile from "../component/ProfileMenu/Partner_Profile";
 import DocumentSummary from "../component/DocumentSummary";
+import RejectedCandidate from '../component/RejectedCandidate';
 import QuotaSet from "../Page/Admin_panel/QuotaSet";
 import RequestedCandidate from "../Page/Admin_panel/RequestedCandidate";
 import DocumentView from "../component/ProfileMenu/DocumentView";
@@ -489,6 +490,10 @@ const router = createBrowserRouter([
       {
         path: "document_Summary",
         element: <DocumentSummary />,
+      },
+      {
+        path: "rejected",
+        element: <RejectedCandidate />,
       },
     ],
   },

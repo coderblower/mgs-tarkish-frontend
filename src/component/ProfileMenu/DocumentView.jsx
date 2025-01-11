@@ -10,9 +10,12 @@ import DocumentCard from "../DocumentCard";
 import toast, { Toaster } from "react-hot-toast";
 import TableLoading from "../TableLoading";
 import FullPageDocumentViewer from "./FullPageDocumentViewer";
+import { Link, useNavigate } from "react-router-dom";
+
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const DocumentView = ({userId}) => {
+  const navigate = useNavigate();
   const { id = userId } = useParams();
   const [candidateID, setCandidateID] = useState();
   const [approvelStatus, setApprovelStatus] = useState("");
@@ -197,20 +200,40 @@ const DocumentView = ({userId}) => {
       note: statusMessage,
     };
 
-    console.log(payload);
+    
 
-    try {
-      const res = await post("api/candidate/update_approval_status", payload);
-      if (res?.success) {
-        console.log(res);
-        setStatusValuet("");
-        setStatusMessage("");
-        toast.success(res.message);
+
+      if(statusValue === "reject" ){
+        const res = await post(`/api/candidate/delete_user/${id}`, payload);
+        console.log( id, res );
+        if(res.success) {
+         
+          navigate("/admin/requested_candidate");
+        }
       }
-    } catch (error) {
-      console.log("Failed to post/======>182", error);
-    }
+
+      if(statusValue === "approved" ){
+        
+        const res = await post("api/candidate/update_approval_status", payload);
+          if (res?.success) {
+            console.log(res);
+            setStatusValuet("");
+            setStatusMessage("");
+            toast.success(res.message);
+          }
+     
+      }
+              
+      
+
   };
+
+
+
+
+
+
+
 
   return (
     <div>

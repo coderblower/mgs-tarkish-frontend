@@ -16,6 +16,11 @@ const Agent_panel = () => {
       name: "Candidate Registration",
     },
     {
+      path: "/agent_panel/rejected",
+      name: "Rejected Candidate",
+    },
+
+    {
       path: "/agent_panel/list",
       name: "Candidate List",
     },
