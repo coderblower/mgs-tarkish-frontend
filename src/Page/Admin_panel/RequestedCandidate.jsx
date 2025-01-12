@@ -244,12 +244,12 @@ const RequestedCandidate = () => {
                         <img src={exportImg} alt="" className="w-[20px]" />
                       </button>
                     </Link>
-                    <button
+                    {/* <button
                         onClick={()=>handleDelete(item?.id)}
                         className="py-2 px-1  text-white font-bold rounded-md transition-transform active:scale-95">
                       
                         <img src={removeUser} alt="" className="w-[20px]" />
-                      </button>
+                      </button> */}
                    
                   </td>
 
