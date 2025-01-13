@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from "react";
 
-const Modal = ({ modals, setModals, children }) => {
+const Modal = ({ modals, setModals, setCandidateId, setCertificateUrl, children }) => {
   let modalRef = useRef();
 
   useEffect(() => {
     let handlerClose = (e) => {
       if (!modalRef?.current?.contains(e.target)) {
+        setCertificateUrl(null);
         setModals(false);
       }
+     
     };
     document.addEventListener("mousedown", handlerClose);
     return () => {

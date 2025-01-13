@@ -6,6 +6,10 @@ import Pagination from "../../component/Pagination";
 import Select from "../../component/Select";
 import TableLoading from "../../component/TableLoading";
 import veiw_icon from "../../../public/images/veiw_ison.svg";
+import Modal from "../../component/Modal";
+import document_view from "../../../public/images/document.svg";
+
+
 import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
@@ -15,8 +19,13 @@ const TrainingReports = () => {
     per_page: "",
     total: "",
   });
-  const [currentPage, setCurrentPage] = useState(1);
 
+
+  const [uploadModal, setUploadModal] = useState(false);
+
+  const [modals, setModals] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [certificateUrl, setCertificateUrl] = useState(null);
   const [medicalList, setMedicalList] = useState([]);
   const [agent_list, setAgent_list] = useState([]);
   const [result, setResult] = useState("");
@@ -171,9 +180,24 @@ const TrainingReports = () => {
                     />
                   </th>
                   <th>
-                    <Link to={`/admin/user_profile/${item.user_id}`}>
-                      <img src={veiw_icon} alt="" className="w-5" />
-                    </Link>
+                   <div className=" flex gap-1 ">
+                      <Link to={`/admin/user_profile/${item.user_id}`}>
+                          <img src={veiw_icon} alt="" className="w-5" />
+                        </Link>
+
+
+                        {
+                          item?.certificate_upload ? (
+                            <img className=" cursor-pointer" src={document_view} 
+                                onClick={() => {
+                                setCertificateUrl(`http://localhost:8000/${item?.certificate_upload}` );
+                                setUploadModal(true);
+                              }}
+                              
+                              alt="certificate" /> 
+                          ): ''
+                        }
+                   </div>
                   </th>
                 </tr>
               ))}
@@ -201,6 +225,20 @@ const TrainingReports = () => {
           setCurrentPage={setCurrentPage}
         />
       )}
+
+
+      <Modal modals={uploadModal}  setCertificateUrl={setCertificateUrl} setModals={setUploadModal}>
+        {certificateUrl ? (
+          <div>
+            <h1 className="text-center text-xl font-bold pb-2">Uploaded Certificate</h1>
+            <img
+              src={certificateUrl}
+              alt="Uploaded Certificate"
+              className="max-w-full max-h-[400px] mx-auto border rounded shadow"
+            />
+          </div>
+        ) : ''}
+      </Modal>
 
       <Toaster position="top-right" reverseOrder={false} />
     </div>

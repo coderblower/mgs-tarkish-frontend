@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Pagination from "../../component/Pagination";
 import Modal from "../../component/Modal";
 import TableLoading from "../../component/TableLoading";
+import document_view from "../../../public/images/document.svg";
+
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const QualifiedCandidates = () => {
@@ -15,6 +17,17 @@ const QualifiedCandidates = () => {
   const [candidate, setCandate] = useState(null);
   const [qualified, setQualified] = useState("");
   const [user_id, setUser_id] = useState("");
+
+  const [uploadModal, setUploadModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [candidateId, setCandidateId] = useState(null);
+  
+  
+  
+  const [certificateUrl, setCertificateUrl] = useState(null);
+
+
+
   const [paginations, setPaginations] = useState({
     per_page: "",
     total: "",
@@ -45,6 +58,38 @@ const QualifiedCandidates = () => {
       setLoading(false);
     }
   };
+
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleFileUpload = async (id) => {
+    if (!selectedFile) {
+      toast.error("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("certificate_upload", selectedFile);
+
+    try {
+      const res = await post(`api/final_test/upload_certificate/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("res", res);
+      if (res.success) {
+        toast.success("Certificate uploaded successfully!");
+        setUploadModal(false);
+        setSelectedFile(null);
+        fetchQualifiedCandidates(); // Refresh data after upload
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload certificate.");
+    }
+  };
+
 
   const handleSubmit = async () => {
     const payload = {
@@ -131,7 +176,40 @@ const QualifiedCandidates = () => {
                     />
                   </th>
                   <th>
-                    <div className="flex items-center gap-3"></div>
+                  <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => {
+                          setModals(true);
+                          setUser_id(item.id);
+                        }}
+                        className="bg-[#1E3767] px-[20px] py-[6px] rounded-[4px] text-white"
+                      >
+                        Details
+                      </button>
+                     {
+                        !item?.certificate_upload ? (
+                          <button
+                              onClick={() => {
+                                console.log(item?.certificate_upload)
+                                setCandidateId(item.id);
+                                setUploadModal(true);
+                              }}
+                              className="bg-[#1E3767] px-[20px] py-[6px] rounded-[4px] text-white"
+                            >
+                              Upload Certificate
+                            </button>
+                        ) : (
+                          <img src={document_view} 
+                             onClick={() => {
+                            setCertificateUrl(`http://localhost:8000/${item?.certificate_upload}` );
+                            setUploadModal(true);
+                          }}
+                          
+                           alt="certificate" /> 
+                        )
+
+                     }
+                    </div>
                   </th>
                 </tr>
               ))}
@@ -159,46 +237,36 @@ const QualifiedCandidates = () => {
           />
         )}
 
-      <Modal modals={modals} setModals={setModals}>
-        <h1 className="text-center text-xl font-bold pb-2">Final Test</h1>
-        <div className="relative my-3">
-          <select
-            className="appearance-none bg-transparent border border-black  sm:text-sm rounded-lg outline-none w-full px-4 py-3 mb-3 inner_shadow placeholder:text-white/30"
-            id="influencer_country"
-            value={qualified}
-            onChange={(e) => setQualified(e.target.value)}
-          >
-            <option value="" className="text-black">
-              Select a Option
-            </option>
-            <option value="1" className="text-black">
-              Qualified
-            </option>
-            <option value="0" className="text-black">
-              Unqualified
-            </option>
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 mb-2">
-            <svg
-              fill="#000"
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
-              viewBox="0 0 52 52"
-              xmlSpace="preserve"
-            >
-              <path d="M8.3 14h35.4c1 0 1.7 1.3.9 2.2L27.3 37.4c-.6.8-1.9.8-2.5 0L7.3 16.2c-.7-.9-.1-2.2 1-2.2z" />
-            </svg>
+        <Modal modals={uploadModal}  setCertificateUrl={setCertificateUrl} setModals={setUploadModal}>
+        {certificateUrl ? (
+          <div>
+            <h1 className="text-center text-xl font-bold pb-2">Uploaded Certificate</h1>
+            <img
+              src={certificateUrl}
+              alt="Uploaded Certificate"
+              className="max-w-full max-h-[400px] mx-auto border rounded shadow"
+            />
           </div>
-        </div>
-        <div className="flex justify-center">
-          <button
-            onClick={handleSubmit}
-            className="bg-[#1E3767] px-[40px] py-[12px] rounded-lg text-white transition-transform active:scale-95"
-          >
-            Submit
-          </button>
-        </div>
+        ) : (
+          <div>
+            <h1 className="text-center text-xl font-bold pb-2">Upload Certificate</h1>
+          <input
+              type="file"
+              onChange={handleFileChange}
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            />
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={ ()=>{
+                    console.log(candidateId)
+                    handleFileUpload(candidateId)}}
+                className="bg-[#1E3767] px-[40px] py-[12px] rounded-lg text-white transition-transform active:scale-95"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
       </Modal>
       <Toaster position="top-right" reverseOrder={false} />
     </div>
