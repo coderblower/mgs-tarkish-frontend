@@ -12,6 +12,8 @@ import document_view from "../../../public/images/document.svg";
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 
+
+
 const QualifiedCandidates = () => {
   const [modals, setModals] = useState();
   const [candidate, setCandate] = useState(null);
@@ -201,7 +203,7 @@ const QualifiedCandidates = () => {
                         ) : (
                           <img src={document_view} 
                              onClick={() => {
-                            setCertificateUrl(`http://localhost:8000/${item?.certificate_upload}` );
+                            setCertificateUrl(`${API_URL}${item?.certificate_upload}`  );
                             setUploadModal(true);
                           }}
                           

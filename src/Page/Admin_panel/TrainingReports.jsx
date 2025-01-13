@@ -190,7 +190,7 @@ const TrainingReports = () => {
                           item?.certificate_upload ? (
                             <img className=" cursor-pointer" src={document_view} 
                                 onClick={() => {
-                                setCertificateUrl(`http://localhost:8000/${item?.certificate_upload}` );
+                                setCertificateUrl(`${API_URL}${item?.certificate_upload}` );
                                 setUploadModal(true);
                               }}
                               
