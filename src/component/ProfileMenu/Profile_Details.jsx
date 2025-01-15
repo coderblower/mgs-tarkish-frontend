@@ -339,7 +339,7 @@ const Profile_Details = ({userId}) => {
                         <TextTitle
                           title="Country:"
                           data={
-                            data?.candidate?.country?.name
+                            "As Per Employer" ||  data?.candidate?.country?.name
                           }
                         />
 

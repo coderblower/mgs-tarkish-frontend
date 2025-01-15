@@ -61,7 +61,7 @@ const Cyprus_Dashboard = () => {
           </div>
         </div>
 
-        <div className=" py-[34px] px-[34px] lg:mt-0 mt-[28px] rounded-[12px] bg-[#EEE]">
+        {/* <div className=" py-[34px] px-[34px] lg:mt-0 mt-[28px] rounded-[12px] bg-[#EEE]">
           <p className="font-[500]">Agent</p>
           <div className="flex items-center justify-between mt-[22px]">
             <h2 className="text-[48px] text-[#1E3767] font-[600] ">
@@ -69,9 +69,9 @@ const Cyprus_Dashboard = () => {
             </h2>
             <img src={pan_img} alt="" />
           </div>
-        </div>
+        </div> */}
 
-        <div className=" py-[34px] px-[34px] rounded-[12px] bg-[#EEE]">
+        {/* <div className=" py-[34px] px-[34px] rounded-[12px] bg-[#EEE]">
           <p className="font-[500]">Medical Center</p>
           <div className="flex items-center justify-between mt-[22px]">
             <h2 className="text-[48px] text-[#1E3767] font-[600] ">
@@ -97,7 +97,7 @@ const Cyprus_Dashboard = () => {
             </h2>
             <img src={success3_img} alt="" />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* <div className="lg:flex gap-[28px] ">
@@ -157,154 +157,7 @@ const Cyprus_Dashboard = () => {
       </div> */}
 
       {/* All Candidates  */}
-      <div className="mt-[26px]">
-        {/*  Medical Center */}
-        <div className="py-[12px] px-[29px] font-[600]  bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Registered Agent
-        </div>
-        {/* Table */}
-        <div className="overflow-x-auto mt-[16px] mb-[16px]">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-[#D9D9D9]">
-              <tr className="uppercase text-center border-b-2 border-black">
-                <th>id</th>
-                <th>name</th>
-                <th>email</th>
-                <th>phone</th>
-                {/* <th>photo</th> */}
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              <tr></tr>
-              {agent?.data?.length > 0 &&
-                agent?.data.map((item, i) => (
-                  <tr>
-                    <th>{i + 1}</th>
-                    <th>{item?.name}</th>
-                    <th>{item?.email}</th>
-                    <th>{item?.phone}</th>
-                    {/* <th>
-                      <img
-                        className="h-[48px] w-[48px] rounded-full"
-                        src={
-                          item?.candidate?.photo
-                            ? `${API_URL}/${item?.candidate?.photo}`
-                            : user_img
-                        }
-                        alt=""
-                      />
-                    </th>
-                    <th className="flex justify-center">
-                      {item?.candidate?.qr_code ? (
-                        <>
-                          <img
-                            src={`${API_URL}/${item?.candidate?.qr_code}`}
-                            alt=""
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <h2>None</h2>
-                        </>
-                      )}
-                    </th> */}
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        {/* Training Center */}
-        <div className="py-[12px] px-[29px] font-[600] bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Recruiting Candidates
-        </div>
-        {/* Table */}
-        <div className="overflow-x-auto mt-[16px] mb-[16px]">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-[#D9D9D9]">
-              <tr className="uppercase  py-[17px] border-b-2 border-black">
-                <th>id</th>
-                <th className="text-center">name</th>
-                <th className="text-center">email</th>
-                <th className="text-center">phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr></tr>
-              {candidate?.data?.length > 0 &&
-                candidate?.data.map((item, i) => (
-                  <tr>
-                    <th>{i + 1}</th>
-                    <th className="text-center">{item?.name}</th>
-                    <th className="text-center">{item?.email}</th>
-                    <th className="text-center">{item?.phone}</th>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        {/* Recruiting Agent */}
-        <div className="py-[12px] px-[29px] font-[600] bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Medical Center
-        </div>
-        {/* Table */}
-        <div className="overflow-x-auto mt-[16px] mb-[16px]">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-[#D9D9D9]">
-              <tr className="uppercase  py-[17px] border-b-2 border-black">
-                <th>id</th>
-                <th className="text-center">name</th>
-                <th className="text-center">email</th>
-                <th className="text-center">phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr></tr>
-              {medical?.data?.length > 0 &&
-                medical?.data.map((item, i) => (
-                  <tr>
-                    <th>{i + 1}</th>
-                    <th className="text-center">{item?.name}</th>
-                    <th className="text-center">{item?.email}</th>
-                    <th className="text-center">{item?.phone}</th>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-        {/* Recruiting Training Center */}
-        <div className="py-[12px] px-[29px] font-[600] bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Training Center
-        </div>
-        {/* Table */}
-        <div className="overflow-x-auto mt-[16px] mb-[16px]">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-[#D9D9D9]">
-              <tr className="uppercase  py-[17px] border-b-2 border-black">
-                <th>id</th>
-                <th className="text-center">name</th>
-                <th className="text-center">email</th>
-                <th className="text-center">phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr></tr>
-              {training?.data?.length > 0 &&
-                training?.data.map((item, i) => (
-                  <tr>
-                    <th>{i + 1}</th>
-                    <th className="text-center">{item?.name}</th>
-                    <th className="text-center">{item?.email}</th>
-                    <th className="text-center">{item?.phone}</th>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+     
     </div>
   );
 };

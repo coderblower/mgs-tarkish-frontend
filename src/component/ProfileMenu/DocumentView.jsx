@@ -80,6 +80,7 @@ const DocumentView = ({userId}) => {
       
       
       const {
+        
         photo,
         nid_file,
         passport_file,
@@ -94,7 +95,6 @@ const DocumentView = ({userId}) => {
 
 
 
-        
 
       } = response?.data?.candidate;
 

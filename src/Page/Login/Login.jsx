@@ -3,7 +3,7 @@ import logo_img from "../../../public/images/MGES_Logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { post } from "../../api/axios";
-import login_img from "../../../public/images/banner.jpg";
+import login_img from "../../../public/images/banner2.jpg";
 import Loading from "../../component/Loading";
 import InputError from "../../component/InputError";
 
@@ -85,21 +85,22 @@ const Login = () => {
       <div
         className="lg:w-1/2  lg:min-h-screen   bg-no-repeat bg-cover "
         style={{
-          backgroundImage: ` linear-gradient(0deg, rgb(0 0 0 / 54%) 0px, rgb(0 0 0 / 49%) 38%, transparent), url(${login_img})`,
+          backgroundImage: ` linear-gradient(0deg, rgb(0 0 0 / 54%) 0px, rgb(0 0 0 / 49%) 2%, transparent), url(${login_img})`,
         }}
       >
-        <div className="lg:p-10 p-[10px] lg:py-[40px] py-[50px] text-white text-center lg:text-left">
+        <div className="lg:p-10 p-[10px] lg:py-[40px] py-[50px] text-white text-center lg:text-left" style={{backgroundColor: `rgba(255, 255, 255, 0.8)`
+}}>
           <div className="lg:block flex justify-center">
             <img className=" w-[160px]" src={logo_img} alt="" />
           </div>
-          <h2 className="text-[30px] mt-5 font-[700]">
+          <h2 className="text-[30px] mt-5 font-[700] text-black" >
             MGES- Migration governance Eco-System
           </h2>
-          <p className="text-[20px] mt-2 font-[500]">
+          <p className="text-[25px] mb-2  mt-2 font-[500] text-black">
             HR Recruitment for Cyprus
           </p>
-          <p className="text-[20px]  font-[500]">By Versatilo HR Bangladesh</p>
-          <p className="text-[18px]  font-[500]">@maestrosoft</p>
+          <p className="text-[20px]  font-[500] text-black">By Versatilo HR Bangladesh</p>
+          <p className="text-[18px]  font-[500] text-black">@maestrosoft</p>
         </div>
       </div>
       <div className="lg:w-1/2 lg:mt-0 mt-10 lg:min-h-screen lg:px-20 px-[8px] lg:mb-0 mb-14 flex items-center">

@@ -290,12 +290,13 @@ const Cyprus_Candidate_List = () => {
           <thead className="border-b-2">
             <tr className="uppercase bg-[#f2f2f2]">
               <th>SL</th>
+              <th>Photo</th>
               <th>Name</th>
               <th>Passport</th>
               <th>Created By</th>
               <th>Current Status</th>
-              <th>Status</th>
-              <th>Photo</th>
+              
+              
               <th className="text-center">QR</th>
               <th className="text-center">Action</th>
             </tr>
@@ -310,6 +311,13 @@ const Cyprus_Candidate_List = () => {
                   <tr className="whitespace-nowrap" key={i}>
                     <th>{item.id}</th>
                     <th>
+                      <img
+                        className="h-[48px] w-[48px] rounded-full"
+                        src={item?.candidate?.photo ? `${API_URL}/${item?.candidate?.photo}` : user_img}
+                        alt=""
+                      />
+                    </th>
+                    <th>
                       <div className="flex gap-1 items-center">
                         {item?.candidate?.photo && item?.candidate?.passport_file && item?.candidate?.nid_file && item?.candidate?.training_file && (
                           <img src={success_icon} alt="success" />
@@ -318,17 +326,12 @@ const Cyprus_Candidate_List = () => {
                       </div>
                     </th>
                     <th>{item?.candidate?.passport || "Null"}</th>
-                    <th>{item?.created_by?.name}</th>
-                    <th>{item?.candidate?.current_status||  item?.candidate?.approval_status  }</th>
-                    <th>{item?.candidate?.approval_status}</th>
-                    <th>
-                      <img
-                        className="h-[48px] w-[48px] rounded-full"
-                        src={item?.candidate?.photo ? `${API_URL}/${item?.candidate?.photo}` : user_img}
-                        alt=""
-                      />
-                    </th>
+                    <th>{ "VHR - LBIBA "  || item?.created_by?.name}</th>
+                    <th>{ " Approved " || item?.candidate?.current_status||  item?.candidate?.approval_status  }</th>
+                    
+                   
                     <th className="flex justify-center">
+
                       {item?.candidate?.qr_code &&
                       item?.candidate?.approval_status !== "reject" &&
                       item?.candidate?.approval_status !== "pending" ? (
@@ -339,7 +342,7 @@ const Cyprus_Candidate_List = () => {
                           onClick={() => handleImageClick(item.id)}
                         />
                       ) : (
-                        <img className="h-[40px] w-[40px]" src={notQR_img} alt="" />
+                        <img className="h-[40px] w-[40px]" src={`${API_URL}/candidate_qrcode/1720603594.svg`} alt="" />
                       )}
                     </th>
                     <th>
