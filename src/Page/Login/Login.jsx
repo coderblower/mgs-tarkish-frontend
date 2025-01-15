@@ -48,6 +48,8 @@ const Login = () => {
           navigate("/training");
         } else if (res?.user.role?.roleName === "Medical Center") {
           navigate("/medical");
+        }  else if (res?.user.role?.roleName === "Cyprus") {
+          navigate("/cyprus_admin");
         } else if (res?.user.role?.roleName === "Agent") {
           navigate("/agent_panel");
         } else if (res?.user.role?.roleName === "User") {
@@ -94,7 +96,7 @@ const Login = () => {
             MGES- Migration governance Eco-System
           </h2>
           <p className="text-[20px] mt-2 font-[500]">
-            HR Recruitment for TSM Energy
+            HR Recruitment for Cyprus
           </p>
           <p className="text-[20px]  font-[500]">By Versatilo HR Bangladesh</p>
           <p className="text-[18px]  font-[500]">@maestrosoft</p>

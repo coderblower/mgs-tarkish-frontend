@@ -5,6 +5,10 @@ import Login from "../Page/Login/Login";
 import Account_Details from "../Page/Account_Details/Account_Details";
 import Admin_Dashboard from "../Layout/Admin_Dashboard";
 import AdminDashboard from "../Page/Admin_panel/Dashboard";
+
+
+import Cyprus_Dashboard from "../Page/Cyprus_Admin/Cyprus_Dashboard";
+
 import Partner from "../Page/Admin_panel/Partner";
 import Medical from "../Page/Admin_panel/Medical";
 import Training from "../Page/Admin_panel/Training";
@@ -27,11 +31,13 @@ import Training_Candidates_1 from "../Page/Training_Center/Training_Center_1";
 import Training_Candidates_2 from "../Page/Training_Center/Training_Center_2";
 import Training_Report from "../Page/Training_Center/Training_Report";
 import Training_Reports from "../Page/Training_Center/Training_Reports";
+import Cyprus_Panel from "../Layout/Cypras_Panel";
 import Agent_panel from "../Layout/Agent_panel";
 import Overview from "../Page/Recruiting_Agent_panel/Overview";
 import Users_List from "../Page/Recruiting_Agent_panel/Users_List";
 import Agent_panel_Users_List from "../Page/Recruiting_Agent_panel/User_Details";
 import AgentRoute from "../ProtecteRoute/AgentRoute";
+import CyprusAdmin from "../ProtecteRoute/CyprusAdmin";
 import AdminRoute from "../ProtecteRoute/AdminRoute";
 import UserRoute from "../ProtecteRoute/UserRoute";
 import MedicalRoute from "../ProtecteRoute/MedicalRoute";
@@ -48,6 +54,7 @@ import Agent_Dashboard from "../Page/Recruiting_Agent_panel/Agent_Dashboard";
 import Agent_Candidate_Registration from "../Page/Recruiting_Agent_panel/Agent_Candidate_Registration";
 import Agent_Candidate_List from "../Page/Recruiting_Agent_panel/Agent_Candidate_List";
 import UserDetails from "../Page/User_Panel/UserDetails";
+import Cyprus_Candidate_List from "../Page/Cyprus_Admin/Cyprus_Candidate_List";
 
 import Profile_Details from "../component/ProfileMenu/Profile_Details";
 import Training_List from "../Page/Admin_panel/Training_List";
@@ -497,6 +504,37 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
+  {
+    path: "cyprus_admin",
+    element: (
+      <CyprusAdmin>
+        <Cyprus_Panel />
+      </CyprusAdmin>
+    ),
+
+    children: [
+      {
+        path: "",
+        element: <Cyprus_Dashboard />,
+      },
+
+      {
+        path: "candidate_list",
+        element: <Cyprus_Candidate_List />,
+      },
+
+
+
+
+      
+
+
+    ]
+
+  }
+
 ]);
 
 export default router;
