@@ -160,68 +160,9 @@ const Cyprus_Dashboard = () => {
 
       <div className="mt-[26px]">
         {/*  Medical Center */}
-        <div className="py-[12px] px-[29px] font-[600]  bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Registered Agent
-        </div>
+  
         {/* Table */}
-        <div className="overflow-x-auto mt-[16px] mb-[16px]">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-[#D9D9D9]">
-              <tr className="uppercase text-center border-b-2 border-black">
-                <th>id</th>
-                <th>name</th>
-                <th>email</th>
-                <th>phone</th>
-                {/* <th>photo</th> */}
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              <tr></tr>
-
-
-
-              {agent?.data?.length > 0 &&
-                agent?.data.filter(x=> x.id==8).map((item, i) =>  {
-                  
-                  if(item.id == 8) return  (
-                  <tr>
-                    <th>{i+1}</th>
-                    <th>{item?.name}</th>
-                    <th>{item?.email}</th>
-                    <th>{item?.phone}</th>
-                    {/* <th>
-                      <img
-                        className="h-[48px] w-[48px] rounded-full"
-                        src={
-                          item?.candidate?.photo
-                            ? `${API_URL}/${item?.candidate?.photo}`
-                            : user_img
-                        }
-                        alt=""
-                      />
-                    </th>
-                    <th className="flex justify-center">
-                      {item?.candidate?.qr_code ? (
-                        <>
-                          <img
-                            src={`${API_URL}/${item?.candidate?.qr_code}`}
-                            alt=""
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <h2>None</h2>
-                        </>
-                      )}
-                    </th> */}
-                  </tr>
-                )}
-                
-                )}
-            </tbody>
-          </table>
-        </div>
+ 
         {/* Training Center */}
       
         {/* Table */}
