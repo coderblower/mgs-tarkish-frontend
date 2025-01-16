@@ -322,7 +322,7 @@ const Cyprus_Candidate_List = () => {
                         {item?.candidate?.photo && item?.candidate?.passport_file && item?.candidate?.nid_file && item?.candidate?.training_file && (
                           <img src={success_icon} alt="success" />
                         )}
-                        {(item?.candidate?.firstName || ' ') + ' '+ (item?.candidate?.lastName || ' ') }
+                        {( item?.name  ||  item?.candidate?.firstName || ' ') + ' '+ (item?.candidate?.lastName || ' ') }
                       </div>
                     </th>
                     <th>{item?.candidate?.passport || "Null"}</th>
