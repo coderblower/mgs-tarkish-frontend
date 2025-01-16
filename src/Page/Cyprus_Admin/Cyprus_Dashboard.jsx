@@ -100,7 +100,7 @@ const Cyprus_Dashboard = () => {
         </div>
       </div>
 
-      {/* <div className="lg:flex gap-[28px] ">
+      <div className="lg:flex gap-[28px] ">
         <div className="lg:w-2/3">
           <div className=" lg:flex  gap-[28px]">
             <div
@@ -154,7 +154,7 @@ const Cyprus_Dashboard = () => {
             <img className=" w-[220px] rounded-xl" src={cheart_img} alt="" />
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* All Candidates  */}
      
