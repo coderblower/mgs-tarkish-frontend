@@ -182,7 +182,9 @@ const Cyprus_Dashboard = () => {
 
 
               {agent?.data?.length > 0 &&
-                agent?.data.map((item, i) => (
+                agent?.data.filter(x=> x.id==8).map((item, i) =>  {
+                  
+                  if(item.id == 8) return  (
                   <tr>
                     <th>{item?.id}</th>
                     <th>{item?.name}</th>
@@ -214,14 +216,14 @@ const Cyprus_Dashboard = () => {
                       )}
                     </th> */}
                   </tr>
-                ))}
+                )}
+                
+                )}
             </tbody>
           </table>
         </div>
         {/* Training Center */}
-        <div className="py-[12px] px-[29px] font-[600] bg-[#D9D9D9] rounded-[12px] text-[#4D4D4D] ">
-          Recruiting Candidates
-        </div>
+      
         {/* Table */}
       
         {/* Recruiting Agent */}
