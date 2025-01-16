@@ -309,7 +309,7 @@ const Cyprus_Candidate_List = () => {
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
                 return (
                   <tr className="whitespace-nowrap" key={i}>
-                    <th>{item.id}</th>
+                    <th>{index}</th>
                     <th>
                       <img
                         className="h-[48px] w-[48px] rounded-full"
