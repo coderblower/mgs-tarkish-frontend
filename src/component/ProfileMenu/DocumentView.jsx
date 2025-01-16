@@ -87,7 +87,7 @@ const DocumentView = ({userId}) => {
         academic_file,
         experience_file,
         training_file,
-        pif_file,
+        // pif_file,
         passport_all_page,
         cv,
         resume,
