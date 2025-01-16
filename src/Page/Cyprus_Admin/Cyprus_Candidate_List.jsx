@@ -320,7 +320,7 @@ const Cyprus_Candidate_List = () => {
                     <th>
                       <div className="flex gap-1 items-center">
                         <img src={success_icon} alt="success" />
-                        {( item?.name  ||  item?.candidate?.firstName || ' ') + ' '+ (item?.candidate?.lastName || ' ') }
+                        {`${item?.name || item?.candidate?.firstName || ''} ${item?.candidate?.lastName || ''}`}
                       </div>
                     </th>
                     <th>{item?.candidate?.passport || " - "}</th>
