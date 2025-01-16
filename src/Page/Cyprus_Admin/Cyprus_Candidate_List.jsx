@@ -380,7 +380,7 @@ const Cyprus_Candidate_List = () => {
                           }}
                           >
                             <img
-                            src={item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending" ? documentNotUploadet : documentUploadet}
+                            src={item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending" ? documentUploadet : documentUploadet}
                             alt="file"
                             className="max-w-[20px] max-h-[20px]"
                           />
