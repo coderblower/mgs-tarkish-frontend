@@ -59,8 +59,8 @@ const ProfileMenu = () => {
           <img src={bottom_arow} alt="" />
         </div>
         <ul className="dropdown-content z-[1] menu shadow bg-white rounded-md  w-52">
-          <li className="hover:bg-[#1E3767] hover:text-[#fff] font-[600]">
-            <Link to="update_porfile">Update Profile</Link>
+          <li className="hover:bg-[#1E3767] hover:text-[#fff] font-[600]" onClick={(e)=> e.preventDefault()}>
+            <Link to="#">Update Profile</Link>
           </li>
           <li className="hover:bg-[#1E3767] hover:text-[#fff] font-[600]">
             <button onClick={logout} type="button">
