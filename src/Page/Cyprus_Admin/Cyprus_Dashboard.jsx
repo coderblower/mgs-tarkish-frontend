@@ -28,7 +28,7 @@ const Cyprus_Dashboard = () => {
   const id = "four";
   useEffect(() => {
     post(`/api/user/group_by`, { role_id: id })
-      .then((res) => setData(res.data))
+      .then((res) => { console.log(res); return setData(res.data)})
       .catch((err) => console.log(err));
   }, [id]);
 
