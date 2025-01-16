@@ -186,7 +186,7 @@ const Cyprus_Dashboard = () => {
                   
                   if(item.id == 8) return  (
                   <tr>
-                    <th>{item?.id}</th>
+                    <th>{i+1}</th>
                     <th>{item?.name}</th>
                     <th>{item?.email}</th>
                     <th>{item?.phone}</th>
