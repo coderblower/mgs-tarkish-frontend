@@ -319,13 +319,11 @@ const Cyprus_Candidate_List = () => {
                     </th>
                     <th>
                       <div className="flex gap-1 items-center">
-                        {item?.candidate?.photo && item?.candidate?.passport_file && item?.candidate?.nid_file && item?.candidate?.training_file && (
-                          <img src={success_icon} alt="success" />
-                        )}
+                        <img src={success_icon} alt="success" />
                         {( item?.name  ||  item?.candidate?.firstName || ' ') + ' '+ (item?.candidate?.lastName || ' ') }
                       </div>
                     </th>
-                    <th>{item?.candidate?.passport || "Null"}</th>
+                    <th>{item?.candidate?.passport || " - "}</th>
                     <th>{ "VHR - LBIBA "  || item?.created_by?.name}</th>
                     <th>{ " Approved " || item?.candidate?.current_status||  item?.candidate?.approval_status  }</th>
                     
@@ -342,7 +340,7 @@ const Cyprus_Candidate_List = () => {
                           onClick={() => handleImageClick(item.id)}
                         />
                       ) : (
-                        <img className="h-[40px] w-[40px]" src={`${API_URL}/candidate_qrcode/1720603594.svg`} alt="" />
+                        <img className="h-[40px] w-[40px]" src={`${API_URL}/${item?.candidate?.qr_code}`} alt="" />
                       )}
                     </th>
                     <th>
