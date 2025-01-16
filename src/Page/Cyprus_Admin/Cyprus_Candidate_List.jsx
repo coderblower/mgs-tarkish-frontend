@@ -245,7 +245,7 @@ const Cyprus_Candidate_List = () => {
               <option value="">Trade List </option>
               {designationMenu.map((x) => (
                 <option key={x.id} value={x.name}> {/* Assuming each agent has a unique `id` */}
-                  {x.name} &nbsp;&nbsp;&nbsp;&nbsp; {x.count}
+                  {x.name} &nbsp;( {x.count}) 
                 </option>
               ))}
             </select>
