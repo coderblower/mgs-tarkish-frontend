@@ -61,7 +61,7 @@ const Cyprus_Dashboard = () => {
           </div>
         </div>
 
-        {/* <div className=" py-[34px] px-[34px] lg:mt-0 mt-[28px] rounded-[12px] bg-[#EEE]">
+        <div className=" py-[34px] px-[34px] lg:mt-0 mt-[28px] rounded-[12px] bg-[#EEE]">
           <p className="font-[500]">Agent</p>
           <div className="flex items-center justify-between mt-[22px]">
             <h2 className="text-[48px] text-[#1E3767] font-[600] ">
@@ -69,9 +69,9 @@ const Cyprus_Dashboard = () => {
             </h2>
             <img src={pan_img} alt="" />
           </div>
-        </div> */}
+        </div>
 
-        {/* <div className=" py-[34px] px-[34px] rounded-[12px] bg-[#EEE]">
+        <div className=" py-[34px] px-[34px] rounded-[12px] bg-[#EEE]">
           <p className="font-[500]">Medical Center</p>
           <div className="flex items-center justify-between mt-[22px]">
             <h2 className="text-[48px] text-[#1E3767] font-[600] ">
@@ -97,7 +97,7 @@ const Cyprus_Dashboard = () => {
             </h2>
             <img src={success3_img} alt="" />
           </div>
-        </div> */}
+        </div>
       </div>
 
       {/* <div className="lg:flex gap-[28px] ">
