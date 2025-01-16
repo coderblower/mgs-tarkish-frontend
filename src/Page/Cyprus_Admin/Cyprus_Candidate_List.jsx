@@ -144,6 +144,7 @@ const Cyprus_Candidate_List = () => {
           pg: "a",
           phone: search,
           country: parseInt(countryResult) || "",
+          designation: designation,
         });
         console.log('resolved ', res);
 
@@ -244,7 +245,7 @@ const Cyprus_Candidate_List = () => {
               <option value="">Trade List </option>
               {designationMenu.map((x) => (
                 <option key={x.id} value={x.name}> {/* Assuming each agent has a unique `id` */}
-                  {x.name}
+                  {x.name} &nbsp;&nbsp;&nbsp;&nbsp; {x.count}
                 </option>
               ))}
             </select>
@@ -425,7 +426,7 @@ const Cyprus_Candidate_List = () => {
           <img
             src={
               item?.candidate?.approval_status === "reject" || item?.candidate?.approval_status === "pending"
-                ? documentNotUploadet
+                ? documentUploadet
                 : documentUploadet
             }
             alt="Documents"
