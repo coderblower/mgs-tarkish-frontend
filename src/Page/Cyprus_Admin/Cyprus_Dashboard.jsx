@@ -17,7 +17,7 @@ const Cyprus_Dashboard = () => {
 
   useEffect(() => {
     post(`/api/user/count`)
-      .then((res) => setCount(res.data))
+      .then((res) => { console.log(res);  return setCount(res.data)})
       .catch((err) => console.log(err));
   }, []);
   // console.log(count?.registered);
