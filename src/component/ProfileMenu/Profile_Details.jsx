@@ -140,48 +140,48 @@ const Profile_Details = ({userId}) => {
     }
   };
 
-  const handleClick = () => {
-    // Assuming imageUrl is the URL of the image you want to download
-    const imageUrl = `/${data?.candidate?.photo}`;
+  // const handleClick = () => {
+  //   // Assuming imageUrl is the URL of the image you want to download
+  //   const imageUrl = `/${data?.candidate?.photo}`;
 
-    // Fetch the image data
-    get(imageUrl, {
-      mode: "no-cors",
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        // Create a blob URL for the image data
-        const blobUrl = URL.createObjectURL(blob);
+  //   // Fetch the image data
+  //   get(imageUrl, {
+  //     mode: "no-cors",
+  //   })
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       // Create a blob URL for the image data
+  //       const blobUrl = URL.createObjectURL(blob);
 
-        // Create a link element
-        const link = document.createElement("a");
-        link.href = blobUrl;
+  //       // Create a link element
+  //       const link = document.createElement("a");
+  //       link.href = blobUrl;
 
-        // Set the download attribute with the desired file name
-        link.download = "your_image.jpg";
+  //       // Set the download attribute with the desired file name
+  //       link.download = "your_image.jpg";
 
-        // Append the link to the document
-        document.body.appendChild(link);
+  //       // Append the link to the document
+  //       document.body.appendChild(link);
 
-        // Trigger a click on the link to initiate the download
-        link.click();
+  //       // Trigger a click on the link to initiate the download
+  //       link.click();
 
-        // Remove the link from the document
-        document.body.removeChild(link);
-        html2canvas;
+  //       // Remove the link from the document
+  //       document.body.removeChild(link);
+  //       html2canvas;
 
-        // Revoke the blob URL to free up resources
-        URL.revokeObjectURL(blobUrl);
-      })
-      .catch((error) => {
-        console.error("Error fetching image:", error);
-      });
-  };
+  //       // Revoke the blob URL to free up resources
+  //       URL.revokeObjectURL(blobUrl);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching image:", error);
+  //     });
+  // };
 
-  console.log(data?.candidate?.academic_file);
-  console.log({ API_URL } / data?.candidate?.experience_file);
+  // console.log(data?.candidate?.academic_file);
+  // console.log({ API_URL } / data?.candidate?.experience_file);
 
-  POST and GET PIF file
+  // POST and GET PIF file
 
   useEffect(() => {
     if (uploadPIFFile) {
