@@ -107,6 +107,7 @@ const DocumentView = ({userId}) => {
         url: photo ? photo : null,
         error: "Profile Photo not uploaded",
       });
+
       allFile.push({
         id: 2,
         toDelete: 'nid_file',
@@ -114,6 +115,7 @@ const DocumentView = ({userId}) => {
         url: nid_file ? nid_file : null,
         error: "NID file not uploaded",
       });
+
       allFile.push({
         id: 3,
         toDelete: 'passport_file',
@@ -121,6 +123,7 @@ const DocumentView = ({userId}) => {
         url: passport_file ? passport_file : null,
         error: "Passport file not uploaded",
       });
+
       allFile.push({
         id: 4,
         toDelete: 'academic_file',
@@ -128,6 +131,7 @@ const DocumentView = ({userId}) => {
         url: academic_file ? academic_file : null,
         error: "Academic file not uploaded",
       });
+
       allFile.push({
         id: 5,
         toDelete: 'experience_file',
@@ -135,6 +139,7 @@ const DocumentView = ({userId}) => {
         url: experience_file ? experience_file : null,
         error: "Experience file not uploaded",
       });
+
       allFile.push({
         id: 6,
         toDelete: 'training_file',
@@ -142,6 +147,7 @@ const DocumentView = ({userId}) => {
         url: training_file ? training_file : null,
         error: "Training file not uploaded",
       });
+      
       allFile.push({
         id: 7,
         toDelete: 'pif_file',

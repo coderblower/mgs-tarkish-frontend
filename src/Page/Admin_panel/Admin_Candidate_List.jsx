@@ -15,7 +15,7 @@ import documentNotUploadet from "../../../public/images/documentNot.svg";
 import Profile_Details from "../../component/ProfileMenu/Profile_Details";
 import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
 import UserProfileModal from "../../component/CandidateModal";
-import DocumentViewSyprus from "../../component/ProfileMenu/DocumentViewSyprus";
+import DocumentView from "../../component/ProfileMenu/DocumentView";
 import grid from "../../../public/images/grid.svg";
 import list from "../../../public/images/list.svg";
 import exportImg from "../../../public/images/export.svg";
@@ -463,7 +463,7 @@ const Admin_Candidate_List = () => {
 
     {documentViewModal&& (
             <UserProfileModal modals={documentViewModal} setModals={SetDocumentViewModal}>
-            <DocumentViewSyprus userId = {userId} />
+            <DocumentView userId = {userId} />
             </UserProfileModal>
           )}
 
