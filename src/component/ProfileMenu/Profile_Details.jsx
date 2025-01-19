@@ -240,7 +240,6 @@ const Profile_Details = ({userId}) => {
               <div className="w-full">
                 <div>
             
-            {imageData && <img src={imageData} alt="Downloaded Image" />}
           </div>
                 {/* Dashboard */}
 
