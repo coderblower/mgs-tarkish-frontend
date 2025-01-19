@@ -12,7 +12,7 @@ import TableLoading from "../../component/TableLoading";
 import success_icon from "../../../public/images/success.svg";
 import documentUploadet from "../../../public/images/document.svg";
 import documentNotUploadet from "../../../public/images/documentNot.svg";
-import Profile_Details from "../../component/ProfileMenu/Profile_Details";
+import Profile_details_Syprus from "../../component/ProfileMenu/Profile_details_Syprus";
 import UpdateCadidate from "../../component/UpdateCandidate/UpdateCadidate";
 import UserProfileModal from "../../component/CandidateModal";
 import DocumentViewSyprus from "../../component/ProfileMenu/DocumentViewSyprus";
@@ -456,7 +456,7 @@ const Cyprus_Candidate_List = () => {
 
       {showBio&& (
         <UserProfileModal modals={showBio} setModals={setShowBio}>
-         <Profile_Details userId = {userId} />
+         <Profile_details_Syprus userId = {userId} />
         </UserProfileModal>
       )}
 
