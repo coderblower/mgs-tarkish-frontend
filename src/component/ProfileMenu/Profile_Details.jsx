@@ -235,15 +235,13 @@ const Profile_Details = ({userId}) => {
               </div>
             </button>
           </div>
-          {/* <div ref={pdfRef}>
+          <div ref={pdfRef}>
             <div className="flex justify-center lg:px-5">
               <div className="w-full">
                 <div>
-            <button className="bg-red-600" onClick={downloadImage}>
-              Download Image
-            </button>
+            
             {imageData && <img src={imageData} alt="Downloaded Image" />}
-          </div> */}
+          </div>
                 {/* Dashboard */}
 
                 <div className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
