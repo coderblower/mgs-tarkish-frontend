@@ -158,7 +158,7 @@ const Registration_5 = ({
         </div>
       </div>
       <div className=" flex gap-4 items-center justify-end">
-        <button
+        {/* <button
           onClick={() => {
             setPage("Upload photo");
             next();
@@ -168,7 +168,7 @@ const Registration_5 = ({
           type="button"
         >
           Skip
-        </button>
+        </button> */}
         <button
           onClick={() => {
             setPage("Job Experience");
