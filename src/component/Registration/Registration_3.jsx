@@ -96,7 +96,9 @@ const Registration_3 = ({
                     value={academic?.level_of_education}
                   >
                     <option value="">Select Education Level</option>
+                    <option value="JSC">JSC</option> 
                     <option value="SSC">SSC</option>
+
                     <option value="HSC">HSC</option>
                     <option value="BBA">BA/ BBA/ BSc/ BEng</option>
                     <option value="MBA">MA/ MSc/ MBA</option>
