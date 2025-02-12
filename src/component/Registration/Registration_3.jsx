@@ -24,7 +24,7 @@ const Registration_3 = ({
   
 
   useEffect(()=>{
-    (country = 3 && ['HSC', 'SSC', 'BBA', 'MBA', 'DIPLOMA'].some((x)=>{
+    (country = 3 && [ 'JSC','SSC', 'HSC', 'BBA', 'MBA', 'DIPLOMA'].some((x)=>{
       console.log(x, academic?.level_of_education, (academic?.level_of_education || '').toUpperCase());
        if( (academic?.level_of_education || '').toUpperCase() == x ){
           console.log('passed');
