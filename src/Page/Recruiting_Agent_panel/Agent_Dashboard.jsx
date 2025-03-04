@@ -29,8 +29,9 @@ const Agent_Dashboard = () => {
   useEffect(() => {
     post(`api/candidate/candidate_by_creator_count`)
       .then((res) => {
-        setCandidate(res.count);
-        console.log(res.count);
+        setCount(res.count);
+        console.log(res);
+
       })
       .catch((err) => console.log(err));
   }, []);
@@ -39,7 +40,7 @@ const Agent_Dashboard = () => {
     post(`/api/candidate_medical_test/count`)
       .then((res) => {
         console.log(res);
-        setCount(res.count);
+        //setCount(res.count);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -64,7 +65,7 @@ const Agent_Dashboard = () => {
               <p>Registered Candidates</p>
               <div className="flex items-center justify-between mt-5">
                 <h2 className="text-4xl text-[#1E3767] font-bold ">
-                  {candidate || 0}
+                  {count?.total || 0}
                 </h2>
                 <img src={user_icon} alt="" />
               </div>
