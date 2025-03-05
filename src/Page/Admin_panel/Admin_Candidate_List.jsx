@@ -77,16 +77,16 @@ const Admin_Candidate_List = () => {
     
       fetchCandidate( search,  currentPage);
     
-  }, [search, agent, countryResult]); 
+  }, [search, agent, countryResult, currentPage]); 
 
-  useEffect(() => {
-    if (cachedCandidates[currentPage]) {
-      setCandidate(cachedCandidates[currentPage]);
-    } else {
-      fetchCandidate(search, currentPage);
-    }
-     preloadCandidates();
-  }, [currentPage, countryResult]);
+  // useEffect(() => {
+  //   if (cachedCandidates[currentPage]) {
+  //     setCandidate(cachedCandidates[currentPage]);
+  //   } else {
+  //     fetchCandidate(search, currentPage);
+  //   }
+  //   //  preloadCandidates();
+  // }, [currentPage, countryResult]);
   
   const fetchCandidate = async (search, page) => {
     
@@ -122,7 +122,7 @@ const Admin_Candidate_List = () => {
       const nextPage = currentPage + i;
 
       
-      if (cachedCandidates[nextPage]) continue; // Skip if data for this page is already cached
+      // if (cachedCandidates[nextPage]) continue; 
   
       try {
         await new Promise(resolve => setTimeout(resolve, 500));
