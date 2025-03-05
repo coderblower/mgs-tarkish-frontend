@@ -108,12 +108,12 @@ const Partner_Profile = () => {
               title="Routing Number:"
               data={data?.partner?.routing_number}
             />
-            <TextTitle title="Total Candidate:" data={count?.count} />
+            {/* <TextTitle title="Total Candidate:" data={count?.count} />
             <TextTitle title="Medical Complete:" data={count?.med_count} />
             <TextTitle
               title="All document uploaded:"
               data={count?.complete_count}
-            />
+            /> */}
           </div>
           <div className="mt-2">
             <h2 className="font-bold mb-2">Address</h2>
