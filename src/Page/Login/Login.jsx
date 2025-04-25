@@ -3,7 +3,7 @@ import logo_img from "../../../public/images/MGES_Logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { post } from "../../api/axios";
-import login_img from "../../../public/images/banner2.jpg";
+import login_img from "../../../public/images/banner.jpg";
 import Loading from "../../component/Loading";
 import InputError from "../../component/InputError";
 
@@ -100,7 +100,7 @@ const Login = () => {
             MGES- Migration governance Eco-System
           </h2>
           <p className="text-[25px] mb-2  mt-2 font-[500] text-black">
-            HR Recruitment for Cyprus
+            HR Recruitment 
           </p>
           <p className="text-[20px]  font-[500] text-black">By Versatilo HR Bangladesh</p>
           <p className="text-[18px]  font-[500] text-black">@maestrosoft</p>
