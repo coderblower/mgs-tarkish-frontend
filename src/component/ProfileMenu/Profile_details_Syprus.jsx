@@ -459,7 +459,7 @@ const Profile_Details = ({userId}) => {
                 
                 </div>
 
-                <div >
+                <div  ref={pdfRef}  >
                   {/* {data?.candidate?.medical_center_id} */}
                   {data?.candidate?.medical_center_id && (
                     <div>
@@ -565,7 +565,7 @@ const Profile_Details = ({userId}) => {
                     <h2 className="text-[18px] font-semibold">
                       Level of Education
                     </h2>
-                    <p ref={pdfRef} >{academic?.level_of_education || "SSC"}</p>
+                    <p>{academic?.level_of_education || "SSC"}</p>
                   </div>
                   <div>
                     <h2 className="text-[18px] font-semibold">
