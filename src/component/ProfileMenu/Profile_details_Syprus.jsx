@@ -367,7 +367,7 @@ const Profile_Details = ({userId}) => {
           <div  >
             <div className="flex justify-center lg:px-5">
             
-              <div  className="w-full">
+              <div ref={pdfRef}   className="w-full">
               
                 {/* <div>
             <button className="bg-red-600" onClick={downloadImage}>
@@ -459,7 +459,7 @@ const Profile_Details = ({userId}) => {
                 
                 </div>
 
-                <div  ref={pdfRef}  >
+                <div   >
                   {/* {data?.candidate?.medical_center_id} */}
                   {data?.candidate?.medical_center_id && (
                     <div>
