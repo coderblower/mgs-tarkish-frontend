@@ -30,6 +30,7 @@ const Login = () => {
     };
 
     console.log(formData);
+    
     setLoading(true);
     setError(null);
     try {

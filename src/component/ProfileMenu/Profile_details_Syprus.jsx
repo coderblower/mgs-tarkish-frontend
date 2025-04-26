@@ -221,7 +221,37 @@ const Profile_Details = ({userId}) => {
         <>
           <div className="flex justify-end gap-5 mt-[24px] mb-[16px] pr-[20px]">
             <div>
-             
+              {data?.candidate?.pif_file || isPIFFile ? (
+                <div className="flex items-center gap-[10px]">
+                  <div>
+                    <NavLink
+                      to={`${API_URL}/${
+                        data?.candidate?.pif_file || isPIFFile
+                          ? data?.candidate?.pif_file || isPIFFile
+                          : null
+                      }`}
+                      target="_blank"
+                    >
+                      <button
+                        // onClick={handlePrint}
+                        className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                      >
+                        <div className="flex gap-4">
+                          <img src={download_img} alt="" />
+                          <h3>Download PIF</h3>
+                        </div>
+                      </button>
+                    </NavLink>
+                  </div>
+                  {userRole === "Admin" && (
+                    <button onClick={() => handlePIFDelete()}>
+                      <img src={delete_icon} alt="" />
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <FileUplod isPIF={true} setFile={setUploadPIFFile} />
+              )}
             </div>
 
             {/* <button
@@ -309,13 +339,14 @@ const Profile_Details = ({userId}) => {
                         <TextTitle
                           title="Country:"
                           data={
-                            "As Per Employer" ||  data?.candidate?.country?.name
+                            data?.candidate?.country?.name
                           }
                         />
 
                         {data?.candidate?.referred_by && (
                           <TextTitle
-                            title="Referred By:"
+                            title="Referred By
+:"
                             data={data?.candidate?.referred_by}
                           />
                         )}
@@ -352,7 +383,14 @@ const Profile_Details = ({userId}) => {
                         )}
                       </div>
 
-              
+                      {show && (
+                        <button
+                          onClick={handleClick}
+                          className="bg-[#1E3767] py-2 px-8 rounded-md text-white mt-6 transition-transform active:scale-95"
+                        >
+                          Download
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <div className="lg:w-[230px] flex items-center">
@@ -400,7 +438,14 @@ const Profile_Details = ({userId}) => {
                           <th>{data?.report?.created_at.slice(0, 10)}</th>
                           <th>{data?.report?.result}</th>
                           <th>
-                           
+                            <button
+                              onClick={() =>
+                                handleDawnlodFile(data?.report?.file)
+                              }
+                              className="bg-[#1E3767] px-[20px] py-[6px] rounded-full transition-transform active:scale-95 text-white"
+                            >
+                              Download
+                            </button>
                           </th>
                         </tr>
                       </tbody>
@@ -424,10 +469,10 @@ const Profile_Details = ({userId}) => {
                     <tbody>
                       <tr className="bg-[#EEEEEE]">
                         <th>
-                          {data?.preskilled?.status == 1 ? "Qualified" : "-"}
+                          {data?.preskilled?.status == 1 ? "Qualified" : "Qualified"}
                         </th>
-                        <th>{data?.skill?.status == 1 ? "Qualified" : "-"}</th>
-                        <th></th>
+                        <th>{data?.skill?.status == 1 ? "Qualified" : "Qualified"}</th>
+                        <th>Qualified</th>
                       </tr>
                     </tbody>
                   </table>
@@ -439,7 +484,26 @@ const Profile_Details = ({userId}) => {
             <div className="lg:px-5">
               <div className="flex items-center justify-between mt-10">
                 <p className="">Education</p>
-            
+                {data?.candidate?.academic_file ? (
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.academic_file}`}
+                    target="_blank"
+                  >
+                    <button
+                      // onClick={handlePrint}
+                      className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                    >
+                      <div className="flex gap-4">
+                        <img src={download_img} alt="" />
+                        <h3>Download</h3>
+                      </div>
+                    </button>
+                  </NavLink>
+                ) : (
+                  <>
+                    <h2>File is not uploaded</h2>
+                  </>
+                )}
               </div>
               <div className="border border-black rounded-md p-8 mt-5">
                 <h2 className="text-[18px] font-semibold mb-2">Academic-1</h2>
@@ -483,7 +547,24 @@ const Profile_Details = ({userId}) => {
               {/* Job Experience */}
               <div className="flex items-center justify-between mt-10">
                 <p className="">Job Experience</p>
-               
+                {data?.candidate?.experience_file ? (
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.experience_file}`}
+                    target="_blank"
+                  >
+                    <button
+                      // onClick={handlePrint}
+                      className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                    >
+                      <div className="flex gap-4">
+                        <img src={download_img} alt="" />
+                        <h3>Download</h3>
+                      </div>
+                    </button>
+                  </NavLink>
+                ) : (
+                  <h2>File is not uploaded</h2>
+                )}
               </div>
 
               <div className="border border-black rounded-md p-8 mt-5">
@@ -538,7 +619,24 @@ const Profile_Details = ({userId}) => {
 
               <div className="flex items-center justify-between mt-10">
                 <p className="">Training & skills</p>
-               
+                {data?.candidate?.training_file ? (
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.training_file}`}
+                    target="_blank"
+                  >
+                    <button
+                      // onClick={handlePrint}
+                      className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                    >
+                      <div className="flex gap-4">
+                        <img src={download_img} alt="" />
+                        <h3>Download</h3>
+                      </div>
+                    </button>
+                  </NavLink>
+                ) : (
+                  <h2>File is not uploaded</h2>
+                )}
               </div>
 
               <div className="border border-black rounded-md p-8 mt-5 mb-10">
@@ -601,5 +699,6 @@ const Profile_Details = ({userId}) => {
     </div>
   );
 };
+
 
 export default Profile_Details;
