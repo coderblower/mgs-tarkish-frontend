@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  color-scheme: light;
+  --tw-bg-opacity: 1;
+}
+
 body {
   /* font-family: "Clicker Script", cursive; */
   font-family: "Inter", sans-serif;

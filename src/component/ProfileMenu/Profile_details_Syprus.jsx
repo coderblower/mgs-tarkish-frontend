@@ -1,4 +1,5 @@
 import user_img from "../../../public/images/Avater.png";
+import domtoimage from 'dom-to-image';
 import { useReactToPrint } from "react-to-print";
 import download_img from "../../../public/images/download.svg";
 import download_black_img from "../../../public/images/downloadBlack.svg";
@@ -12,8 +13,15 @@ import FileUplod from "../FileUplod";
 import TableLoading from "../TableLoading";
 import delete_icon from "../../../public/images/delete_icon.svg";
 import toast, { Toaster } from "react-hot-toast";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
+
 
 const Profile_Details = ({userId}) => {
+
+ 
+
   const [loading, setloading] = useState(false);
   const pdfRef = useRef();
   const { id = userId} = useParams();
@@ -32,6 +40,37 @@ const Profile_Details = ({userId}) => {
     const url = `${API_URL}/${data}`;
     saveAs(url, "image.svg");
   };
+
+  const fixColors = () => {
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach((el) => {
+      const bg = window.getComputedStyle(el).backgroundColor;
+      if (bg.includes('oklch')) {
+        el.style.backgroundColor = 'white'; // or any other fallback color you prefer
+      }
+    });
+  };
+  
+  const downloadPDF = () => {
+    const input = pdfRef.current;
+    
+    domtoimage.toPng(input)
+      .then(function (dataUrl) {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const imgProps = pdf.getImageProperties(dataUrl);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('profile.pdf');
+      })
+      .catch(function (error) {
+        console.error('Error generating image:', error);
+      });
+  };
+
+
 
   console.log(userId, 'id found', id)
 
@@ -221,6 +260,14 @@ const Profile_Details = ({userId}) => {
         <>
           <div className="flex justify-end gap-5 mt-[24px] mb-[16px] pr-[20px]">
             <div>
+            <div className="flex justify-end pr-5">
+        <button
+          onClick={downloadPDF}
+          className="py-3 px-6 bg-green-600 text-white font-bold rounded-md transition-transform active:scale-95"
+        >
+          Download Full Page
+        </button>
+      </div>
               {data?.candidate?.pif_file || isPIFFile ? (
                 <div className="flex items-center gap-[10px]">
                   <div>
