@@ -418,7 +418,7 @@ const Profile_Details = ({userId}) => {
                               to={`${API_URL}/${data?.candidate?.nid_file}`}
                               target="_blank"
                             >
-                              <img src={download_black_img} alt="" />
+                              
                             </NavLink>
                           )}
                         </div>
