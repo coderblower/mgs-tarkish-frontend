@@ -55,7 +55,8 @@ const Profile_Details = ({userId}) => {
   const downloadPDF = () => {
     const input = pdfRef.current;
   
-    domtoimage.toPng(input)
+    try{
+      domtoimage.toPng(input)
       .then(function (dataUrl) {
         const pdf = new jsPDF('p', 'mm', [297, 210]); // temp size, we will fix later
   
@@ -72,6 +73,10 @@ const Profile_Details = ({userId}) => {
       .catch(function (error) {
         console.error('Error generating image:', error);
       });
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+
+    }
   };
   
 
