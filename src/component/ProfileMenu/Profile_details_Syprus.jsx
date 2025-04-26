@@ -336,7 +336,7 @@ const Profile_Details = ({userId}) => {
                         className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
                       >
                         <div className="flex gap-4">
-                          {/* <img src={download_img} alt="" /> */}
+                          <img src={download_img} alt="" />
                           <h3>Download PIF</h3>
                         </div>
                       </button>
@@ -364,7 +364,7 @@ const Profile_Details = ({userId}) => {
               </div>
             </button> */}
           </div>
-          <div ref={pdfRef}   >
+          <div  >
             <div className="flex justify-center lg:px-5">
             
               <div   className="w-full">
@@ -377,12 +377,12 @@ const Profile_Details = ({userId}) => {
           </div> */}
                 {/* Dashboard */}
 
-                <div  className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
+                <div className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
                  
                   <div >
                     <h2 className="font-bold mb-3 text-[20px]">Basic Info</h2>
                     <div className="border-b-4 border-gray-400 pb-2 lg:flex justify-between gap-5">
-                      <div>
+                      <div ref={pdfRef} >
                         <TextTitle title="Name:" data={data?.name} />
                         <TextTitle title="Phone:" data={data?.phone} />
                         <TextTitle title="Email:" data={data?.email} />
@@ -392,7 +392,12 @@ const Profile_Details = ({userId}) => {
                             data={data?.candidate?.passport}
                           />
                           {data?.candidate?.passport_file && (
-                           <></>
+                            <NavLink
+                              to={`${API_URL}/${data?.candidate?.passport_file}`}
+                              target="_blank"
+                            >
+                              
+                            </NavLink>
                           )}
                         </div>
                         <TextTitle
@@ -403,13 +408,18 @@ const Profile_Details = ({userId}) => {
                       <div>
                         <TextTitle
                           title="Gender:"
-                          data={data?.candidate?.gender ||"Male"}
+                          data={data?.candidate?.gender}
                         />
 
                         <div className="flex items-center gap-3">
                           <TextTitle title="NID:" data={data?.candidate?.nid} />
                           {data?.candidate?.nid_file && (
-                            <></>
+                            <NavLink
+                              to={`${API_URL}/${data?.candidate?.nid_file}`}
+                              target="_blank"
+                            >
+                              <img src={download_black_img} alt="" />
+                            </NavLink>
                           )}
                         </div>
                         <TextTitle
@@ -536,7 +546,12 @@ const Profile_Details = ({userId}) => {
               <div className="flex items-center justify-between mt-10">
                 <p className="">Education</p>
                 {data?.candidate?.academic_file ? (
-                  <></>
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.academic_file}`}
+                    target="_blank"
+                  >
+                
+                  </NavLink>
                 ) : (
                   <>
                     <h2>File is not uploaded</h2>
@@ -586,7 +601,12 @@ const Profile_Details = ({userId}) => {
               <div className="flex items-center justify-between mt-10">
                 <p className="">Job Experience</p>
                 {data?.candidate?.experience_file ? (
-                  <></>
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.experience_file}`}
+                    target="_blank"
+                  >
+                   
+                  </NavLink>
                 ) : (
                   <h2>File is not uploaded</h2>
                 )}
