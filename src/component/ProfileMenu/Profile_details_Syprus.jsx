@@ -472,7 +472,7 @@ const Profile_Details = ({userId}) => {
                           {data?.preskilled?.status == 1 ? "Qualified" : "Qualified"}
                         </th>
                         <th>{data?.skill?.status == 1 ? "Qualified" : "Qualified"}</th>
-                        <th>Qualified</th>
+                        <th>"Qualified"</th>
                       </tr>
                     </tbody>
                   </table>
@@ -485,20 +485,12 @@ const Profile_Details = ({userId}) => {
               <div className="flex items-center justify-between mt-10">
                 <p className="">Education</p>
                 {data?.candidate?.academic_file ? (
-                  // <NavLink
-                  //   to={`${API_URL}/${data?.candidate?.academic_file}`}
-                  //   target="_blank"
-                  // >
-                  //   <button
-                  //     // onClick={handlePrint}
-                  //     className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
-                  //   >
-                  //     <div className="flex gap-4">
-                  //       <img src={download_img} alt="" />
-                  //       <h3>Download</h3>
-                  //     </div>
-                  //   </button>
-                  // </NavLink>
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.academic_file}`}
+                    target="_blank"
+                  >
+                
+                  </NavLink>
                 ) : (
                   <>
                     <h2>File is not uploaded</h2>
@@ -552,15 +544,7 @@ const Profile_Details = ({userId}) => {
                     to={`${API_URL}/${data?.candidate?.experience_file}`}
                     target="_blank"
                   >
-                    <button
-                      // onClick={handlePrint}
-                      className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
-                    >
-                      <div className="flex gap-4">
-                        <img src={download_img} alt="" />
-                        <h3>Download</h3>
-                      </div>
-                    </button>
+                   
                   </NavLink>
                 ) : (
                   <h2>File is not uploaded</h2>
@@ -620,20 +604,20 @@ const Profile_Details = ({userId}) => {
               <div className="flex items-center justify-between mt-10">
                 <p className="">Training & skills</p>
                 {data?.candidate?.training_file ? (
-                  // <NavLink
-                  //   to={`${API_URL}/${data?.candidate?.training_file}`}
-                  //   target="_blank"
-                  // >
-                  //   <button
-                  //     // onClick={handlePrint}
-                  //     className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
-                  //   >
-                  //     <div className="flex gap-4">
-                  //       <img src={download_img} alt="" />
-                  //       <h3>Download</h3>
-                  //     </div>
-                  //   </button>
-                  // </NavLink>
+                  <NavLink
+                    to={`${API_URL}/${data?.candidate?.training_file}`}
+                    target="_blank"
+                  >
+                    {/* <button
+                      // onClick={handlePrint}
+                      className="py-3 px-6 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95"
+                    >
+                      <div className="flex gap-4">
+                        <img src={download_img} alt="" />
+                        <h3>Download</h3>
+                      </div>
+                    </button> */}
+                  </NavLink>
                 ) : (
                   <h2>File is not uploaded</h2>
                 )}
