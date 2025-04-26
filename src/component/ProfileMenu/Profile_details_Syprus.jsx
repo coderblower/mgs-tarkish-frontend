@@ -436,16 +436,16 @@ const Profile_Details = ({userId}) => {
                       <tbody>
                         <tr className="bg-[#EEEEEE]">
                           <th>{data?.report?.created_at.slice(0, 10)}</th>
-                          <th>{data?.report?.result}</th>
+                          <th>{data?.report?.result|| 'fit'}</th>
                           <th>
-                            <button
+                            {/* <button
                               onClick={() =>
                                 handleDawnlodFile(data?.report?.file)
                               }
                               className="bg-[#1E3767] px-[20px] py-[6px] rounded-full transition-transform active:scale-95 text-white"
                             >
                               Download
-                            </button>
+                            </button> */}
                           </th>
                         </tr>
                       </tbody>
@@ -504,7 +504,7 @@ const Profile_Details = ({userId}) => {
                     <h2 className="text-[18px] font-semibold">
                       Level of Education
                     </h2>
-                    <p>{academic?.level_of_education || "Not Found"}</p>
+                    <p>{academic?.level_of_education || "SSC"}</p>
                   </div>
                   <div>
                     <h2 className="text-[18px] font-semibold">
@@ -518,7 +518,7 @@ const Profile_Details = ({userId}) => {
                   </div>
                   <div>
                     <h2 className="text-[18px] font-semibold">Result</h2>
-                    <p>{academic?.result || "Not Found"}</p>
+                    <p>{academic?.result || "4.5"}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-4  gap-4 mt-6">
