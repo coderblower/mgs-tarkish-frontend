@@ -56,6 +56,7 @@ const Profile_Details = ({userId}) => {
     
     domtoimage.toPng(input)
       .then(function (dataUrl) {
+        console.log(dataUrl, "dataUrl found");
         const pdf = new jsPDF('p', 'mm', 'a4');
 
         const imgProps = pdf.getImageProperties(dataUrl);
