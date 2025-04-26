@@ -364,10 +364,10 @@ const Profile_Details = ({userId}) => {
               </div>
             </button> */}
           </div>
-          <div  >
-            <div className="flex justify-center lg:px-5">
+          <div ref={pdfRef} >
+            <div  className="flex justify-center lg:px-5">
             
-              <div ref={pdfRef}  className="w-full">
+              <div   className="w-full">
               
                 {/* <div>
             <button className="bg-red-600" onClick={downloadImage}>
