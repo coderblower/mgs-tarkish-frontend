@@ -367,7 +367,7 @@ const Profile_Details = ({userId}) => {
           <div  >
             <div className="flex justify-center lg:px-5">
             
-              <div ref={pdfRef}   className="w-full">
+              <div   className="w-full">
               
                 {/* <div>
             <button className="bg-red-600" onClick={downloadImage}>
@@ -377,7 +377,7 @@ const Profile_Details = ({userId}) => {
           </div> */}
                 {/* Dashboard */}
 
-                <div className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
+                <div ref={pdfRef}  className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
                  
                   <div >
                     <h2 className="font-bold mb-3 text-[20px]">Basic Info</h2>
