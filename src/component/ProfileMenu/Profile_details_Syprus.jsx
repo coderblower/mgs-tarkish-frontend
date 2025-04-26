@@ -364,7 +364,7 @@ const Profile_Details = ({userId}) => {
               </div>
             </button> */}
           </div>
-          <div  >
+          <div ref={pdfRef}   >
             <div className="flex justify-center lg:px-5">
             
               <div   className="w-full">
@@ -377,7 +377,7 @@ const Profile_Details = ({userId}) => {
           </div> */}
                 {/* Dashboard */}
 
-                <div ref={pdfRef}  className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
+                <div  className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
                  
                   <div >
                     <h2 className="font-bold mb-3 text-[20px]">Basic Info</h2>
@@ -396,7 +396,7 @@ const Profile_Details = ({userId}) => {
                               to={`${API_URL}/${data?.candidate?.passport_file}`}
                               target="_blank"
                             >
-                              <img src={download_black_img} alt="" />
+                              {/* <img src={download_black_img} alt="" /> */}
                             </NavLink>
                           )}
                         </div>
@@ -418,7 +418,7 @@ const Profile_Details = ({userId}) => {
                               to={`${API_URL}/${data?.candidate?.nid_file}`}
                               target="_blank"
                             >
-                              <img src={download_black_img} alt="" />
+                              {/* <img src={download_black_img} alt="" /> */}
                             </NavLink>
                           )}
                         </div>
