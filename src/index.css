@@ -7,9 +7,22 @@
   --tw-bg-opacity: 1;
 }
 
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../public/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
 body {
   /* font-family: "Clicker Script", cursive; */
-  font-family: "Inter", sans-serif;
+  
+    font-family: 'Roboto', sans-serif;
+  
+
   /* font-family: "Poppins", sans-serif; */
 }
 

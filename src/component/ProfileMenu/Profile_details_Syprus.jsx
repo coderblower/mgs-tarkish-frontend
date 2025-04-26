@@ -15,6 +15,7 @@ import delete_icon from "../../../public/images/delete_icon.svg";
 import toast, { Toaster } from "react-hot-toast";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import FontFaceObserver from 'fontfaceobserver';
 
 
 
@@ -53,25 +54,26 @@ const Profile_Details = ({userId}) => {
   
   const downloadPDF = () => {
     const input = pdfRef.current;
-    
+  
     domtoimage.toPng(input)
       .then(function (dataUrl) {
-        console.log(dataUrl, "dataUrl found");
-        const pdf = new jsPDF('p', 'mm', 'a4');
-
+        const pdf = new jsPDF('p', 'mm', [297, 210]); // temp size, we will fix later
+  
         const imgProps = pdf.getImageProperties(dataUrl);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfWidth = 210; // A4 width in mm
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-        pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save('profile.pdf');
+  
+        // Create a new PDF with dynamic height
+        const customPdf = new jsPDF('p', 'mm', [pdfHeight, pdfWidth]);
+  
+        customPdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        customPdf.save('profile.pdf');
       })
       .catch(function (error) {
         console.error('Error generating image:', error);
       });
   };
-
-
+  
 
   console.log(userId, 'id found', id)
 
@@ -259,14 +261,58 @@ const Profile_Details = ({userId}) => {
     <div>
       {!loading && (
         <>
-          <div className="flex justify-end gap-5 mt-[24px] mb-[16px] pr-[20px]">
+          <div className="flex justify-between gap-10 mt-[24px] mb-[16px] pr-[20px]">
+          <div className="flex flex-col justify-center items-center">
+                    <img
+                      className="h-[150px] w-[150px] rounded-full"
+                      src={
+                        data?.candidate?.photo
+                          ? `${API_URL}/${data?.candidate?.photo}`
+                          : user_img
+                      }
+                    />
+                    <h2 className="mt-3 font-bold mb-3">{data?.name}</h2>
+                  </div>
+
+                  <div>
+                  {data?.candidate?.approval_status !== "reject" &&
+                  data?.candidate?.approval_status !== "pending" ? (
+                    <div className="text-center lg:mt-0 mt-6">
+                      <h2>
+                        {!show ? "Scan" : "Download"} QR For <br /> More Details
+                      </h2>
+                      <div className="flex justify-center mt-2">
+                        {data?.candidate?.qr_code ? (
+                          <img
+                            className="w-[130px]"
+                            src={`${API_URL}/${data?.candidate?.qr_code}`}
+                            alt=""
+                          />
+                        ) : (
+                          <h1>Not Found</h1>
+                        )}
+                      </div>
+
+                      {show && (
+                           <></> 
+                      )}
+                    </div>
+                  ) : (
+                    <div className="lg:w-[230px] flex items-center">
+                      <h1 className="text-[20px] text-red-400">
+                        QR Code Not Found
+                      </h1>
+                    </div>
+                  )}
+                  </div>
             <div>
-            <div className="flex justify-end pr-5">
+            
+            <div className="flex justify-end pr-5 mb-9">
         <button
           onClick={downloadPDF}
           className="py-3 px-6 bg-green-600 text-white font-bold rounded-md transition-transform active:scale-95"
         >
-          Download Full Page
+          Download CV
         </button>
       </div>
               {data?.candidate?.pif_file || isPIFFile ? (
@@ -313,9 +359,11 @@ const Profile_Details = ({userId}) => {
               </div>
             </button> */}
           </div>
-          <div ref={pdfRef}>
+          <div ref={pdfRef} >
             <div className="flex justify-center lg:px-5">
-              <div className="w-full">
+            
+              <div  className="w-full">
+              
                 {/* <div>
             <button className="bg-red-600" onClick={downloadImage}>
               Download Image
@@ -325,18 +373,8 @@ const Profile_Details = ({userId}) => {
                 {/* Dashboard */}
 
                 <div className="bg-[#EEEEEE] p-5 rounded-md lg:flex justify-between gap-5">
-                  <div className="flex flex-col justify-center items-center">
-                    <img
-                      className="h-[150px] w-[150px] rounded-full"
-                      src={
-                        data?.candidate?.photo
-                          ? `${API_URL}/${data?.candidate?.photo}`
-                          : user_img
-                      }
-                    />
-                    <h2 className="mt-3 font-bold mb-3">{data?.name}</h2>
-                  </div>
-                  <div>
+                 
+                  <div >
                     <h2 className="font-bold mb-3 text-[20px]">Basic Info</h2>
                     <div className="border-b-4 border-gray-400 pb-2 lg:flex justify-between gap-5">
                       <div>
@@ -413,117 +451,87 @@ const Profile_Details = ({userId}) => {
                     </div>
                   </div>
 
-                  {data?.candidate?.approval_status !== "reject" &&
-                  data?.candidate?.approval_status !== "pending" ? (
-                    <div className="text-center lg:mt-0 mt-6">
-                      <h2>
-                        {!show ? "Scan" : "Download"} QR For <br /> More Details
-                      </h2>
-                      <div className="flex justify-center mt-2">
-                        {data?.candidate?.qr_code ? (
-                          <img
-                            className="w-[130px]"
-                            src={`${API_URL}/${data?.candidate?.qr_code}`}
-                            alt=""
-                          />
-                        ) : (
-                          <h1>Not Found</h1>
-                        )}
-                      </div>
+                
+                </div>
 
-                      {show && (
-                        <button
-                          onClick={handleClick}
-                          className="bg-[#1E3767] py-2 px-8 rounded-md text-white mt-6 transition-transform active:scale-95"
-                        >
-                          Download
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="lg:w-[230px] flex items-center">
-                      <h1 className="text-[20px] text-red-400">
-                        QR Code Not Found
-                      </h1>
+                <div >
+                  {/* {data?.candidate?.medical_center_id} */}
+                  {data?.candidate?.medical_center_id && (
+                    <div>
+                      <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
+                        <span className="font-bold">
+                          {" "}
+                          Selected Medical Center:
+                        </span>{" "}
+                        {
+                          matchMedical(data?.candidate?.medical_center_id)?.name
+                        },{" "}
+                        {matchMedical(data?.candidate?.medical_center_id)?.partner
+                          ?.address &&
+                          JSON.parse(
+                            matchMedical(data?.candidate?.medical_center_id)
+                              ?.partner?.address
+                          )}
+                      </div>
+                      <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
+                        Medical Status
+                      </div>
                     </div>
                   )}
-                </div>
-                {/* {data?.candidate?.medical_center_id} */}
-                {data?.candidate?.medical_center_id && (
-                  <div>
-                    <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
-                      <span className="font-bold">
-                        {" "}
-                        Selected Medical Center:
-                      </span>{" "}
-                      {
-                        matchMedical(data?.candidate?.medical_center_id)?.name
-                      },{" "}
-                      {matchMedical(data?.candidate?.medical_center_id)?.partner
-                        ?.address &&
-                        JSON.parse(
-                          matchMedical(data?.candidate?.medical_center_id)
-                            ?.partner?.address
-                        )}
+                  {data?.candidate?.medical_center_id && (
+                    <div className="overflow-x-auto">
+                      <table className="table ">
+                        <thead className=" border-b-2">
+                          <tr className="uppercase bg-[#EEEEEE] border-b-2 border-gray-500">
+                            <th>Report Submission Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-[#EEEEEE]">
+                            <th>{data?.report?.created_at.slice(0, 10)}</th>
+                            <th>{data?.report?.result|| 'fit'}</th>
+                            <th>
+                              {/* <button
+                                onClick={() =>
+                                  handleDawnlodFile(data?.report?.file)
+                                }
+                                className="bg-[#1E3767] px-[20px] py-[6px] rounded-full transition-transform active:scale-95 text-white"
+                              >
+                                Download
+                              </button> */}
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
-                      Medical Status
-                    </div>
+                  )}
+
+                  <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
+                    Training Status
                   </div>
-                )}
-                {data?.candidate?.medical_center_id && (
-                  <div className="overflow-x-auto">
+
+                  <div className="overflow-x-auto mb-10">
                     <table className="table ">
                       <thead className=" border-b-2">
                         <tr className="uppercase bg-[#EEEEEE] border-b-2 border-gray-500">
-                          <th>Report Submission Date</th>
-                          <th>Status</th>
-                          <th>Action</th>
+                          <th>Pre Skilled Test Result</th>
+                          <th>Skill Test Result</th>
+                          <th>Final Test</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr className="bg-[#EEEEEE]">
-                          <th>{data?.report?.created_at.slice(0, 10)}</th>
-                          <th>{data?.report?.result|| 'fit'}</th>
                           <th>
-                            {/* <button
-                              onClick={() =>
-                                handleDawnlodFile(data?.report?.file)
-                              }
-                              className="bg-[#1E3767] px-[20px] py-[6px] rounded-full transition-transform active:scale-95 text-white"
-                            >
-                              Download
-                            </button> */}
+                            {data?.preskilled?.status == 1 ? "Qualified" : "Qualified"}
                           </th>
+                          <th>{data?.skill?.status == 1 ? "Qualified" : "Qualified"}</th>
+                          <th>"Qualified"</th>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                )}
-
-                <div className="my-3 bg-[#EEEEEE] w-full py-3 px-4 rounded-md">
-                  Training Status
-                </div>
-
-                <div className="overflow-x-auto mb-10">
-                  <table className="table ">
-                    <thead className=" border-b-2">
-                      <tr className="uppercase bg-[#EEEEEE] border-b-2 border-gray-500">
-                        <th>Pre Skilled Test Result</th>
-                        <th>Skill Test Result</th>
-                        <th>Final Test</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-[#EEEEEE]">
-                        <th>
-                          {data?.preskilled?.status == 1 ? "Qualified" : "Qualified"}
-                        </th>
-                        <th>{data?.skill?.status == 1 ? "Qualified" : "Qualified"}</th>
-                        <th>"Qualified"</th>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
