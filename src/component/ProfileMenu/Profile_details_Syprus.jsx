@@ -381,8 +381,8 @@ const Profile_Details = ({userId}) => {
                  
                   <div >
                     <h2 className="font-bold mb-3 text-[20px]">Basic Info</h2>
-                    <div className="border-b-4 border-gray-400 pb-2 lg:flex justify-between gap-5">
-                      <div ref={pdfRef} >
+                    <div ref={pdfRef} className="border-b-4 border-gray-400 pb-2 lg:flex justify-between gap-5">
+                      <div  >
                         <TextTitle title="Name:" data={data?.name} />
                         <TextTitle title="Phone:" data={data?.phone} />
                         <TextTitle title="Email:" data={data?.email} />
