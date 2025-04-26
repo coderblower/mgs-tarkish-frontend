@@ -364,7 +364,7 @@ const Profile_Details = ({userId}) => {
               </div>
             </button> */}
           </div>
-          <div ref={pdfRef} >
+          <div  >
             <div className="flex justify-center lg:px-5">
             
               <div  className="w-full">
@@ -565,7 +565,7 @@ const Profile_Details = ({userId}) => {
                     <h2 className="text-[18px] font-semibold">
                       Level of Education
                     </h2>
-                    <p>{academic?.level_of_education || "SSC"}</p>
+                    <p ref={pdfRef} >{academic?.level_of_education || "SSC"}</p>
                   </div>
                   <div>
                     <h2 className="text-[18px] font-semibold">
