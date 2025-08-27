@@ -34,6 +34,7 @@ const Admin_Candidate_List = () => {
   const [search, setSearch] = useState("");
   const [newSearchValue, setNewSearchValue] = useState("");
   
+  
   const [paginations, setPaginations] = useState({
     per_page: 10,
     total: 0,
@@ -51,6 +52,7 @@ const Admin_Candidate_List = () => {
   const [ gridView, setGridView] = useState(true); 
   const [userId, setUserId] = useState(null); 
   const [agentSubmenu, setAgentSubmenu] = useState([]);
+  const [sortOrder, setSortOrder] = useState("asc");
   
 
   useEffect(() => {
@@ -77,7 +79,7 @@ const Admin_Candidate_List = () => {
     
       fetchCandidate( search,  currentPage);
     
-  }, [search, agent, countryResult]); 
+  }, [search, agent, countryResult, sortOrder]); 
 
   useEffect(() => {
     if (cachedCandidates[currentPage]) {
@@ -98,6 +100,7 @@ const Admin_Candidate_List = () => {
         phone: search,
         agent: agent,
         country: parseInt(countryResult) || "",
+        [sortOrder]: 1,  // send asc param if asc
       });
       const data = res?.data?.data || [];
       console.log(data);
@@ -244,6 +247,15 @@ const Admin_Candidate_List = () => {
               ))}
             </select>
 
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="px-4 py-1 border-2 rounded-md outline-none"
+            >
+              <option value="desc">Latest Updated</option>
+              <option value="asc">Oldest Updated</option>
+            </select>
+
             
           
 
@@ -303,7 +315,7 @@ const Admin_Candidate_List = () => {
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
                 return (
                   <tr className="whitespace-nowrap" key={i}>
-                    <th>{item.id}</th>
+                    <th>{index}</th>
                     <th>
                       <div className="flex gap-1 items-center">
                         {item?.candidate?.photo && item?.candidate?.passport_file && item?.candidate?.nid_file && item?.candidate?.training_file && (
