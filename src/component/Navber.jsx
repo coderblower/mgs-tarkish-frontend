@@ -7,7 +7,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { post } from "../api/axios";
 import { useLocation } from "react-router-dom";
 
-const Navber = ({
+const  Navber = ({
   report_path,
   show_report,
   listItems,

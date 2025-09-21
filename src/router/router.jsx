@@ -88,6 +88,7 @@ import RejectedCandidate from '../component/RejectedCandidate';
 import QuotaSet from "../Page/Admin_panel/QuotaSet";
 import RequestedCandidate from "../Page/Admin_panel/RequestedCandidate";
 import DocumentView from "../component/ProfileMenu/DocumentView";
+import Admin_Training_Candidate_List from "../Page/Admin_panel/Admin_Training_Candidate_List";
 
 const router = createBrowserRouter([
   {
@@ -192,6 +193,10 @@ const router = createBrowserRouter([
       {
         path: "Candidate_Registration_from",
         element: <Admin_Candidate_Registration />,
+      },
+      {
+        path: "Training_Candidate_List",
+        element: <Admin_Training_Candidate_List />,
       },
       {
         path: "Candidate_List",

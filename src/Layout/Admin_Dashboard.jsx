@@ -36,6 +36,10 @@ const Admin_Dashboard = () => {
       name: "Candidate List",
     },
     {
+        path: "/admin/Training_Candidate_List",
+        name: "Training Candidate List",
+    },
+    {
       path: "/admin/requested_Candidate",
       name: "Requested Candidate",
     },
@@ -66,6 +70,7 @@ const Admin_Dashboard = () => {
           menuOpen={menuOpen}
           navList=""
         />
+        
       </div>
 
       {/* Main contant */}
