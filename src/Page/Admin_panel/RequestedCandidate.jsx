@@ -223,6 +223,9 @@ const RequestedCandidate = () => {
             {!loading &&
               data?.length > 0 &&
               data?.map((item, i) => {
+
+               
+
                 const index = (currentPage - 1) * paginations.per_page + i + 1;
                return  (
                 
@@ -233,7 +236,7 @@ const RequestedCandidate = () => {
                     {item?.candidate?.passport || "Null"}
                   </th>
                   <th>{item?.created_by?.name}</th>
-                  <th>{item?.created_at.slice(0, 10)}</th>
+                  <th>{item?.created_at?.slice(0, 10)}</th>
 
                   <td>{item?.candidate?.approval_status}</td>
                   <td className="text-center flex justify-center gap-2">
