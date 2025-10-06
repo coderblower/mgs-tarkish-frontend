@@ -35,7 +35,7 @@ const Agent_Candidate_List = () => {
   const [ documentViewModal, SetDocumentViewModal] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const agent = JSON.parse(window.localStorage.getItem('user')).name;
+  const agent = JSON.parse(window.localStorage.getItem('user')).id;
 
   
 
@@ -64,6 +64,8 @@ const Agent_Candidate_List = () => {
   useEffect(()=>{
     
     fetchCandidate( search,  currentPage);
+
+    console.log("agent id", agent);
   
     
   }, [search,  countryResult]); 
@@ -71,6 +73,8 @@ const Agent_Candidate_List = () => {
 
 
 const fetchCandidate = async (search, page) => {
+
+
   
   setLoading(true);
   try {
