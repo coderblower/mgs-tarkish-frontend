@@ -36,6 +36,8 @@ const RequestedCandidate = () => {
     try {
       const response = await post('api/partner/get_partners_name', { role_id: 4 });
       const data = response?.data || [];
+
+      
       setAgentSubmenu(data);
       console.log(data) // Store submenu items
     } catch (error) {
@@ -180,7 +182,7 @@ const RequestedCandidate = () => {
            >
              <option value="">Agent List</option>
              {agentSubmenu.map((x) => (
-               <option key={x.id} value={x.name}> {/* Assuming each agent has a unique `id` */}
+               <option key={x.id} value={x.id}> {/* Assuming each agent has a unique `id` */}
                  {x.name}
                </option>
              ))}
