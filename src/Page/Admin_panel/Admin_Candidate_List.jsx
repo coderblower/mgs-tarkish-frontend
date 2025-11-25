@@ -251,6 +251,7 @@ const fetchDesignation = async () => {
               <option value="2">Turkey</option>
               <option value="1">Russia</option>
               <option value="3">Hungary</option>
+              <option value="4">GCC/ Malaysia</option>
             </select>
 
             <select
