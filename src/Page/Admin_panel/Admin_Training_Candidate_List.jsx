@@ -258,18 +258,7 @@ const Admin_Training_Candidate_List = () => {
               <option value="4">GCC/ Malaysia</option>
             </select>
 
-            <select
-              value={agent}
-              onChange={(e) => setAgent(e.target.value)}
-              className="px-4 py-1 border-2 rounded-md outline-none"
-            >
-              <option value="">Agent List</option>
-              {agentSubmenu.map((x) => (
-                <option key={x.id} value={x.name}> {/* Assuming each agent has a unique `id` */}
-                  {x.name}
-                </option>
-              ))}
-            </select>
+          
 
             <select
               value={sortOrder}
