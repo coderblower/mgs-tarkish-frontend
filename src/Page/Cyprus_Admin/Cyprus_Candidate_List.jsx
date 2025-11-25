@@ -76,6 +76,7 @@ const Cyprus_Candidate_List = () => {
       const response = await post('api/designation/all');
       console.log(response);
       const data = response?.data || [];
+      
       setDesignationMenu(data);
       console.log(data) // Store submenu items
     } catch (error) {

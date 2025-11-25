@@ -33,6 +33,9 @@ const Admin_Candidate_List = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [newSearchValue, setNewSearchValue] = useState("");
+
+  const [designationMenu, setDesignationMenu] = useState([]);
+  const [designation, setDesignation] = useState("");
   
   
   const [paginations, setPaginations] = useState({
@@ -55,9 +58,10 @@ const Admin_Candidate_List = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   
 
-  useEffect(() => {
-    fetchAgentSubmenu();
-  }, []);
+useEffect(() => {
+  fetchAgentSubmenu();
+  fetchDesignation()
+}, []);
 
   const fetchAgentSubmenu = async () => {
     try {
@@ -71,6 +75,20 @@ const Admin_Candidate_List = () => {
   };
 
 
+const fetchDesignation = async () => {
+    try {
+      const response = await post('api/designation/all');
+      console.log(response);
+      const data = response?.data || [];
+
+      console.log("designation", data);
+      
+      setDesignationMenu(data);
+      console.log(data) // Store submenu items
+    } catch (error) {
+      console.error("Error fetching agent submenu items:", error);
+    }
+  };
 
 
 
@@ -79,7 +97,7 @@ const Admin_Candidate_List = () => {
     
       fetchCandidate( search,  currentPage);
     
-  }, [search, agent, countryResult, sortOrder]); 
+  }, [search, agent, countryResult, sortOrder, designation]); 
 
   useEffect(() => {
     if (cachedCandidates[currentPage]) {
@@ -100,6 +118,7 @@ const Admin_Candidate_List = () => {
         phone: search,
         agent: agent,
         country: parseInt(countryResult) || "",
+         designation: designation,
         [sortOrder]: 1,  // send asc param if asc
       });
       const data = res?.data?.data || [];
@@ -255,6 +274,25 @@ const Admin_Candidate_List = () => {
               <option value="desc">Latest Updated</option>
               <option value="asc">Oldest Updated</option>
             </select>
+
+
+
+
+            <select
+          value={designation}
+          onChange={(e) => setDesignation(e.target.value)}
+          className="px-4 py-1 border-2 rounded-md outline-none"
+        >
+          <option value="">--Trade List-- </option>
+          {designationMenu.map((x) => {
+            console.log(x);
+            return (
+            <option key={x.id} value={x.name}>
+              {x.name} &nbsp;( {x.candidates_count})
+            </option>
+          )
+          })}
+        </select>
 
             
           
