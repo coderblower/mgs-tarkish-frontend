@@ -288,7 +288,7 @@ const fetchDesignation = async () => {
             console.log(x);
             return (
             <option key={x.id} value={x.name}>
-              {x.name} &nbsp;( {x.candidates_count})
+              {x.name} &nbsp;( {x.count})
             </option>
           )
           })}

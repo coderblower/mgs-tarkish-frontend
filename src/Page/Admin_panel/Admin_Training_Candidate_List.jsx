@@ -288,7 +288,7 @@ const Admin_Training_Candidate_List = () => {
               <option value="">--Trade List --</option>
               {designationMenu.map((x) => (
                    <option key={x.id} value={x.name}>
-              {x.name} &nbsp;( {x.candidates_count})
+              {x.name} &nbsp;( {x.count})
             </option>
               ))}
             </select>
