@@ -98,7 +98,7 @@ const Login = () => {
             <img className=" w-[160px]" src={logo_img} alt="" />
           </div>
           <h2 className="text-[30px] mt-5 font-[700] text-black" >
-            MGES- Migration governance Eco-System
+            MGES- Migration governance Eco-System 
           </h2>
           <p className="text-[25px] mb-2  mt-2 font-[500] text-black">
             HR Recruitment 
@@ -139,7 +139,7 @@ const Login = () => {
               <input className="p-2" type="checkbox" name="" id="" />
               <p className="font-semibold ">Remember me </p>
             </div>
-            <NavLink to="/forgot_Password">Forgot password? </NavLink>
+            <NavLink to="/forgot_Password">Forgot Password? </NavLink>
           </div>
           <button
             className={`mt-8 rounded-md w-full bg-[#1E3767] text-white py-2 font-bold ${
