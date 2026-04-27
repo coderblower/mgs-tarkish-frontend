@@ -7,4 +7,9 @@ export default defineConfig({
   define: {
     global: {},
   },
+  server: {
+    watch: {
+      usePolling: process.env.CHOKIDAR_USEPOLLING === "true",
+    },
+  },
 });
