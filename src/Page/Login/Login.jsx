@@ -101,7 +101,7 @@ const Login = () => {
             MGES- Migration governance Eco-System 
           </h2>
           <p className="text-[25px] mb-2  mt-2 font-[500] text-black">
-            HR Recruitment changed
+            HR Recruitment 
           </p>
           <p className="text-[20px]  font-[500] text-black">By Versatilo HR Solutions Ltd.</p>
           <p className="text-[18px]  font-[500] text-black">@maestrosoft</p>
