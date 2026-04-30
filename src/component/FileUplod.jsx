@@ -14,16 +14,7 @@ const FileUplod = ({ setFile, isPIF }) => {
   };
   return (
     <div>
-      <div
-        onClick={handleButtonClick}
-        className={`bg-[#1E3767] font-[500] px-[20px] py-[10px] text-white text-[14px] rounded-[8px] cursor-pointer`}
-      >
-        {isPIF ? (
-          <h1 className="py-[7px] text-[17px] font-[600] ">Upload PIF File</h1>
-        ) : (
-          <>Upload</>
-        )}
-      </div>
+     
 
       <input
         className="hidden"
