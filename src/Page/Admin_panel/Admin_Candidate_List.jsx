@@ -36,6 +36,7 @@ const Admin_Candidate_List = () => {
 
   const [designationMenu, setDesignationMenu] = useState([]);
   const [designation, setDesignation] = useState("");
+  const [designationSort, setDesignationSort] = useState("asc");
   
   
   const [paginations, setPaginations] = useState({
@@ -61,7 +62,7 @@ const Admin_Candidate_List = () => {
 useEffect(() => {
   fetchAgentSubmenu();
   fetchDesignation()
-}, []);
+}, [designationSort]);
 
   const fetchAgentSubmenu = async () => {
     try {
@@ -76,19 +77,23 @@ useEffect(() => {
 
 
 const fetchDesignation = async () => {
-    try {
-      const response = await post('api/designation/all');
-      console.log(response);
-      const data = response?.data || [];
+  try {
+    const response = await post('api/designation/all');
+    const data = response?.data || [];
 
-      console.log("designation", data);
-      
-      setDesignationMenu(data);
-      console.log(data) // Store submenu items
-    } catch (error) {
-      console.error("Error fetching agent submenu items:", error);
-    }
-  };
+    const sorted = [...data].sort((a, b) => {
+      if (designationSort === "asc") {
+        return a.name.localeCompare(b.name);
+      } else {
+        return b.name.localeCompare(a.name);
+      }
+    });
+
+    setDesignationMenu(sorted);
+  } catch (error) {
+    console.error("Error fetching agent submenu items:", error);
+  }
+};
 
 
 
@@ -294,6 +299,14 @@ const fetchDesignation = async () => {
           )
           })}
         </select>
+        <select
+  value={designationSort}
+  onChange={(e) => setDesignationSort(e.target.value)}
+  className="px-4 py-1 border-2 rounded-md outline-none"
+>
+  <option value="asc">A → Z</option>
+  <option value="desc">Z → A</option>
+</select>
 
             
           
