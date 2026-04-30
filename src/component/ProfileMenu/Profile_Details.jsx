@@ -438,14 +438,14 @@ const Profile_Details = ({userId}) => {
                           <th>{data?.report?.created_at.slice(0, 10)}</th>
                           <th>{data?.report?.result}</th>
                           <th>
-                            <button
+                            {/* <button
                               onClick={() =>
                                 handleDawnlodFile(data?.report?.file)
                               }
                               className="bg-[#1E3767] px-[20px] py-[6px] rounded-full transition-transform active:scale-95 text-white"
                             >
                               Download
-                            </button>
+                            </button> */}
                           </th>
                         </tr>
                       </tbody>
