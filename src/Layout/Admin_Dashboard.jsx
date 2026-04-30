@@ -16,6 +16,10 @@ const Admin_Dashboard = () => {
       name: "Partner Registration",
     },
     {
+      path: "/admin/demand-letter",
+      name: "Demand Letter",
+    },
+    {
       path: "/admin/agent_list",
       name: "Agent List",
     },
