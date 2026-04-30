@@ -336,12 +336,12 @@ const Profile_Details = ({userId}) => {
                           data={data?.candidate?.religion}
                         />
 
-                        <TextTitle
+                        {/* <TextTitle
                           title="Country:"
                           data={
                             data?.candidate?.country?.name
                           }
-                        />
+                        /> */}
 
                         {data?.candidate?.referred_by && (
                           <TextTitle
