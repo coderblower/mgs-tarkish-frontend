@@ -150,7 +150,7 @@ const DemandLetterList = () => {
                         </button>
                         <button
                           onClick={() =>
-                            navigate(`/admin/demand-letter/candidate-list/${item?.id}`)
+                            navigate(`/admin/Candidate_List?title=${item.job?.title}`)
                           }
                           className="px-[30px] whitespace-nowrap  py-[10px] bg-[#1E3767] rounded-[8px] text-white"
                         >
