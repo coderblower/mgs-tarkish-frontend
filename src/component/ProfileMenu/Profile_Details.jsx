@@ -132,6 +132,7 @@ const Profile_Details = ({userId}) => {
     try {
       const response = await post(`api/user/get_user`, { id: id });
       console.log(response, "====>");
+      console.log(response.data, "user data===>", response.data?.candidate);
       setData(response.data);
       setloading(false);
     } catch (error) {
@@ -365,8 +366,7 @@ const Profile_Details = ({userId}) => {
                     </div>
                   </div>
 
-                  {data?.candidate?.approval_status !== "reject" &&
-                  data?.candidate?.approval_status !== "pending" ? (
+                  {data?.candidate?.qr_code ? (
                     <div className="text-center lg:mt-0 mt-6">
                       <h2>
                         {!show ? "Scan" : "Download"} QR For <br /> More Details
