@@ -374,10 +374,22 @@ const fetchDesignation = async () => {
                         alt=""
                       />
                     </th>
-                    <th className="flex justify-center">
+                    {/* <th className="flex justify-center">
                       {item?.candidate?.qr_code &&
                       item?.candidate?.approval_status !== "reject" &&
                       item?.candidate?.approval_status !== "pending" ? (
+                        <img
+                          className="h-[40px] w-[40px] cursor-pointer"
+                          src={`${API_URL}/${item?.candidate?.qr_code}`}
+                          alt=""
+                          onClick={() => handleImageClick(item.id)}
+                        />
+                      ) : (
+                        <img className="h-[40px] w-[40px]" src={notQR_img} alt="" />
+                      )}
+                    </th> */}
+                    <th className="flex justify-center">
+                      {item?.candidate?.qr_code ? (
                         <img
                           className="h-[40px] w-[40px] cursor-pointer"
                           src={`${API_URL}/${item?.candidate?.qr_code}`}
