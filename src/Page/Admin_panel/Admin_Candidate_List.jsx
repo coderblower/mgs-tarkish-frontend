@@ -24,9 +24,11 @@ import jsPDF from 'jspdf';
 import MultiLevelDropdown from "../../component/MultiLevelDropdown";
 
 import CandidateModal from "../../component/CandidateModal";
+import { useLocation } from "react-router-dom";
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 const Admin_Candidate_List = () => {
+  const location = useLocation();
   const [candidate, setCandidate] = useState([]);
   const [allCandidate, setAllCandidate] = useState([]);
   const [csv_data, setCsvData] = useState([]);
@@ -94,6 +96,22 @@ const fetchDesignation = async () => {
     console.error("Error fetching agent submenu items:", error);
   }
 };
+
+useEffect(() => {
+  const title = new URLSearchParams(location.search).get("title")?.trim();
+
+  if (!title || designationMenu.length === 0) {
+    return;
+  }
+
+  const matchedDesignation = designationMenu.find(
+    (item) => item?.name?.trim().toLowerCase() === title.toLowerCase()
+  );
+
+  if (matchedDesignation && matchedDesignation.name !== designation) {
+    setDesignation(matchedDesignation.name);
+  }
+}, [designationMenu, designation, location.search]);
 
 
 

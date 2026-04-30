@@ -26,11 +26,6 @@ import User_Medical_Report from "../Page/User_Panel/User_Medical_Report";
 import User_Training_Report from "../Page/User_Panel/User_Training_Report";
 import Training_Layout from "../Layout/Training";
 import Training_Dashboard from "../Page/Training_Center/Training_Dashboard";
-import Training_Candidates from "../Page/Training_Center/Training_Candidates_List";
-import Training_Candidates_1 from "../Page/Training_Center/Training_Center_1";
-import Training_Candidates_2 from "../Page/Training_Center/Training_Center_2";
-import Training_Report from "../Page/Training_Center/Training_Report";
-import Training_Reports from "../Page/Training_Center/Training_Reports";
 import Cyprus_Panel from "../Layout/Cypras_Panel";
 import Agent_panel from "../Layout/Agent_panel";
 import Overview from "../Page/Recruiting_Agent_panel/Overview";
@@ -51,7 +46,6 @@ import Medical_Candidate_list from "../Page/Medical_Registration/Medical_Candida
 import Training_Candidates_Registration from "../Page/Training_Center/Training_Candidates_Registration";
 import Training_Candidates_List from "../Page/Training_Center/Training_Candidates_List";
 import Agent_Dashboard from "../Page/Recruiting_Agent_panel/Agent_Dashboard";
-import Agent_Candidate_Registration from "../Page/Recruiting_Agent_panel/Agent_Candidate_Registration";
 import Agent_Candidate_List from "../Page/Recruiting_Agent_panel/Agent_Candidate_List";
 import UserDetails from "../Page/User_Panel/UserDetails";
 import Cyprus_Candidate_List from "../Page/Cyprus_Admin/Cyprus_Candidate_List";
@@ -89,6 +83,9 @@ import QuotaSet from "../Page/Admin_panel/QuotaSet";
 import RequestedCandidate from "../Page/Admin_panel/RequestedCandidate";
 import DocumentView from "../component/ProfileMenu/DocumentView";
 import Admin_Training_Candidate_List from "../Page/Admin_panel/Admin_Training_Candidate_List";
+import DemandLetterList from "../Page/Admin_panel/DemanLetterList";
+import DemandLetterCandidateList from "../Page/Admin_panel/DemandLetterCandidateList";
+import DemanLetterDetails from "../component/ProfileMenu/DemanLetterDetails";
 
 const router = createBrowserRouter([
   {
@@ -189,6 +186,18 @@ const router = createBrowserRouter([
       {
         path: "partner",
         element: <Partner />,
+      },
+      {
+        path: "demand-letter",
+        element: <DemandLetterList />,
+      },
+      {
+        path: "demand-letter/candidate-list/:id",
+        element: <DemandLetterCandidateList />,
+      },
+      {
+        path: "demand-letter/:id",
+        element: <DemanLetterDetails />,
       },
       {
         path: "Candidate_Registration_from",

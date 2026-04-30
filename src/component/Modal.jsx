@@ -37,7 +37,8 @@ const Modal = ({ modals, setModals, setCandidateId, setCertificateUrl, children 
         {/* body start from here */}
 
         <div className="w-full text-black">
-          <div className="mt-5">{children}</div>
+          {/* Scrollable content area with sensible max-height for large content */}
+          <div className="mt-2 overflow-y-auto max-h-[85vh] p-2">{children}</div>
         </div>
 
         {/* body ends here */}
