@@ -314,29 +314,35 @@ const Admin_Candidate_List = () => {
               <option value="asc">Oldest Updated</option>
             </select>
 
-            <select
-              value={designation}
-              onChange={(e) => setDesignation(e.target.value)}
-              className="px-4 py-1 border-2 rounded-md outline-none"
-            >
-              <option value="">--Trade List-- </option>
-              {designationMenu.map((x) => {
-                console.log(x);
-                return (
-                  <option key={x.id} value={x.name}>
-                    {x.name} &nbsp;( {x.candidates_count} )
-                  </option>
-                );
-              })}
-            </select>
-            <select
-              value={designationSort}
-              onChange={(e) => setDesignationSort(e.target.value)}
-              className="px-4 py-1 border-2 rounded-md outline-none"
-            >
-              <option value="asc">A → Z</option>
-              <option value="desc">Z → A</option>
-            </select>
+            <div className="relative">
+              <select
+                value={designation}
+                onChange={(e) => setDesignation(e.target.value)}
+                className="min-w-[280px] rounded-md border-2 py-1 pl-4 pr-20 outline-none"
+              >
+                <option value="">--Trade List-- </option>
+                {designationMenu.map((x) => {
+                  console.log(x);
+                  return (
+                    <option key={x.id} value={x.name}>
+                      {x.name} &nbsp;( {x.candidates_count} )
+                    </option>
+                  );
+                })}
+              </select>
+
+              <button
+                type="button"
+                onClick={() =>
+                  setDesignationSort((prev) => (prev === "asc" ? "desc" : "asc"))
+                }
+                className="absolute right-1 top-[16px] -translate-y-1/2 rounded-md border bg-gray-50 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                aria-label="Toggle trade list sort order"
+                title="Toggle trade sort"
+              >
+                {designationSort === "asc" ? "A → Z" : "Z → A"}
+              </button>
+            </div>
           </div>
 
           <div className=" flex gap-5 mx-5 ">
