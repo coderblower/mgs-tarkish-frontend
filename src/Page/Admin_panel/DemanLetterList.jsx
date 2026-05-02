@@ -225,7 +225,7 @@ const DemandLetterList = () => {
                     <DetailRow label="Title" value={formatValue(selectedDemand?.job?.title)} />
                     <DetailRow label="Level" value={formatValue(selectedDemand?.job?.level)} />
                     <DetailRow label="Location" value={formatValue(selectedDemand?.job?.location)} />
-                    <DetailRow label="Vacancy" value={formatValue(selectedDemand?.job?.vacancy_number)} />
+                    <DetailRow label="Vacancy" value={formatValue(selectedDemand?.predemand_letter?.quota?.vacancy_number?.approved_vacancy_number)} />
                     <DetailRow label="Deadline" value={formatDate(selectedDemand?.job?.deadline)} />
                     <DetailRow label="Offered salary" value={formatValue(selectedDemand?.job?.offered_salary)} />
                   </div>
