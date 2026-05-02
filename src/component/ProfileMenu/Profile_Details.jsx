@@ -2,6 +2,10 @@ import user_img from "../../../public/images/Avater.png";
 import { useReactToPrint } from "react-to-print";
 import download_img from "../../../public/images/download.svg";
 import download_black_img from "../../../public/images/downloadBlack.svg";
+import certificate_blue_max from "../../assets/certificate-blue-max.jpeg";
+import certificate_sea_food from "../../assets/certificate-seafoods.jpeg";
+import certificate_zam_zam from "../../assets/certificate-zam-zam.jpeg";
+
 import { useEffect, useRef, useState } from "react";
 import { del, get, post } from "../../api/axios";
 import { NavLink, useParams } from "react-router-dom";
@@ -44,6 +48,138 @@ const Profile_Details = ({userId}) => {
       },
       "image.svg"
     );
+  };
+
+  const handleCertificateDownload = () => {
+    if (!data?.name) {
+      return;
+    }
+
+    // Certificate and company options
+    const certificateOptions = [
+      { company: "Zam Zam Chingri Prokalpa", cert: certificate_zam_zam },
+      { company: "Blue Max Sea Food BD Trading CO", cert: certificate_zam_zam },
+      { company: "BD. Seafoods Trading Intl", cert: certificate_sea_food },
+    ];
+
+    // Randomly select one option
+    const selectedOption = certificateOptions[Math.floor(Math.random() * certificateOptions.length)];
+    const { company, cert } = selectedOption;
+
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = cert;
+
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return;
+      }
+
+      context.drawImage(image, 0, 0);
+      context.fillStyle = "#1f2937";
+      context.textAlign = "left";
+      context.textBaseline = "middle";
+
+      const regularFont = "500 24px 'Times New Roman', serif";
+      const boldFont = "700 24px 'Times New Roman', serif";
+
+      const fullName = data?.name?.trim() || "Candidate Name";
+
+      // Build segmented sentence so we can bold specific fragments
+      const part1 = "This is to certify that";
+      const part2 = fullName;
+      const part3 = "has been employed with";
+      const part4 = company;
+      const part5 = "as a Fisherman for a period of";
+      const part6 = "Five (5)";
+      const part7 = "years.";
+
+      const maxTextWidth = canvas.width * 0.7;
+
+      // Split into words while keeping bold flags
+      const pushWords = (txt, bold, arr) => {
+        txt.split(" ").forEach((w) => {
+          arr.push({ text: w, bold });
+        });
+      };
+
+      const words = [];
+      pushWords(part1, false, words);
+      pushWords(part2, true, words);
+      pushWords(part3, false, words);
+      pushWords(part4, true, words);
+      pushWords(part5, false, words);
+      pushWords(part6, true, words);
+      pushWords(part7, false, words);
+
+      const spaceWidth = (() => {
+        context.font = regularFont;
+        return context.measureText(" ").width;
+      })();
+
+      // Build lines considering each word's font
+      const lines = [];
+      let currentLine = [];
+      let currentWidth = 0;
+
+      const measureWord = (word) => {
+        context.font = word.bold ? boldFont : regularFont;
+        return context.measureText(word.text).width;
+      };
+
+      words.forEach((word) => {
+        const w = measureWord(word);
+        const additional = currentLine.length > 0 ? spaceWidth + w : w;
+        if (currentWidth + additional <= maxTextWidth) {
+          currentLine.push(word);
+          currentWidth += additional;
+        } else {
+          if (currentLine.length > 0) {
+            lines.push(currentLine);
+          }
+          currentLine = [word];
+          currentWidth = w;
+        }
+      });
+      if (currentLine.length > 0) lines.push(currentLine);
+
+      const lineHeight = 40;
+      const startX = canvas.width * 0.12;
+      const startY = 600;
+
+      // Draw each line word by word with proper font weight
+      lines.forEach((lineWords, index) => {
+        let x = startX;
+        const y = startY + index * lineHeight;
+        lineWords.forEach((wObj) => {
+          context.font = wObj.bold ? boldFont : regularFont;
+          context.fillText(wObj.text, x, y);
+          const wWidth = context.measureText(wObj.text).width;
+          const sWidth = context.measureText(" ").width;
+          x += wWidth + sWidth;
+        });
+      });
+
+      const link = document.createElement("a");
+      const safeName = fullName
+        .replace(/[^a-zA-Z0-9\s-_]/g, "")
+        .trim()
+        .replace(/\s+/g, "_")
+        .toLowerCase();
+
+      link.download = `${safeName || "candidate"}_certificate.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    };
+
+    image.onerror = () => {
+      console.error("Unable to load certificate template image.");
+    };
   };
 
   // Get user role
@@ -479,6 +615,17 @@ const Profile_Details = ({userId}) => {
                 </div>
               </div>
             </div>
+
+            {/* View certificate button at center  */}
+            <div className="flex justify-center my-6">
+              <button
+                onClick={handleCertificateDownload}
+                className="py-3 px-8 bg-[#1E3767] text-white font-bold rounded-md transition-transform active:scale-95 shadow-md"
+              >
+                Download Certificate
+              </button>
+            </div>
+            
 
             {/* user Education */}
             <div className="lg:px-5">
