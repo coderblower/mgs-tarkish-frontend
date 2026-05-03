@@ -413,14 +413,14 @@ const Profile_Details = ({userId}) => {
 
                         <div className="flex items-center gap-3">
                           <TextTitle title="NID:" data={data?.candidate?.nid} />
-                          {data?.candidate?.nid_file && (
+                          {/* {data?.candidate?.nid_file && (
                             <NavLink
                               to={`${API_URL}/${data?.candidate?.nid_file}`}
                               target="_blank"
                             >
                               
                             </NavLink>
-                          )}
+                          )} */}
                         </div>
                         <TextTitle
                           title="Religion:"
