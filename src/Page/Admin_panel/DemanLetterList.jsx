@@ -215,7 +215,7 @@ const DemandLetterList = () => {
                     <DetailRow label="Email" value={formatValue(selectedDemand?.company?.company_email)} />
                     <DetailRow label="Phone" value={formatValue(selectedDemand?.company?.phone_number)} />
                     <DetailRow label="Business type" value={formatValue(selectedDemand?.company?.business_type)} />
-                    <DetailRow label="Country" value={formatValue(selectedDemand?.company?.country_id)} />
+                    <DetailRow label="Country" value={formatValue(selectedDemand?.company?.country?.name)} />
                   </div>
                 </section>
 
