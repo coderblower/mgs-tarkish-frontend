@@ -459,14 +459,14 @@ const Profile_Details = ({userId}) => {
 
                         <div className="flex items-center gap-3">
                           <TextTitle title="NID:" data={data?.candidate?.nid} />
-                          {data?.candidate?.nid_file && (
+                          {/* {data?.candidate?.nid_file && (
                             <NavLink
                               to={`${API_URL}/${data?.candidate?.nid_file}`}
                               target="_blank"
                             >
                               <img src={download_black_img} alt="" />
                             </NavLink>
-                          )}
+                          )} */}
                         </div>
                         <TextTitle
                           title="Religion:"
