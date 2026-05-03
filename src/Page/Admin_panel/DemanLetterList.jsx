@@ -199,7 +199,7 @@ const DemandLetterList = () => {
                     <DetailRow label="ID" value={formatValue(selectedDemand?.id)} />
                     <DetailRow label="Status" value={formatValue(selectedDemand?.status)} />
                     <DetailRow label="Employee numbers" value={formatValue(selectedDemand?.employee_numbers)} />
-                    <DetailRow label="Source country" value={formatValue(selectedDemand?.source_country_id)} />
+                    <DetailRow label="Source country" value={formatValue(selectedDemand?.source_country?.name)} />
                     <DetailRow label="Attestation status" value={formatValue(selectedDemand?.attestation_status)} />
                     <DetailRow label="Attestation date" value={formatDate(selectedDemand?.attestation_date)} />
                     <DetailRow label="Created" value={formatDate(selectedDemand?.created_at)} />
