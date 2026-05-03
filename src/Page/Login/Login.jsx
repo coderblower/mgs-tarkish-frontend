@@ -98,7 +98,7 @@ const Login = () => {
             <img className=" w-[160px]" src={logo_img} alt="" />
           </div>
           <h2 className="text-[30px] mt-5 font-[700] text-black" >
-            MGES- Migration governance Eco-System 
+            mGES- Migration Governance Eco-System 
           </h2>
           <p className="text-[25px] mb-2  mt-2 font-[500] text-black">
             HR Recruitment 
